@@ -3,6 +3,7 @@
 import hashlib
 import json
 import platform
+import shutil
 import subprocess
 import sys
 from contextlib import contextmanager
@@ -11,7 +12,13 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from uuid import uuid4
 
-from .stark_io import _git
+
+def _git(*args: str) -> str | None:
+    if not shutil.which("git"):
+        return None
+    cmd = ["git", "--no-pager", "--no-optional-locks", "-C", str(Path(__file__).resolve().parent), *args]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    return result.stdout.strip() if result.returncode == 0 else None
 
 
 def sha256(path: Path) -> str:
@@ -21,6 +28,12 @@ def sha256(path: Path) -> str:
 
 def write_json(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
+
+
+def read_jsonl(path: Path):
+    with path.open(encoding="utf-8") as src:
+        for line in src:
+            yield json.loads(line)
 
 
 @contextmanager

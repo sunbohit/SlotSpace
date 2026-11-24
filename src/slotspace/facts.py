@@ -91,13 +91,13 @@ def document_facts(doc: dict, linker: Linker, max_words: int = 64, cap: int = 25
     return facts, seen, ambiguous
 
 
-def _sample(sample: list, item: dict, seen: int, rng) -> int:
+def _sample(sample: list, item: dict, seen: int, rng, size: int = 100) -> int:
     seen += 1
-    if len(sample) < 100:
+    if len(sample) < size:
         sample.append(item)
     else:
         pos = int(rng.integers(seen))
-        if pos < 100:
+        if pos < size:
             sample[pos] = item
     return seen
 

@@ -1,0 +1,1998 @@
+anatomy.expression_absent.gene_protein:
+  query:
+  - Which {ANS} show no detectable expression of {T}?
+  - What {ANS} show no detectable expression of {T}?
+  - List {ANS} that show no detectable expression of {T}.
+  - Find {ANS} that show no detectable expression of {T}.
+  - Identify {ANS} that show no detectable expression of {T}.
+  - Name {ANS} that show no detectable expression of {T}.
+  - Show {ANS} that show no detectable expression of {T}.
+  - Return {ANS} that show no detectable expression of {T}.
+  - I need {ANS} that show no detectable expression of {T}.
+  - What are some {ANS} that show no detectable expression of {T}?
+  - Are there any {ANS} that show no detectable expression of {T}?
+  - Give examples of {ANS} that show no detectable expression of {T}.
+  doc:
+  - '{T} is not expressed in {SELF}.'
+  - The record states that {T} is not expressed in {SELF}.
+  - It is reported that {T} is not expressed in {SELF}.
+  - Available information indicates that {T} is not expressed in {SELF}.
+  - The description explains that {T} is not expressed in {SELF}.
+  - According to the record, {T} is not expressed in {SELF}.
+  - The evidence states that {T} is not expressed in {SELF}.
+  - This account notes that {T} is not expressed in {SELF}.
+  - The available record says that {T} is not expressed in {SELF}.
+  - One observation is that {T} is not expressed in {SELF}.
+  - 'The following relationship is recorded: {T} is not expressed in {SELF}.'
+  - In the present description, {T} is not expressed in {SELF}.
+  collides_with:
+  - anatomy.expression_present.gene_protein
+anatomy.expression_present.gene_protein:
+  query:
+  - Which {ANS} show expression of {T}?
+  - What {ANS} show expression of {T}?
+  - List {ANS} that show expression of {T}.
+  - Find {ANS} that show expression of {T}.
+  - Identify {ANS} that show expression of {T}.
+  - Name {ANS} that show expression of {T}.
+  - Show {ANS} that show expression of {T}.
+  - Return {ANS} that show expression of {T}.
+  - I need {ANS} that show expression of {T}.
+  - What are some {ANS} that show expression of {T}?
+  - Are there any {ANS} that show expression of {T}?
+  - Give examples of {ANS} that show expression of {T}.
+  doc:
+  - '{T} is expressed in {SELF}.'
+  - The record states that {T} is expressed in {SELF}.
+  - It is reported that {T} is expressed in {SELF}.
+  - Available information indicates that {T} is expressed in {SELF}.
+  - The description explains that {T} is expressed in {SELF}.
+  - According to the record, {T} is expressed in {SELF}.
+  - The evidence states that {T} is expressed in {SELF}.
+  - This account notes that {T} is expressed in {SELF}.
+  - The available record says that {T} is expressed in {SELF}.
+  - One observation is that {T} is expressed in {SELF}.
+  - 'The following relationship is recorded: {T} is expressed in {SELF}.'
+  - In the present description, {T} is expressed in {SELF}.
+  collides_with:
+  - anatomy.expression_absent.gene_protein
+anatomy.parent_child.anatomy:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+biological_process.interacts_with.exposure:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+biological_process.interacts_with.gene_protein:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+biological_process.parent_child.biological_process:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+cellular_component.interacts_with.exposure:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+cellular_component.interacts_with.gene_protein:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+cellular_component.parent_child.cellular_component:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+disease.associated_with.gene_protein:
+  query:
+  - Which {ANS} are associated with {T}?
+  - What {ANS} are associated with {T}?
+  - List {ANS} that are associated with {T}.
+  - Find {ANS} that are associated with {T}.
+  - Identify {ANS} that are associated with {T}.
+  - Name {ANS} that are associated with {T}.
+  - Show {ANS} that are associated with {T}.
+  - Return {ANS} that are associated with {T}.
+  - I need {ANS} that are associated with {T}.
+  - What are some {ANS} that are associated with {T}?
+  - Are there any {ANS} that are associated with {T}?
+  - Give examples of {ANS} that are associated with {T}.
+  doc:
+  - '{SELF} is associated with {T}.'
+  - The record states that {SELF} is associated with {T}.
+  - It is reported that {SELF} is associated with {T}.
+  - Available information indicates that {SELF} is associated with {T}.
+  - The description explains that {SELF} is associated with {T}.
+  - According to the record, {SELF} is associated with {T}.
+  - The evidence states that {SELF} is associated with {T}.
+  - This account notes that {SELF} is associated with {T}.
+  - The available record says that {SELF} is associated with {T}.
+  - One observation is that {SELF} is associated with {T}.
+  - 'The following relationship is recorded: {SELF} is associated with {T}.'
+  - In the present description, {SELF} is associated with {T}.
+  collides_with: []
+disease.contraindication.drug:
+  query:
+  - Which {ANS} make {T} contraindicated?
+  - What {ANS} make {T} contraindicated?
+  - List {ANS} that make {T} contraindicated.
+  - Find {ANS} that make {T} contraindicated.
+  - Identify {ANS} that make {T} contraindicated.
+  - Name {ANS} that make {T} contraindicated.
+  - Show {ANS} that make {T} contraindicated.
+  - Return {ANS} that make {T} contraindicated.
+  - I need {ANS} that make {T} contraindicated.
+  - What are some {ANS} that make {T} contraindicated?
+  - Are there any {ANS} that make {T} contraindicated?
+  - Give examples of {ANS} that make {T} contraindicated.
+  doc:
+  - '{SELF} makes the use of {T} contraindicated.'
+  - The record states that {SELF} makes the use of {T} contraindicated.
+  - It is reported that {SELF} makes the use of {T} contraindicated.
+  - Available information indicates that {SELF} makes the use of {T} contraindicated.
+  - The description explains that {SELF} makes the use of {T} contraindicated.
+  - According to the record, {SELF} makes the use of {T} contraindicated.
+  - The evidence states that {SELF} makes the use of {T} contraindicated.
+  - This account notes that {SELF} makes the use of {T} contraindicated.
+  - The available record says that {SELF} makes the use of {T} contraindicated.
+  - One observation is that {SELF} makes the use of {T} contraindicated.
+  - 'The following relationship is recorded: {SELF} makes the use of {T} contraindicated.'
+  - In the present description, {SELF} makes the use of {T} contraindicated.
+  collides_with:
+  - disease.indication.drug
+  - disease.off_label_use.drug
+disease.indication.drug:
+  query:
+  - Which {ANS} are treated with {T}?
+  - What {ANS} are treated with {T}?
+  - List {ANS} that are treated with {T}.
+  - Find {ANS} that are treated with {T}.
+  - Identify {ANS} that are treated with {T}.
+  - Name {ANS} that are treated with {T}.
+  - Show {ANS} that are treated with {T}.
+  - Return {ANS} that are treated with {T}.
+  - I need {ANS} that are treated with {T}.
+  - What are some {ANS} that are treated with {T}?
+  - Are there any {ANS} that are treated with {T}?
+  - Give examples of {ANS} that are treated with {T}.
+  doc:
+  - '{SELF} is treated with {T}.'
+  - The record states that {SELF} is treated with {T}.
+  - It is reported that {SELF} is treated with {T}.
+  - Available information indicates that {SELF} is treated with {T}.
+  - The description explains that {SELF} is treated with {T}.
+  - According to the record, {SELF} is treated with {T}.
+  - The evidence states that {SELF} is treated with {T}.
+  - This account notes that {SELF} is treated with {T}.
+  - The available record says that {SELF} is treated with {T}.
+  - One observation is that {SELF} is treated with {T}.
+  - 'The following relationship is recorded: {SELF} is treated with {T}.'
+  - In the present description, {SELF} is treated with {T}.
+  collides_with:
+  - disease.contraindication.drug
+  - disease.off_label_use.drug
+disease.linked_to.exposure:
+  query:
+  - Which {ANS} are linked to the exposure or condition {T}?
+  - What {ANS} are linked to the exposure or condition {T}?
+  - List {ANS} that are linked to the exposure or condition {T}.
+  - Find {ANS} that are linked to the exposure or condition {T}.
+  - Identify {ANS} that are linked to the exposure or condition {T}.
+  - Name {ANS} that are linked to the exposure or condition {T}.
+  - Show {ANS} that are linked to the exposure or condition {T}.
+  - Return {ANS} that are linked to the exposure or condition {T}.
+  - I need {ANS} that are linked to the exposure or condition {T}.
+  - What are some {ANS} that are linked to the exposure or condition {T}?
+  - Are there any {ANS} that are linked to the exposure or condition {T}?
+  - Give examples of {ANS} that are linked to the exposure or condition {T}.
+  doc:
+  - '{SELF} is linked to {T}.'
+  - The record states that {SELF} is linked to {T}.
+  - It is reported that {SELF} is linked to {T}.
+  - Available information indicates that {SELF} is linked to {T}.
+  - The description explains that {SELF} is linked to {T}.
+  - According to the record, {SELF} is linked to {T}.
+  - The evidence states that {SELF} is linked to {T}.
+  - This account notes that {SELF} is linked to {T}.
+  - The available record says that {SELF} is linked to {T}.
+  - One observation is that {SELF} is linked to {T}.
+  - 'The following relationship is recorded: {SELF} is linked to {T}.'
+  - In the present description, {SELF} is linked to {T}.
+  collides_with: []
+disease.off_label_use.drug:
+  query:
+  - Which {ANS} are treated off-label with {T}?
+  - What {ANS} are treated off-label with {T}?
+  - List {ANS} that are treated off-label with {T}.
+  - Find {ANS} that are treated off-label with {T}.
+  - Identify {ANS} that are treated off-label with {T}.
+  - Name {ANS} that are treated off-label with {T}.
+  - Show {ANS} that are treated off-label with {T}.
+  - Return {ANS} that are treated off-label with {T}.
+  - I need {ANS} that are treated off-label with {T}.
+  - What are some {ANS} that are treated off-label with {T}?
+  - Are there any {ANS} that are treated off-label with {T}?
+  - Give examples of {ANS} that are treated off-label with {T}.
+  doc:
+  - '{SELF} is treated off-label with {T}.'
+  - The record states that {SELF} is treated off-label with {T}.
+  - It is reported that {SELF} is treated off-label with {T}.
+  - Available information indicates that {SELF} is treated off-label with {T}.
+  - The description explains that {SELF} is treated off-label with {T}.
+  - According to the record, {SELF} is treated off-label with {T}.
+  - The evidence states that {SELF} is treated off-label with {T}.
+  - This account notes that {SELF} is treated off-label with {T}.
+  - The available record says that {SELF} is treated off-label with {T}.
+  - One observation is that {SELF} is treated off-label with {T}.
+  - 'The following relationship is recorded: {SELF} is treated off-label with {T}.'
+  - In the present description, {SELF} is treated off-label with {T}.
+  collides_with:
+  - disease.contraindication.drug
+  - disease.indication.drug
+disease.parent_child.disease:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+disease.phenotype_absent.effect_phenotype:
+  query:
+  - Which {ANS} do not exhibit {T}?
+  - What {ANS} do not exhibit {T}?
+  - List {ANS} that do not exhibit {T}.
+  - Find {ANS} that do not exhibit {T}.
+  - Identify {ANS} that do not exhibit {T}.
+  - Name {ANS} that do not exhibit {T}.
+  - Show {ANS} that do not exhibit {T}.
+  - Return {ANS} that do not exhibit {T}.
+  - I need {ANS} that do not exhibit {T}.
+  - What are some {ANS} that do not exhibit {T}?
+  - Are there any {ANS} that do not exhibit {T}?
+  - Give examples of {ANS} that do not exhibit {T}.
+  doc:
+  - '{SELF} does not exhibit {T}.'
+  - The record states that {SELF} does not exhibit {T}.
+  - It is reported that {SELF} does not exhibit {T}.
+  - Available information indicates that {SELF} does not exhibit {T}.
+  - The description explains that {SELF} does not exhibit {T}.
+  - According to the record, {SELF} does not exhibit {T}.
+  - The evidence states that {SELF} does not exhibit {T}.
+  - This account notes that {SELF} does not exhibit {T}.
+  - The available record says that {SELF} does not exhibit {T}.
+  - One observation is that {SELF} does not exhibit {T}.
+  - 'The following relationship is recorded: {SELF} does not exhibit {T}.'
+  - In the present description, {SELF} does not exhibit {T}.
+  collides_with:
+  - disease.phenotype_present.effect_phenotype
+disease.phenotype_present.effect_phenotype:
+  query:
+  - Which {ANS} exhibit {T}?
+  - What {ANS} exhibit {T}?
+  - List {ANS} that exhibit {T}.
+  - Find {ANS} that exhibit {T}.
+  - Identify {ANS} that exhibit {T}.
+  - Name {ANS} that exhibit {T}.
+  - Show {ANS} that exhibit {T}.
+  - Return {ANS} that exhibit {T}.
+  - I need {ANS} that exhibit {T}.
+  - What are some {ANS} that exhibit {T}?
+  - Are there any {ANS} that exhibit {T}?
+  - Give examples of {ANS} that exhibit {T}.
+  doc:
+  - '{SELF} exhibits the phenotype {T}.'
+  - The record states that {SELF} exhibits the phenotype {T}.
+  - It is reported that {SELF} exhibits the phenotype {T}.
+  - Available information indicates that {SELF} exhibits the phenotype {T}.
+  - The description explains that {SELF} exhibits the phenotype {T}.
+  - According to the record, {SELF} exhibits the phenotype {T}.
+  - The evidence states that {SELF} exhibits the phenotype {T}.
+  - This account notes that {SELF} exhibits the phenotype {T}.
+  - The available record says that {SELF} exhibits the phenotype {T}.
+  - One observation is that {SELF} exhibits the phenotype {T}.
+  - 'The following relationship is recorded: {SELF} exhibits the phenotype {T}.'
+  - In the present description, {SELF} exhibits the phenotype {T}.
+  collides_with:
+  - disease.phenotype_absent.effect_phenotype
+drug.carrier.gene_protein:
+  query:
+  - Which {ANS} are carried by {T}?
+  - What {ANS} are carried by {T}?
+  - List {ANS} that are carried by {T}.
+  - Find {ANS} that are carried by {T}.
+  - Identify {ANS} that are carried by {T}.
+  - Name {ANS} that are carried by {T}.
+  - Show {ANS} that are carried by {T}.
+  - Return {ANS} that are carried by {T}.
+  - I need {ANS} that are carried by {T}.
+  - What are some {ANS} that are carried by {T}?
+  - Are there any {ANS} that are carried by {T}?
+  - Give examples of {ANS} that are carried by {T}.
+  doc:
+  - '{SELF} is carried by {T}.'
+  - The record states that {SELF} is carried by {T}.
+  - It is reported that {SELF} is carried by {T}.
+  - Available information indicates that {SELF} is carried by {T}.
+  - The description explains that {SELF} is carried by {T}.
+  - According to the record, {SELF} is carried by {T}.
+  - The evidence states that {SELF} is carried by {T}.
+  - This account notes that {SELF} is carried by {T}.
+  - The available record says that {SELF} is carried by {T}.
+  - One observation is that {SELF} is carried by {T}.
+  - 'The following relationship is recorded: {SELF} is carried by {T}.'
+  - In the present description, {SELF} is carried by {T}.
+  collides_with:
+  - drug.target.gene_protein
+  - drug.transporter.gene_protein
+drug.contraindication.disease:
+  query:
+  - Which {ANS} must be avoided in people with {T}?
+  - What {ANS} must be avoided in people with {T}?
+  - List {ANS} that must be avoided in people with {T}.
+  - Find {ANS} that must be avoided in people with {T}.
+  - Identify {ANS} that must be avoided in people with {T}.
+  - Name {ANS} that must be avoided in people with {T}.
+  - Show {ANS} that must be avoided in people with {T}.
+  - Return {ANS} that must be avoided in people with {T}.
+  - I need {ANS} that must be avoided in people with {T}.
+  - What are some {ANS} that must be avoided in people with {T}?
+  - Are there any {ANS} that must be avoided in people with {T}?
+  - Give examples of {ANS} that must be avoided in people with {T}.
+  doc:
+  - '{SELF} is contraindicated in patients with {T}.'
+  - The record states that {SELF} is contraindicated in patients with {T}.
+  - It is reported that {SELF} is contraindicated in patients with {T}.
+  - Available information indicates that {SELF} is contraindicated in patients with
+    {T}.
+  - The description explains that {SELF} is contraindicated in patients with {T}.
+  - According to the record, {SELF} is contraindicated in patients with {T}.
+  - The evidence states that {SELF} is contraindicated in patients with {T}.
+  - This account notes that {SELF} is contraindicated in patients with {T}.
+  - The available record says that {SELF} is contraindicated in patients with {T}.
+  - One observation is that {SELF} is contraindicated in patients with {T}.
+  - 'The following relationship is recorded: {SELF} is contraindicated in patients
+    with {T}.'
+  - In the present description, {SELF} is contraindicated in patients with {T}.
+  collides_with:
+  - drug.indication.disease
+  - drug.off_label_use.disease
+drug.enzyme.gene_protein:
+  query:
+  - Which {ANS} are metabolized by {T}?
+  - What {ANS} are metabolized by {T}?
+  - List {ANS} that are metabolized by {T}.
+  - Find {ANS} that are metabolized by {T}.
+  - Identify {ANS} that are metabolized by {T}.
+  - Name {ANS} that are metabolized by {T}.
+  - Show {ANS} that are metabolized by {T}.
+  - Return {ANS} that are metabolized by {T}.
+  - I need {ANS} that are metabolized by {T}.
+  - What are some {ANS} that are metabolized by {T}?
+  - Are there any {ANS} that are metabolized by {T}?
+  - Give examples of {ANS} that are metabolized by {T}.
+  doc:
+  - '{SELF} is metabolized by {T}.'
+  - The record states that {SELF} is metabolized by {T}.
+  - It is reported that {SELF} is metabolized by {T}.
+  - Available information indicates that {SELF} is metabolized by {T}.
+  - The description explains that {SELF} is metabolized by {T}.
+  - According to the record, {SELF} is metabolized by {T}.
+  - The evidence states that {SELF} is metabolized by {T}.
+  - This account notes that {SELF} is metabolized by {T}.
+  - The available record says that {SELF} is metabolized by {T}.
+  - One observation is that {SELF} is metabolized by {T}.
+  - 'The following relationship is recorded: {SELF} is metabolized by {T}.'
+  - In the present description, {SELF} is metabolized by {T}.
+  collides_with:
+  - drug.target.gene_protein
+drug.indication.disease:
+  query:
+  - Which {ANS} are indicated for treating {T}?
+  - What {ANS} are indicated for treating {T}?
+  - List {ANS} that are indicated for treating {T}.
+  - Find {ANS} that are indicated for treating {T}.
+  - Identify {ANS} that are indicated for treating {T}.
+  - Name {ANS} that are indicated for treating {T}.
+  - Show {ANS} that are indicated for treating {T}.
+  - Return {ANS} that are indicated for treating {T}.
+  - I need {ANS} that are indicated for treating {T}.
+  - What are some {ANS} that are indicated for treating {T}?
+  - Are there any {ANS} that are indicated for treating {T}?
+  - Give examples of {ANS} that are indicated for treating {T}.
+  doc:
+  - '{SELF} is indicated for treating {T}.'
+  - The record states that {SELF} is indicated for treating {T}.
+  - It is reported that {SELF} is indicated for treating {T}.
+  - Available information indicates that {SELF} is indicated for treating {T}.
+  - The description explains that {SELF} is indicated for treating {T}.
+  - According to the record, {SELF} is indicated for treating {T}.
+  - The evidence states that {SELF} is indicated for treating {T}.
+  - This account notes that {SELF} is indicated for treating {T}.
+  - The available record says that {SELF} is indicated for treating {T}.
+  - One observation is that {SELF} is indicated for treating {T}.
+  - 'The following relationship is recorded: {SELF} is indicated for treating {T}.'
+  - In the present description, {SELF} is indicated for treating {T}.
+  collides_with:
+  - drug.contraindication.disease
+  - drug.off_label_use.disease
+drug.off_label_use.disease:
+  query:
+  - Which {ANS} are used off-label for {T}?
+  - What {ANS} are used off-label for {T}?
+  - List {ANS} that are used off-label for {T}.
+  - Find {ANS} that are used off-label for {T}.
+  - Identify {ANS} that are used off-label for {T}.
+  - Name {ANS} that are used off-label for {T}.
+  - Show {ANS} that are used off-label for {T}.
+  - Return {ANS} that are used off-label for {T}.
+  - I need {ANS} that are used off-label for {T}.
+  - What are some {ANS} that are used off-label for {T}?
+  - Are there any {ANS} that are used off-label for {T}?
+  - Give examples of {ANS} that are used off-label for {T}.
+  doc:
+  - '{SELF} is used off-label for {T}.'
+  - The record states that {SELF} is used off-label for {T}.
+  - It is reported that {SELF} is used off-label for {T}.
+  - Available information indicates that {SELF} is used off-label for {T}.
+  - The description explains that {SELF} is used off-label for {T}.
+  - According to the record, {SELF} is used off-label for {T}.
+  - The evidence states that {SELF} is used off-label for {T}.
+  - This account notes that {SELF} is used off-label for {T}.
+  - The available record says that {SELF} is used off-label for {T}.
+  - One observation is that {SELF} is used off-label for {T}.
+  - 'The following relationship is recorded: {SELF} is used off-label for {T}.'
+  - In the present description, {SELF} is used off-label for {T}.
+  collides_with:
+  - drug.contraindication.disease
+  - drug.indication.disease
+drug.side_effect.effect_phenotype:
+  query:
+  - Which {ANS} cause {T} as a side effect?
+  - What {ANS} cause {T} as a side effect?
+  - List {ANS} that cause {T} as a side effect.
+  - Find {ANS} that cause {T} as a side effect.
+  - Identify {ANS} that cause {T} as a side effect.
+  - Name {ANS} that cause {T} as a side effect.
+  - Show {ANS} that cause {T} as a side effect.
+  - Return {ANS} that cause {T} as a side effect.
+  - I need {ANS} that cause {T} as a side effect.
+  - What are some {ANS} that cause {T} as a side effect?
+  - Are there any {ANS} that cause {T} as a side effect?
+  - Give examples of {ANS} that cause {T} as a side effect.
+  doc:
+  - '{SELF} can cause {T} as a side effect.'
+  - The record states that {SELF} can cause {T} as a side effect.
+  - It is reported that {SELF} can cause {T} as a side effect.
+  - Available information indicates that {SELF} can cause {T} as a side effect.
+  - The description explains that {SELF} can cause {T} as a side effect.
+  - According to the record, {SELF} can cause {T} as a side effect.
+  - The evidence states that {SELF} can cause {T} as a side effect.
+  - This account notes that {SELF} can cause {T} as a side effect.
+  - The available record says that {SELF} can cause {T} as a side effect.
+  - One observation is that {SELF} can cause {T} as a side effect.
+  - 'The following relationship is recorded: {SELF} can cause {T} as a side effect.'
+  - In the present description, {SELF} can cause {T} as a side effect.
+  collides_with: []
+drug.synergistic_interaction.drug:
+  query:
+  - Which {ANS} act synergistically with {T}?
+  - What {ANS} act synergistically with {T}?
+  - List {ANS} that act synergistically with {T}.
+  - Find {ANS} that act synergistically with {T}.
+  - Identify {ANS} that act synergistically with {T}.
+  - Name {ANS} that act synergistically with {T}.
+  - Show {ANS} that act synergistically with {T}.
+  - Return {ANS} that act synergistically with {T}.
+  - I need {ANS} that act synergistically with {T}.
+  - What are some {ANS} that act synergistically with {T}?
+  - Are there any {ANS} that act synergistically with {T}?
+  - Give examples of {ANS} that act synergistically with {T}.
+  doc:
+  - '{SELF} acts synergistically with {T}.'
+  - The record states that {SELF} acts synergistically with {T}.
+  - It is reported that {SELF} acts synergistically with {T}.
+  - Available information indicates that {SELF} acts synergistically with {T}.
+  - The description explains that {SELF} acts synergistically with {T}.
+  - According to the record, {SELF} acts synergistically with {T}.
+  - The evidence states that {SELF} acts synergistically with {T}.
+  - This account notes that {SELF} acts synergistically with {T}.
+  - The available record says that {SELF} acts synergistically with {T}.
+  - One observation is that {SELF} acts synergistically with {T}.
+  - 'The following relationship is recorded: {SELF} acts synergistically with {T}.'
+  - In the present description, {SELF} acts synergistically with {T}.
+  collides_with: []
+drug.target.gene_protein:
+  query:
+  - Which {ANS} target {T}?
+  - What {ANS} target {T}?
+  - List {ANS} that target {T}.
+  - Find {ANS} that target {T}.
+  - Identify {ANS} that target {T}.
+  - Name {ANS} that target {T}.
+  - Show {ANS} that target {T}.
+  - Return {ANS} that target {T}.
+  - I need {ANS} that target {T}.
+  - What are some {ANS} that target {T}?
+  - Are there any {ANS} that target {T}?
+  - Give examples of {ANS} that target {T}.
+  doc:
+  - '{SELF} directly targets {T}.'
+  - The record states that {SELF} directly targets {T}.
+  - It is reported that {SELF} directly targets {T}.
+  - Available information indicates that {SELF} directly targets {T}.
+  - The description explains that {SELF} directly targets {T}.
+  - According to the record, {SELF} directly targets {T}.
+  - The evidence states that {SELF} directly targets {T}.
+  - This account notes that {SELF} directly targets {T}.
+  - The available record says that {SELF} directly targets {T}.
+  - One observation is that {SELF} directly targets {T}.
+  - 'The following relationship is recorded: {SELF} directly targets {T}.'
+  - In the present description, {SELF} directly targets {T}.
+  collides_with:
+  - drug.carrier.gene_protein
+  - drug.enzyme.gene_protein
+  - drug.transporter.gene_protein
+drug.transporter.gene_protein:
+  query:
+  - Which {ANS} are transported by {T}?
+  - What {ANS} are transported by {T}?
+  - List {ANS} that are transported by {T}.
+  - Find {ANS} that are transported by {T}.
+  - Identify {ANS} that are transported by {T}.
+  - Name {ANS} that are transported by {T}.
+  - Show {ANS} that are transported by {T}.
+  - Return {ANS} that are transported by {T}.
+  - I need {ANS} that are transported by {T}.
+  - What are some {ANS} that are transported by {T}?
+  - Are there any {ANS} that are transported by {T}?
+  - Give examples of {ANS} that are transported by {T}.
+  doc:
+  - '{SELF} is transported by {T}.'
+  - The record states that {SELF} is transported by {T}.
+  - It is reported that {SELF} is transported by {T}.
+  - Available information indicates that {SELF} is transported by {T}.
+  - The description explains that {SELF} is transported by {T}.
+  - According to the record, {SELF} is transported by {T}.
+  - The evidence states that {SELF} is transported by {T}.
+  - This account notes that {SELF} is transported by {T}.
+  - The available record says that {SELF} is transported by {T}.
+  - One observation is that {SELF} is transported by {T}.
+  - 'The following relationship is recorded: {SELF} is transported by {T}.'
+  - In the present description, {SELF} is transported by {T}.
+  collides_with:
+  - drug.carrier.gene_protein
+  - drug.target.gene_protein
+effect_phenotype.associated_with.gene_protein:
+  query:
+  - Which {ANS} are associated with {T}?
+  - What {ANS} are associated with {T}?
+  - List {ANS} that are associated with {T}.
+  - Find {ANS} that are associated with {T}.
+  - Identify {ANS} that are associated with {T}.
+  - Name {ANS} that are associated with {T}.
+  - Show {ANS} that are associated with {T}.
+  - Return {ANS} that are associated with {T}.
+  - I need {ANS} that are associated with {T}.
+  - What are some {ANS} that are associated with {T}?
+  - Are there any {ANS} that are associated with {T}?
+  - Give examples of {ANS} that are associated with {T}.
+  doc:
+  - '{SELF} is associated with {T}.'
+  - The record states that {SELF} is associated with {T}.
+  - It is reported that {SELF} is associated with {T}.
+  - Available information indicates that {SELF} is associated with {T}.
+  - The description explains that {SELF} is associated with {T}.
+  - According to the record, {SELF} is associated with {T}.
+  - The evidence states that {SELF} is associated with {T}.
+  - This account notes that {SELF} is associated with {T}.
+  - The available record says that {SELF} is associated with {T}.
+  - One observation is that {SELF} is associated with {T}.
+  - 'The following relationship is recorded: {SELF} is associated with {T}.'
+  - In the present description, {SELF} is associated with {T}.
+  collides_with: []
+effect_phenotype.parent_child.effect_phenotype:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+effect_phenotype.phenotype_absent.disease:
+  query:
+  - Which {ANS} are absent from the disease {T}?
+  - What {ANS} are absent from the disease {T}?
+  - List {ANS} that are absent from the disease {T}.
+  - Find {ANS} that are absent from the disease {T}.
+  - Identify {ANS} that are absent from the disease {T}.
+  - Name {ANS} that are absent from the disease {T}.
+  - Show {ANS} that are absent from the disease {T}.
+  - Return {ANS} that are absent from the disease {T}.
+  - I need {ANS} that are absent from the disease {T}.
+  - What are some {ANS} that are absent from the disease {T}?
+  - Are there any {ANS} that are absent from the disease {T}?
+  - Give examples of {ANS} that are absent from the disease {T}.
+  doc:
+  - '{SELF} is absent from the disease {T}.'
+  - The record states that {SELF} is absent from the disease {T}.
+  - It is reported that {SELF} is absent from the disease {T}.
+  - Available information indicates that {SELF} is absent from the disease {T}.
+  - The description explains that {SELF} is absent from the disease {T}.
+  - According to the record, {SELF} is absent from the disease {T}.
+  - The evidence states that {SELF} is absent from the disease {T}.
+  - This account notes that {SELF} is absent from the disease {T}.
+  - The available record says that {SELF} is absent from the disease {T}.
+  - One observation is that {SELF} is absent from the disease {T}.
+  - 'The following relationship is recorded: {SELF} is absent from the disease {T}.'
+  - In the present description, {SELF} is absent from the disease {T}.
+  collides_with:
+  - effect_phenotype.phenotype_present.disease
+effect_phenotype.phenotype_present.disease:
+  query:
+  - Which {ANS} are present in the disease {T}?
+  - What {ANS} are present in the disease {T}?
+  - List {ANS} that are present in the disease {T}.
+  - Find {ANS} that are present in the disease {T}.
+  - Identify {ANS} that are present in the disease {T}.
+  - Name {ANS} that are present in the disease {T}.
+  - Show {ANS} that are present in the disease {T}.
+  - Return {ANS} that are present in the disease {T}.
+  - I need {ANS} that are present in the disease {T}.
+  - What are some {ANS} that are present in the disease {T}?
+  - Are there any {ANS} that are present in the disease {T}?
+  - Give examples of {ANS} that are present in the disease {T}.
+  doc:
+  - '{SELF} is present in the disease {T}.'
+  - The record states that {SELF} is present in the disease {T}.
+  - It is reported that {SELF} is present in the disease {T}.
+  - Available information indicates that {SELF} is present in the disease {T}.
+  - The description explains that {SELF} is present in the disease {T}.
+  - According to the record, {SELF} is present in the disease {T}.
+  - The evidence states that {SELF} is present in the disease {T}.
+  - This account notes that {SELF} is present in the disease {T}.
+  - The available record says that {SELF} is present in the disease {T}.
+  - One observation is that {SELF} is present in the disease {T}.
+  - 'The following relationship is recorded: {SELF} is present in the disease {T}.'
+  - In the present description, {SELF} is present in the disease {T}.
+  collides_with:
+  - effect_phenotype.phenotype_absent.disease
+effect_phenotype.side_effect.drug:
+  query:
+  - Which {ANS} are side effects of {T}?
+  - What {ANS} are side effects of {T}?
+  - List {ANS} that are side effects of {T}.
+  - Find {ANS} that are side effects of {T}.
+  - Identify {ANS} that are side effects of {T}.
+  - Name {ANS} that are side effects of {T}.
+  - Show {ANS} that are side effects of {T}.
+  - Return {ANS} that are side effects of {T}.
+  - I need {ANS} that are side effects of {T}.
+  - What are some {ANS} that are side effects of {T}?
+  - Are there any {ANS} that are side effects of {T}?
+  - Give examples of {ANS} that are side effects of {T}.
+  doc:
+  - '{SELF} is a side effect of {T}.'
+  - The record states that {SELF} is a side effect of {T}.
+  - It is reported that {SELF} is a side effect of {T}.
+  - Available information indicates that {SELF} is a side effect of {T}.
+  - The description explains that {SELF} is a side effect of {T}.
+  - According to the record, {SELF} is a side effect of {T}.
+  - The evidence states that {SELF} is a side effect of {T}.
+  - This account notes that {SELF} is a side effect of {T}.
+  - The available record says that {SELF} is a side effect of {T}.
+  - One observation is that {SELF} is a side effect of {T}.
+  - 'The following relationship is recorded: {SELF} is a side effect of {T}.'
+  - In the present description, {SELF} is a side effect of {T}.
+  collides_with: []
+exposure.interacts_with.biological_process:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+exposure.interacts_with.cellular_component:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+exposure.interacts_with.gene_protein:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+exposure.interacts_with.molecular_function:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+exposure.linked_to.disease:
+  query:
+  - Which {ANS} are linked to the exposure or condition {T}?
+  - What {ANS} are linked to the exposure or condition {T}?
+  - List {ANS} that are linked to the exposure or condition {T}.
+  - Find {ANS} that are linked to the exposure or condition {T}.
+  - Identify {ANS} that are linked to the exposure or condition {T}.
+  - Name {ANS} that are linked to the exposure or condition {T}.
+  - Show {ANS} that are linked to the exposure or condition {T}.
+  - Return {ANS} that are linked to the exposure or condition {T}.
+  - I need {ANS} that are linked to the exposure or condition {T}.
+  - What are some {ANS} that are linked to the exposure or condition {T}?
+  - Are there any {ANS} that are linked to the exposure or condition {T}?
+  - Give examples of {ANS} that are linked to the exposure or condition {T}.
+  doc:
+  - '{SELF} is linked to {T}.'
+  - The record states that {SELF} is linked to {T}.
+  - It is reported that {SELF} is linked to {T}.
+  - Available information indicates that {SELF} is linked to {T}.
+  - The description explains that {SELF} is linked to {T}.
+  - According to the record, {SELF} is linked to {T}.
+  - The evidence states that {SELF} is linked to {T}.
+  - This account notes that {SELF} is linked to {T}.
+  - The available record says that {SELF} is linked to {T}.
+  - One observation is that {SELF} is linked to {T}.
+  - 'The following relationship is recorded: {SELF} is linked to {T}.'
+  - In the present description, {SELF} is linked to {T}.
+  collides_with: []
+exposure.parent_child.exposure:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+gene_protein.associated_with.disease:
+  query:
+  - Which {ANS} are associated with {T}?
+  - What {ANS} are associated with {T}?
+  - List {ANS} that are associated with {T}.
+  - Find {ANS} that are associated with {T}.
+  - Identify {ANS} that are associated with {T}.
+  - Name {ANS} that are associated with {T}.
+  - Show {ANS} that are associated with {T}.
+  - Return {ANS} that are associated with {T}.
+  - I need {ANS} that are associated with {T}.
+  - What are some {ANS} that are associated with {T}?
+  - Are there any {ANS} that are associated with {T}?
+  - Give examples of {ANS} that are associated with {T}.
+  doc:
+  - '{SELF} is associated with {T}.'
+  - The record states that {SELF} is associated with {T}.
+  - It is reported that {SELF} is associated with {T}.
+  - Available information indicates that {SELF} is associated with {T}.
+  - The description explains that {SELF} is associated with {T}.
+  - According to the record, {SELF} is associated with {T}.
+  - The evidence states that {SELF} is associated with {T}.
+  - This account notes that {SELF} is associated with {T}.
+  - The available record says that {SELF} is associated with {T}.
+  - One observation is that {SELF} is associated with {T}.
+  - 'The following relationship is recorded: {SELF} is associated with {T}.'
+  - In the present description, {SELF} is associated with {T}.
+  collides_with: []
+gene_protein.associated_with.effect_phenotype:
+  query:
+  - Which {ANS} are associated with {T}?
+  - What {ANS} are associated with {T}?
+  - List {ANS} that are associated with {T}.
+  - Find {ANS} that are associated with {T}.
+  - Identify {ANS} that are associated with {T}.
+  - Name {ANS} that are associated with {T}.
+  - Show {ANS} that are associated with {T}.
+  - Return {ANS} that are associated with {T}.
+  - I need {ANS} that are associated with {T}.
+  - What are some {ANS} that are associated with {T}?
+  - Are there any {ANS} that are associated with {T}?
+  - Give examples of {ANS} that are associated with {T}.
+  doc:
+  - '{SELF} is associated with {T}.'
+  - The record states that {SELF} is associated with {T}.
+  - It is reported that {SELF} is associated with {T}.
+  - Available information indicates that {SELF} is associated with {T}.
+  - The description explains that {SELF} is associated with {T}.
+  - According to the record, {SELF} is associated with {T}.
+  - The evidence states that {SELF} is associated with {T}.
+  - This account notes that {SELF} is associated with {T}.
+  - The available record says that {SELF} is associated with {T}.
+  - One observation is that {SELF} is associated with {T}.
+  - 'The following relationship is recorded: {SELF} is associated with {T}.'
+  - In the present description, {SELF} is associated with {T}.
+  collides_with: []
+gene_protein.carrier.drug:
+  query:
+  - Which {ANS} carry {T}?
+  - What {ANS} carry {T}?
+  - List {ANS} that carry {T}.
+  - Find {ANS} that carry {T}.
+  - Identify {ANS} that carry {T}.
+  - Name {ANS} that carry {T}.
+  - Show {ANS} that carry {T}.
+  - Return {ANS} that carry {T}.
+  - I need {ANS} that carry {T}.
+  - What are some {ANS} that carry {T}?
+  - Are there any {ANS} that carry {T}?
+  - Give examples of {ANS} that carry {T}.
+  doc:
+  - '{SELF} carries {T} in the body.'
+  - The record states that {SELF} carries {T} in the body.
+  - It is reported that {SELF} carries {T} in the body.
+  - Available information indicates that {SELF} carries {T} in the body.
+  - The description explains that {SELF} carries {T} in the body.
+  - According to the record, {SELF} carries {T} in the body.
+  - The evidence states that {SELF} carries {T} in the body.
+  - This account notes that {SELF} carries {T} in the body.
+  - The available record says that {SELF} carries {T} in the body.
+  - One observation is that {SELF} carries {T} in the body.
+  - 'The following relationship is recorded: {SELF} carries {T} in the body.'
+  - In the present description, {SELF} carries {T} in the body.
+  collides_with:
+  - gene_protein.enzyme.drug
+  - gene_protein.target.drug
+  - gene_protein.transporter.drug
+gene_protein.enzyme.drug:
+  query:
+  - Which {ANS} metabolize {T}?
+  - What {ANS} metabolize {T}?
+  - List {ANS} that metabolize {T}.
+  - Find {ANS} that metabolize {T}.
+  - Identify {ANS} that metabolize {T}.
+  - Name {ANS} that metabolize {T}.
+  - Show {ANS} that metabolize {T}.
+  - Return {ANS} that metabolize {T}.
+  - I need {ANS} that metabolize {T}.
+  - What are some {ANS} that metabolize {T}?
+  - Are there any {ANS} that metabolize {T}?
+  - Give examples of {ANS} that metabolize {T}.
+  doc:
+  - '{SELF} enzymatically metabolizes {T}.'
+  - The record states that {SELF} enzymatically metabolizes {T}.
+  - It is reported that {SELF} enzymatically metabolizes {T}.
+  - Available information indicates that {SELF} enzymatically metabolizes {T}.
+  - The description explains that {SELF} enzymatically metabolizes {T}.
+  - According to the record, {SELF} enzymatically metabolizes {T}.
+  - The evidence states that {SELF} enzymatically metabolizes {T}.
+  - This account notes that {SELF} enzymatically metabolizes {T}.
+  - The available record says that {SELF} enzymatically metabolizes {T}.
+  - One observation is that {SELF} enzymatically metabolizes {T}.
+  - 'The following relationship is recorded: {SELF} enzymatically metabolizes {T}.'
+  - In the present description, {SELF} enzymatically metabolizes {T}.
+  collides_with:
+  - gene_protein.carrier.drug
+  - gene_protein.target.drug
+  - gene_protein.transporter.drug
+gene_protein.expression_absent.anatomy:
+  query:
+  - Which {ANS} are not expressed in {T}?
+  - What {ANS} are not expressed in {T}?
+  - List {ANS} that are not expressed in {T}.
+  - Find {ANS} that are not expressed in {T}.
+  - Identify {ANS} that are not expressed in {T}.
+  - Name {ANS} that are not expressed in {T}.
+  - Show {ANS} that are not expressed in {T}.
+  - Return {ANS} that are not expressed in {T}.
+  - I need {ANS} that are not expressed in {T}.
+  - What are some {ANS} that are not expressed in {T}?
+  - Are there any {ANS} that are not expressed in {T}?
+  - Give examples of {ANS} that are not expressed in {T}.
+  doc:
+  - '{SELF} is not expressed in {T}.'
+  - The record states that {SELF} is not expressed in {T}.
+  - It is reported that {SELF} is not expressed in {T}.
+  - Available information indicates that {SELF} is not expressed in {T}.
+  - The description explains that {SELF} is not expressed in {T}.
+  - According to the record, {SELF} is not expressed in {T}.
+  - The evidence states that {SELF} is not expressed in {T}.
+  - This account notes that {SELF} is not expressed in {T}.
+  - The available record says that {SELF} is not expressed in {T}.
+  - One observation is that {SELF} is not expressed in {T}.
+  - 'The following relationship is recorded: {SELF} is not expressed in {T}.'
+  - In the present description, {SELF} is not expressed in {T}.
+  collides_with:
+  - gene_protein.expression_present.anatomy
+gene_protein.expression_present.anatomy:
+  query:
+  - Which {ANS} are expressed in {T}?
+  - What {ANS} are expressed in {T}?
+  - List {ANS} that are expressed in {T}.
+  - Find {ANS} that are expressed in {T}.
+  - Identify {ANS} that are expressed in {T}.
+  - Name {ANS} that are expressed in {T}.
+  - Show {ANS} that are expressed in {T}.
+  - Return {ANS} that are expressed in {T}.
+  - I need {ANS} that are expressed in {T}.
+  - What are some {ANS} that are expressed in {T}?
+  - Are there any {ANS} that are expressed in {T}?
+  - Give examples of {ANS} that are expressed in {T}.
+  doc:
+  - '{SELF} is expressed in {T}.'
+  - The record states that {SELF} is expressed in {T}.
+  - It is reported that {SELF} is expressed in {T}.
+  - Available information indicates that {SELF} is expressed in {T}.
+  - The description explains that {SELF} is expressed in {T}.
+  - According to the record, {SELF} is expressed in {T}.
+  - The evidence states that {SELF} is expressed in {T}.
+  - This account notes that {SELF} is expressed in {T}.
+  - The available record says that {SELF} is expressed in {T}.
+  - One observation is that {SELF} is expressed in {T}.
+  - 'The following relationship is recorded: {SELF} is expressed in {T}.'
+  - In the present description, {SELF} is expressed in {T}.
+  collides_with:
+  - gene_protein.expression_absent.anatomy
+gene_protein.interacts_with.biological_process:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+gene_protein.interacts_with.cellular_component:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+gene_protein.interacts_with.exposure:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+gene_protein.interacts_with.molecular_function:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+gene_protein.interacts_with.pathway:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+gene_protein.ppi.gene_protein:
+  query:
+  - Which {ANS} physically interact with {T}?
+  - What {ANS} physically interact with {T}?
+  - List {ANS} that physically interact with {T}.
+  - Find {ANS} that physically interact with {T}.
+  - Identify {ANS} that physically interact with {T}.
+  - Name {ANS} that physically interact with {T}.
+  - Show {ANS} that physically interact with {T}.
+  - Return {ANS} that physically interact with {T}.
+  - I need {ANS} that physically interact with {T}.
+  - What are some {ANS} that physically interact with {T}?
+  - Are there any {ANS} that physically interact with {T}?
+  - Give examples of {ANS} that physically interact with {T}.
+  doc:
+  - '{SELF} physically interacts with {T}.'
+  - The record states that {SELF} physically interacts with {T}.
+  - It is reported that {SELF} physically interacts with {T}.
+  - Available information indicates that {SELF} physically interacts with {T}.
+  - The description explains that {SELF} physically interacts with {T}.
+  - According to the record, {SELF} physically interacts with {T}.
+  - The evidence states that {SELF} physically interacts with {T}.
+  - This account notes that {SELF} physically interacts with {T}.
+  - The available record says that {SELF} physically interacts with {T}.
+  - One observation is that {SELF} physically interacts with {T}.
+  - 'The following relationship is recorded: {SELF} physically interacts with {T}.'
+  - In the present description, {SELF} physically interacts with {T}.
+  collides_with: []
+gene_protein.target.drug:
+  query:
+  - Which {ANS} are targeted by {T}?
+  - What {ANS} are targeted by {T}?
+  - List {ANS} that are targeted by {T}.
+  - Find {ANS} that are targeted by {T}.
+  - Identify {ANS} that are targeted by {T}.
+  - Name {ANS} that are targeted by {T}.
+  - Show {ANS} that are targeted by {T}.
+  - Return {ANS} that are targeted by {T}.
+  - I need {ANS} that are targeted by {T}.
+  - What are some {ANS} that are targeted by {T}?
+  - Are there any {ANS} that are targeted by {T}?
+  - Give examples of {ANS} that are targeted by {T}.
+  doc:
+  - '{SELF} is targeted by {T}.'
+  - The record states that {SELF} is targeted by {T}.
+  - It is reported that {SELF} is targeted by {T}.
+  - Available information indicates that {SELF} is targeted by {T}.
+  - The description explains that {SELF} is targeted by {T}.
+  - According to the record, {SELF} is targeted by {T}.
+  - The evidence states that {SELF} is targeted by {T}.
+  - This account notes that {SELF} is targeted by {T}.
+  - The available record says that {SELF} is targeted by {T}.
+  - One observation is that {SELF} is targeted by {T}.
+  - 'The following relationship is recorded: {SELF} is targeted by {T}.'
+  - In the present description, {SELF} is targeted by {T}.
+  collides_with:
+  - gene_protein.carrier.drug
+  - gene_protein.enzyme.drug
+  - gene_protein.transporter.drug
+gene_protein.transporter.drug:
+  query:
+  - Which {ANS} transport {T}?
+  - What {ANS} transport {T}?
+  - List {ANS} that transport {T}.
+  - Find {ANS} that transport {T}.
+  - Identify {ANS} that transport {T}.
+  - Name {ANS} that transport {T}.
+  - Show {ANS} that transport {T}.
+  - Return {ANS} that transport {T}.
+  - I need {ANS} that transport {T}.
+  - What are some {ANS} that transport {T}?
+  - Are there any {ANS} that transport {T}?
+  - Give examples of {ANS} that transport {T}.
+  doc:
+  - '{SELF} transports {T} across membranes.'
+  - The record states that {SELF} transports {T} across membranes.
+  - It is reported that {SELF} transports {T} across membranes.
+  - Available information indicates that {SELF} transports {T} across membranes.
+  - The description explains that {SELF} transports {T} across membranes.
+  - According to the record, {SELF} transports {T} across membranes.
+  - The evidence states that {SELF} transports {T} across membranes.
+  - This account notes that {SELF} transports {T} across membranes.
+  - The available record says that {SELF} transports {T} across membranes.
+  - One observation is that {SELF} transports {T} across membranes.
+  - 'The following relationship is recorded: {SELF} transports {T} across membranes.'
+  - In the present description, {SELF} transports {T} across membranes.
+  collides_with:
+  - gene_protein.carrier.drug
+  - gene_protein.enzyme.drug
+  - gene_protein.target.drug
+molecular_function.interacts_with.exposure:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+molecular_function.interacts_with.gene_protein:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+molecular_function.parent_child.molecular_function:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+pathway.interacts_with.gene_protein:
+  query:
+  - Which {ANS} interact functionally with {T}?
+  - What {ANS} interact functionally with {T}?
+  - List {ANS} that interact functionally with {T}.
+  - Find {ANS} that interact functionally with {T}.
+  - Identify {ANS} that interact functionally with {T}.
+  - Name {ANS} that interact functionally with {T}.
+  - Show {ANS} that interact functionally with {T}.
+  - Return {ANS} that interact functionally with {T}.
+  - I need {ANS} that interact functionally with {T}.
+  - What are some {ANS} that interact functionally with {T}?
+  - Are there any {ANS} that interact functionally with {T}?
+  - Give examples of {ANS} that interact functionally with {T}.
+  doc:
+  - '{SELF} interacts functionally with {T}.'
+  - The record states that {SELF} interacts functionally with {T}.
+  - It is reported that {SELF} interacts functionally with {T}.
+  - Available information indicates that {SELF} interacts functionally with {T}.
+  - The description explains that {SELF} interacts functionally with {T}.
+  - According to the record, {SELF} interacts functionally with {T}.
+  - The evidence states that {SELF} interacts functionally with {T}.
+  - This account notes that {SELF} interacts functionally with {T}.
+  - The available record says that {SELF} interacts functionally with {T}.
+  - One observation is that {SELF} interacts functionally with {T}.
+  - 'The following relationship is recorded: {SELF} interacts functionally with {T}.'
+  - In the present description, {SELF} interacts functionally with {T}.
+  collides_with: []
+pathway.parent_child.pathway:
+  query:
+  - Which {ANS} are broader or narrower categories related to {T}?
+  - What {ANS} are broader or narrower categories related to {T}?
+  - List {ANS} that are broader or narrower categories related to {T}.
+  - Find {ANS} that are broader or narrower categories related to {T}.
+  - Identify {ANS} that are broader or narrower categories related to {T}.
+  - Name {ANS} that are broader or narrower categories related to {T}.
+  - Show {ANS} that are broader or narrower categories related to {T}.
+  - Return {ANS} that are broader or narrower categories related to {T}.
+  - I need {ANS} that are broader or narrower categories related to {T}.
+  - What are some {ANS} that are broader or narrower categories related to {T}?
+  - Are there any {ANS} that are broader or narrower categories related to {T}?
+  - Give examples of {ANS} that are broader or narrower categories related to {T}.
+  doc:
+  - '{SELF} has a broader or narrower hierarchical relationship with {T}.'
+  - The record states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - It is reported that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - Available information indicates that {SELF} has a broader or narrower hierarchical
+    relationship with {T}.
+  - The description explains that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - According to the record, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The evidence states that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - This account notes that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - The available record says that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - One observation is that {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  - 'The following relationship is recorded: {SELF} has a broader or narrower hierarchical
+    relationship with {T}.'
+  - In the present description, {SELF} has a broader or narrower hierarchical relationship
+    with {T}.
+  collides_with: []
+none.anatomy:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.biological_process:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.cellular_component:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.disease:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.drug:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.effect_phenotype:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.exposure:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.gene_protein:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.molecular_function:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []
+none.pathway:
+  query:
+  - Which {ANS} are described in ongoing studies concerning {T}?
+  - What {ANS} are described in ongoing studies concerning {T}?
+  - List {ANS} that are described in ongoing studies concerning {T}.
+  - Find {ANS} that are described in ongoing studies concerning {T}.
+  - Identify {ANS} that are described in ongoing studies concerning {T}.
+  - Name {ANS} that are described in ongoing studies concerning {T}.
+  - Show {ANS} that are described in ongoing studies concerning {T}.
+  - Return {ANS} that are described in ongoing studies concerning {T}.
+  - I need {ANS} that are described in ongoing studies concerning {T}.
+  - What are some {ANS} that are described in ongoing studies concerning {T}?
+  - Are there any {ANS} that are described in ongoing studies concerning {T}?
+  - Give examples of {ANS} that are described in ongoing studies concerning {T}.
+  doc:
+  - '{SELF} is discussed in the same report as {T}.'
+  - The record states that {SELF} is discussed in the same report as {T}.
+  - It is reported that {SELF} is discussed in the same report as {T}.
+  - Available information indicates that {SELF} is discussed in the same report as
+    {T}.
+  - The description explains that {SELF} is discussed in the same report as {T}.
+  - According to the record, {SELF} is discussed in the same report as {T}.
+  - The evidence states that {SELF} is discussed in the same report as {T}.
+  - This account notes that {SELF} is discussed in the same report as {T}.
+  - The available record says that {SELF} is discussed in the same report as {T}.
+  - One observation is that {SELF} is discussed in the same report as {T}.
+  - 'The following relationship is recorded: {SELF} is discussed in the same report
+    as {T}.'
+  - In the present description, {SELF} is discussed in the same report as {T}.
+  collides_with: []

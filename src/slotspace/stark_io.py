@@ -5,7 +5,6 @@ import csv
 import json
 import platform
 import random
-import shutil
 import subprocess
 import sys
 from collections import Counter
@@ -21,6 +20,7 @@ import pyarrow.compute as pc
 import pyarrow.parquet as pq
 
 from .prime_cache import REVISION, prepare_prime
+from .artifacts import _git
 
 SPLITS = ("train", "val", "test", "test-0.1", "human")
 DOC_SCHEMA = pa.schema([
@@ -146,14 +146,6 @@ def _write_queries(prime: Path, out: Path, subset: set[int] | None) -> dict[str,
                     count += 1
         counts[split] = count
     return counts
-
-
-def _git(*args: str) -> str | None:
-    if not shutil.which("git"):
-        return None
-    cmd = ["git", "--no-pager", "--no-optional-locks", "-C", str(Path(__file__).resolve().parent), *args]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    return result.stdout.strip() if result.returncode == 0 else None
 
 
 def export_prime(out_dir: str | Path = "data/prime", root: str | Path = "data/stark_cache",
