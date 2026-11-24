@@ -1,0 +1,29 @@
+SlotSpace
+Copyright 2026 SlotSpace contributors
+
+The SlotSpace code is licensed under the Apache License, Version 2.0.
+Third-party software, datasets and model weights retain their own licenses.
+
+STaRK benchmark data is identified by its publisher as CC BY 4.0:
+https://huggingface.co/datasets/snap-stanford/stark
+https://creativecommons.org/licenses/by/4.0/
+
+Attribution:
+Shirley Wu, Shiyu Zhao, Michihiro Yasunaga, Kexin Huang, Kaidi Cao,
+Qian Huang, Vassilis N. Ioannidis, Karthik Subbian, James Zou, Jure Leskovec.
+STaRK: Benchmarking LLM Retrieval on Textual and Relational Knowledge Bases.
+NeurIPS 2024 Datasets and Benchmarks. https://arxiv.org/abs/2404.13207
+
+SlotSpace normalizes exported document types/detail fields and derives
+fact keys, silver labels and role-swap queries from this benchmark.
+It preserves the original entity IDs and official query split membership.
+These transformations do not change the license of the source data.
+
+No raw STaRK records, derived benchmark answers, third-party model weights
+or dependency binaries are included in this source or wheel distribution.
+Follow the project's release convention: distribute role-swap query IDs,
+template identifiers, value IDs and the construction code, not re-hosted
+raw benchmark files. Obtain source data directly from the publisher.
+
+See THIRD_PARTY_NOTICES.md and docs/dependency-licenses.csv for provenance
+and dependency-license review limitations.

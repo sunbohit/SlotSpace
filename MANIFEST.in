@@ -1,0 +1,17 @@
+include LICENSE NOTICE THIRD_PARTY_NOTICES.md CITATION.cff CHANGELOG.md
+include README.md Makefile requirements.lock pyproject.toml
+recursive-include docs *.md *.csv
+recursive-include configs *.yaml
+recursive-include schemas *.yaml
+recursive-include templates *.yaml
+recursive-include tests *.py
+recursive-include tools *.py
+recursive-include src *.py *.json *.xml *.sd
+prune data
+prune runs
+prune Resource
+prune .envs
+prune .venv
+prune build
+prune dist
+global-exclude __pycache__ *.py[cod]

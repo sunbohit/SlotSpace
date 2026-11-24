@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -7,17 +7,26 @@ name = "slotspace"
 version = "0.1.0"
 description = "Ambiguity-aware, fact-level retrieval with a shared slot space"
 readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name = "SlotSpace contributors"}]
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "numpy>=1.26,<2", "scipy", "pyarrow>=14", "pandas", "stark-qa==1.1.0",
     "bm25s>=0.3.16", "PyStemmer", "PyYAML", "sentence-transformers>=5.1,<6",
     "transformers>=4.51,<5", "datasets>=3,<4", "accelerate", "rapidfuzz", "wordfreq",
     "PyTDC==0.4.1", "llm2vec==0.1.6", "mteb==1.1.1", "langchain>=0.2.17,<0.3",
-    "setuptools<81",
+    "setuptools<81", "torch>=2.6", "huggingface-hub>=0.34,<1",
 ]
+
+[project.urls]
+Repository = "https://github.com/sunbohit/SlotSpace"
+Documentation = "https://github.com/sunbohit/SlotSpace/blob/main/README.md"
+Issues = "https://github.com/sunbohit/SlotSpace/issues"
 
 [project.optional-dependencies]
 test = ["pytest"]
+release = ["build>=1.2,<2", "twine>=6,<7", "jsonschema>=4.22,<5"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -25,6 +34,14 @@ where = ["src"]
 [tool.setuptools.package-data]
 slotspace = ["prime-sha256.json"]
 "slotspace.vespa_app" = ["app/*.xml", "app/schemas/*.sd"]
+
+[tool.setuptools.data-files]
+"share/slotspace" = ["CITATION.cff", "CHANGELOG.md", "Makefile", "requirements.lock"]
+"share/slotspace/configs" = ["configs/*.yaml"]
+"share/slotspace/schemas" = ["schemas/*.yaml"]
+"share/slotspace/templates/train" = ["templates/train/*.yaml"]
+"share/slotspace/templates/test" = ["templates/test/*.yaml"]
+"share/slotspace/docs" = ["docs/*.md", "docs/*.csv"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -1,8 +1,12 @@
 # SlotSpace
 
-SlotSpace retrieves facts, not just documents that mention the same entity. A value, its role and its context must match **in the same fact**. Several plausible readings of a query share one candidate retrieval pass. See the [design](docs/DESIGN.md) and [milestone guide](docs/DEVELOPMENT.md).
+Queries can mention the same value while asking for different roles: drugs that treat a disease, drugs contraindicated for it, or drugs that cause a similarly named effect. Matching the value or the overall topic alone does not establish which fact answers the question.
 
-**Current implementation:** M0-M8 and the optional M9 Vespa adapter are implemented, including reusable feature replay, staged tuning, H5-controlled experiments and artifact-only reporting. Human reviews remain pending, but do not prevent continued code work at the user's request. GPU jobs, empirical M7 acceptance, formal test experiments and real-engine M9 acceptance have not been run.
+SlotSpace shares one schema-defined slot space across fact extraction, query interpretation, a corpus-derived ambiguity lexicon and retrieval. Value, role and context must match **in the same fact**. A small masked-context model supplies query evidence, corpus counts supply priors, and several plausible readings share one candidate retrieval pass.
+
+The initial research path is Python/NumPy on STaRK-Prime, with a stock-Vespa adapter for later engine measurements. The claim is the combination, not novelty of every component; experiments must establish its value. See the [design](docs/DESIGN.md), [development guide](docs/DEVELOPMENT.md) and [citation](CITATION.cff).
+
+**Current status:** 0.1.0 is an **unreleased code candidate** covering M0-M10 implementation and release preparation. It has not been uploaded to a registry. GPU jobs, human semantic reviews, empirical M7 acceptance, formal test experiments and real-engine M9 acceptance remain pending. Code review is not an H5 authorization receipt.
 
 ## M0: prepare STaRK-Prime (CPU only)
 
@@ -260,7 +264,7 @@ Reports regenerate the four main tables, separate human table, paired tests, tab
 
 The [engine adapter](src/slotspace/vespa_app/) packages the same bound/max score in stock Vespa: native keys, fact-level sparse role probabilities and **raw big-endian signed int8** contexts. Its generated application has six `(a,b)` profiles for `a in {0.5,1}`, `b in {0.5,1,2}` plus `hybrid`. Query links are raised to `a` exactly once; the document gate raises role probabilities separately. Disjoint native-only and text-only readings are retained using `N + T - min(N,T)`.
 
-**Status:** The full CPU suite passes **110 tests**, with **one real-engine test explicitly skipped**. This includes wire-format/reference parity, actual Parquet-to-feed export without loading models, HTTP/error handling, fan-out and measurement artifacts. The distribution wheel includes the XML and schema resources. No Docker/Podman or Vespa server is available on this Windows host, so **application deployment/schema compilation, real-engine parity, feed throughput and engine latency/RAM are NOT RUN**, not passed. Full neural artifacts are also absent under the GPU-testing waiver.
+**M9 handoff:** The CPU suite passed **110 tests**, with **one real-engine test explicitly skipped**. This includes wire-format/reference parity, actual Parquet-to-feed export without loading models, HTTP/error handling, fan-out and measurement artifacts. The distribution wheel includes the XML and schema resources. No Docker/Podman or Vespa server is available on this Windows host, so **application deployment/schema compilation, real-engine parity, feed throughput and engine latency/RAM are NOT RUN**, not passed. Full neural artifacts are also absent under the GPU-testing waiver.
 
 On a Docker-capable host, use a **new, dedicated, disposable** instance, with at least 4 GiB Docker memory for smoke testing (16 GiB for Prime). Pin the image tag/digest you intend to use instead of treating `latest` as reproducible:
 
@@ -293,6 +297,101 @@ python -m slotspace.vespa_app measure --config configs\prime_v0_frozen.yaml --bu
 - It compares engine SlotSpace, engine B2, engine B6 fan-out and numpy binary SlotSpace. Fusion uses each returned pool's exact match features; B2/B6 share B2's selected lexical weight. B6 counts every rewrite and saves both sum/max server and RPC time. One warm-up precedes three repeats; quality uses the first measured ranking, timing uses medians, and instability is recorded.
 - Output contains run/plan/per-query/counter/metric files and `parity.json`, with p50/p95 client and server latency. `docker stats` is labelled **whole-container memory**, never isolated index RAM; omitting `--container` records `NOT MEASURED`. HTTP errors, HTTP-200 query errors, degraded coverage, missing features, stale artifacts, parity errors and operational deployment actions fail explicitly and leave failed run metadata.
 - This path supports the documented bound/max binary score and 256/128 dimensions, not IA, hard-AND or the v0 ablation matrix. It never authorizes H5 or evaluates final test/human splits.
+
+## M10: reproduction and local distribution candidate
+
+Use Python 3.11 and the compatible environment described in the development
+guide. In a fresh clone with an appropriate PyTorch build already chosen:
+
+```powershell
+python -m pip install -e ".[test,release]"
+python -m slotspace.reproduce --resources ..\Resource --dry-run
+```
+
+The cached `Resource` layout is the one documented during preparation: pinned
+STaRK input files and four v0 model snapshots. The dry run prints **real existing
+CLI commands for M0-M8**, not benchmark scores. A complete run needs a CUDA
+research environment and a **separate Linux vLLM interpreter**:
+
+```powershell
+make reproduce-v0 PYTHON=python REPRO_ARGS="--gen-python <absolute-generator-python>"
+```
+
+On this CPU-only Windows workspace, GNU Make is isolated in the release-tools
+prefix; the tested CPU-only subset is:
+
+```powershell
+$make = (Resolve-Path ..\.envs\release-tools\Library\bin\make.exe).Path
+& $make reproduce-v0 "PYTHON=$prefix\python.exe" "THROUGH=M0"
+```
+
+An equivalent command needs no Make: `python -m slotspace.reproduce --through M0`.
+The actual fresh M0 run and a verified Make-driven resume produced seven files
+**byte-identical** to the original full Prime export. Full GPU M0-M8 execution
+has **not** been run here.
+
+- Use a new `--work` directory (default `runs/reproduce-v0`). Cached downloads
+  are read-only; output configurations/data/runs are isolated there.
+- `--resume` verifies the same source, interpreter/environment and settings,
+  plus exact hashes of completed outputs/model inputs. It never adopts an
+  unrelated existing cache or silently retries a partial final experiment.
+- H1 requires labelled query/document samples and schema approval; H2 checks
+  silver agreement, H3 naturalness, H4 measured post-scaling ECE and labelled
+  scorer examples. The runner stops at these gates. Fill the generated review
+  samples and supply `--reviews` with the gate's printed evidence hash:
+  `{"H1": {"approved": true, "evidence_sha256": "<printed hash>"}}`.
+  Later approvals can be added to the same JSON.
+- Continue with unchanged settings, including the same `--gen-python`, using
+  `--resume --reviews <review-json>`. The M8 protocol is produced before H5;
+  only an externally supplied `--approval <h5-json>` bound to its exact
+  frozen/config-plan hashes permits final evaluation. No approval is generated.
+- Main/A14 training remains value-masked, A12 is separate, variant conformal
+  calibration uses the selected configuration, and B3/B4/A7/A11 artifacts
+  are prepared for the existing full experiment catalog.
+
+### Packaging without publishing
+
+```powershell
+python -m build --no-isolation
+python -m twine check --strict dist\*
+python tools\check_dist.py --dist dist
+```
+
+`make dist` performs the same build/metadata/payload checks. The source archive
+contains configs, schemas, templates, tests, normative docs and release records.
+The wheel contains Python/Vespa code, SPDX/NOTICE files and research assets
+under `share/slotspace/`. Neither contains benchmark records/answers, weights
+or run outputs. These commands **do not publish** to PyPI or GitHub.
+
+**M10 validation:** 116 CPU tests passed and one real-Vespa test was explicitly
+skipped. Citation metadata passed the official CFF 1.2.0 schema. Both actual
+archives passed strict Twine and payload checks. A wheel rebuilt from the
+source archive was installed outside the checkout: 22 installed-code
+reference/CLI tests passed, and its complete M0 export matched all seven
+original files byte-for-byte using the prepared dependency environment.
+This is not a full GPU reproduction or empirical release acceptance.
+
+The [model card](docs/MODEL_CARD.md) explicitly records an absent fine-tuned
+checkpoint and unmeasured M5 metrics. [Third-party findings](THIRD_PARTY_NOTICES.md)
+include the exact local/generator/model inventories and GPL/proprietary review
+items; a metadata check is not a license-compatibility approval.
+
+### Measured results versus pending acceptance
+
+| System | Dataset | Hit@1 | Recall@20 | MRR | Evidence |
+|---|---|---:|---:|---:|---|
+| B0 BM25 | Prime val, 2,241 queries | 17.80 | 41.04 | 25.97 | Measured CPU, percentage points |
+| Full B1/B2 neural baselines | Prime val | - | - | - | NOT RUN |
+| SlotSpace / formal ablations | Prime test/human/role-swap | - | - | - | NOT RUN; no H5 execution |
+| Vespa path | Prime val | - | - | - | NOT RUN; no engine |
+
+The prototype requires dictionary-linkable values, does not cover temporal
+ambiguity, and combines context/corpus evidence with a fixed functional form.
+Conformal coverage is marginal, not a per-query promise. Synthesized query
+style, noisy silver labels, missing KB edges and linking mistakes can bias
+results. Strong baselines may already capture roles; negative findings must
+remain visible. The role-swap test has 667 queries, below the 1,000 target,
+and the 98 human queries supply directional evidence only.
 
 ## Data and licenses
 

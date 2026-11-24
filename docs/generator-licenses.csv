@@ -1,0 +1,199 @@
+package,version,license_expression,license_classifiers,license_metadata_first_line,metadata_license_sha256,source,review
+agent-detector,2.0.0,MIT,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/agent-detector/2.0.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+aiohappyeyeballs,2.7.1,,License :: OSI Approved :: Python Software Foundation License,PSF-2.0,606b04e71db9ca7a05d4fcb08cc69001946922a9b909de4932413ea640da9486,https://pypi.org/pypi/aiohappyeyeballs/2.7.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+aiohttp,3.14.5,Apache-2.0 AND MIT,,,,https://pypi.org/pypi/aiohttp/3.14.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+aiosignal,1.4.0,,License :: OSI Approved :: Apache Software License,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/aiosignal/1.4.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+annotated-doc,0.0.7,MIT,,,,https://pypi.org/pypi/annotated-doc/0.0.7/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+annotated-types,0.8.0,MIT,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/annotated-types/0.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+anthropic,2.13.0,,License :: OSI Approved :: Apache Software License,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/anthropic/2.13.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+anyio,4.16.0,MIT,,,,https://pypi.org/pypi/anyio/4.16.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+apache-tvm-ffi,0.1.11,,License :: OSI Approved :: Apache Software License,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/apache-tvm-ffi/0.1.11/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+astor,0.8.1,,License :: OSI Approved :: BSD License,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/astor/0.8.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+attrs,26.1.0,MIT,,,,https://pypi.org/pypi/attrs/26.1.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+blake3,1.0.11,,,CC0-1.0 OR Apache-2.0,8d790c850b0ac232c56d63d5fdbf984d211dd2d30edbf56998943e6cce2a31ce,https://pypi.org/pypi/blake3/1.0.11/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cachetools,8.0.2,MIT,,,,https://pypi.org/pypi/cachetools/8.0.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cbor2,6.3.0,MIT,,,,https://pypi.org/pypi/cbor2/6.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+certifi,2026.11.20,,License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0),MPL-2.0,09962c1dc23fac80a0e5a88b2eb7051b74a6443a568ca2a045a4ec2fb82aeee5,https://pypi.org/pypi/certifi/2026.11.20/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cffi,2.1.1,MIT-0,,,,https://pypi.org/pypi/cffi/2.1.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+charset-normalizer,3.5.3,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/charset-normalizer/3.5.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+click,8.5.1,BSD-3-Clause,,,,https://pypi.org/pypi/click/8.5.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cloudpickle,3.1.3,BSD-3-Clause,,,,https://pypi.org/pypi/cloudpickle/3.1.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+compressed-tensors,0.17.0,,,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/compressed-tensors/0.17.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cryptography,50.0.2,Apache-2.0 OR BSD-3-Clause,,,,https://pypi.org/pypi/cryptography/50.0.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-bindings,13.5.0,Apache-2.0,,,,https://pypi.org/pypi/cuda-bindings/13.5.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-core,1.2.2,Apache-2.0,,,,https://pypi.org/pypi/cuda-core/1.2.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-pathfinder,1.9.1,Apache-2.0,,,,https://pypi.org/pypi/cuda-pathfinder/1.9.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-python,13.5.0,Apache-2.0,,,,https://pypi.org/pypi/cuda-python/13.5.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-tile,1.8.1,Apache-2.0,,,,https://pypi.org/pypi/cuda-tile/1.8.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+cuda-toolkit,13.0.3.0,,,,,https://pypi.org/pypi/cuda-toolkit/13.0.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+depyf,0.20.0,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/depyf/0.20.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+detect-installer,0.2.1,0BSD,,,,https://pypi.org/pypi/detect-installer/0.2.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+dill,0.4.1,,License :: OSI Approved :: BSD License,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/dill/0.4.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+dnspython,2.9.2,ISC,,,,https://pypi.org/pypi/dnspython/2.9.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+docstring-parser,0.18.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/docstring-parser/0.18.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+einops,0.8.2,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/einops/0.8.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+email-validator,2.4.0,,License :: OSI Approved :: The Unlicense (Unlicense),Unlicense,5232f4cc61223e4456c924cac0a586d092a904ca2bf6975f285962910dcab7f5,https://pypi.org/pypi/email-validator/2.4.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fastapi,0.136.3,MIT,,,,https://pypi.org/pypi/fastapi/0.136.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fastapi-cli,0.0.34,MIT,,,,https://pypi.org/pypi/fastapi-cli/0.0.34/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fastapi-cloud-cli,0.28.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/fastapi-cloud-cli/0.28.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fastar,0.12.0,,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/fastar/0.12.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fastsafetensors,0.5.0,,,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/fastsafetensors/0.5.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+filelock,4.3.1,MIT,,,,https://pypi.org/pypi/filelock/4.3.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+flashinfer-python,0.7.3,Apache-2.0,,,,https://pypi.org/pypi/flashinfer-python/0.7.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+frozenlist,1.8.0,,,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/frozenlist/1.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+fsspec,2026.9.0,BSD-3-Clause,,,,https://pypi.org/pypi/fsspec/2026.9.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+googleapis-common-protos,1.76.0,Apache-2.0,,,,https://pypi.org/pypi/googleapis-common-protos/1.76.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+grpcio,1.85.3,Apache-2.0,,,,https://pypi.org/pypi/grpcio/1.85.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+h11,0.16.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/h11/0.16.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+hf-xet,1.8.0,Apache-2.0,License :: OSI Approved :: Apache Software License,,,https://pypi.org/pypi/hf-xet/1.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+httpcore,1.0.9,BSD-3-Clause,License :: OSI Approved :: BSD License,,,https://pypi.org/pypi/httpcore/1.0.9/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+httpcore2,2.16.2,BSD-3-Clause,License :: OSI Approved :: BSD License,,,https://pypi.org/pypi/httpcore2/2.16.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+httptools,0.9.0,MIT,,,,https://pypi.org/pypi/httptools/0.9.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+httpx,0.28.1,,License :: OSI Approved :: BSD License,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/httpx/0.28.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+httpx2,2.16.2,BSD-3-Clause,License :: OSI Approved :: BSD License,,,https://pypi.org/pypi/httpx2/2.16.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+huggingface-hub,2.4.0,,License :: OSI Approved :: Apache Software License,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/huggingface-hub/2.4.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+humming-kernels,0.1.19,Apache-2.0,,,,https://pypi.org/pypi/humming-kernels/0.1.19/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+idna,3.20,BSD-3-Clause,,,,https://pypi.org/pypi/idna/3.20/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+ijson,3.6.0,BSD-3-Clause AND ISC,,,,https://pypi.org/pypi/ijson/3.6.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+instanttensor,0.2.3,,,Apache License,390390342cb5b2a4ada408ab77faf052342e014f1c42d33cf743d7b1df8dfe7f,https://pypi.org/pypi/instanttensor/0.2.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+interegular,0.3.3,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/interegular/0.3.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+jinja2,3.1.6,,License :: OSI Approved :: BSD License,,,https://pypi.org/pypi/jinja2/3.1.6/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+jiter,0.19.0,MIT,,,,https://pypi.org/pypi/jiter/0.19.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+jmespath,1.1.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/jmespath/1.1.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+jsonschema,4.26.0,MIT,,,,https://pypi.org/pypi/jsonschema/4.26.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+jsonschema-specifications,2025.9.1,MIT,,,,https://pypi.org/pypi/jsonschema-specifications/2025.9.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+lark,1.2.2,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/lark/1.2.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+llguidance,1.7.6,MIT,,,,https://pypi.org/pypi/llguidance/1.7.6/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+llvmlite,0.47.0,BSD-2-Clause AND Apache-2.0 WITH LLVM-exception,,,,https://pypi.org/pypi/llvmlite/0.47.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+lm-format-enforcer,0.11.3,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/lm-format-enforcer/0.11.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+loguru,0.8.0,,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/loguru/0.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+markdown-it-py,4.3.0,,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/markdown-it-py/4.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+markupsafe,3.0.4,BSD-3-Clause,,,,https://pypi.org/pypi/markupsafe/3.0.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+mcp,2.3.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/mcp/2.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+mcp-types,2.3.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/mcp-types/2.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+mdurl,0.1.2,,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/mdurl/0.1.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+mistral-common,1.13.1,Apache-2.0,,,,https://pypi.org/pypi/mistral-common/1.13.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+ml-dtypes,0.7.0,Apache-2.0,,,,https://pypi.org/pypi/ml-dtypes/0.7.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+model-hosting-container-standards,0.1.16,,License :: OSI Approved :: Apache Software License,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/model-hosting-container-standards/0.1.16/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+mpmath,1.3.0,,License :: OSI Approved :: BSD License,BSD,49d9777da612e1f4e9269fa9f93ea324a66f9dcc7722ad812de124ef3f266d93,https://pypi.org/pypi/mpmath/1.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+msgspec,0.22.0,BSD-3-Clause,,,,https://pypi.org/pypi/msgspec/0.22.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+multidict,7.2.1,Apache-2.0,,,,https://pypi.org/pypi/multidict/7.2.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nccl-extensions,0.2.0,Apache-2.0,,,,https://pypi.org/pypi/nccl-extensions/0.2.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nccl4py,0.6.0,Apache-2.0,,,,https://pypi.org/pypi/nccl4py/0.6.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+networkx,3.6.1,BSD-3-Clause,,,,https://pypi.org/pypi/networkx/3.6.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+ninja,1.13.2,Apache-2.0,,,,https://pypi.org/pypi/ninja/1.13.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+numba,0.65.0,,License :: OSI Approved :: BSD License,BSD,49d9777da612e1f4e9269fa9f93ea324a66f9dcc7722ad812de124ef3f266d93,https://pypi.org/pypi/numba/0.65.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+numpy,2.3.5,,License :: OSI Approved :: BSD License,"Copyright (c) 2005-2025, NumPy Developers.",df40eff048dca919e3c17841c9e3a073831637bcc80d94f6e7130c8cfb6939eb,https://pypi.org/pypi/numpy/2.3.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cublas,13.1.1.3,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-cublas/13.1.1.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-cccl,13.3.5.0.6,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-cuda-cccl/13.3.5.0.6/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-crt,13.5.37,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-cuda-crt/13.5.37/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-cupti,13.0.85,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cuda-cupti/13.0.85/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-nvcc,13.5.37,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-cuda-nvcc/13.5.37/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-nvrtc,13.0.88,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cuda-nvrtc/13.0.88/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cuda-runtime,13.0.96,,,,,https://pypi.org/pypi/nvidia-cuda-runtime/13.0.96/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cudnn-cu13,9.24.0.43,,,,,https://pypi.org/pypi/nvidia-cudnn-cu13/9.24.0.43/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cudnn-frontend,1.33.0,,License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License,Apache-2.0 AND MIT,38e0d1ca69c066e18b0d0d41ba707a97919af11b8461e6c6364936b920f61576,https://pypi.org/pypi/nvidia-cudnn-frontend/1.33.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cufft,12.0.0.61,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cufft/12.0.0.61/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cufile,1.15.1.6,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cufile/1.15.1.6/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-curand,10.4.0.35,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-curand/10.4.0.35/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cusolver,12.0.4.66,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cusolver/12.0.4.66/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cusparse,12.6.3.3,,License :: Other/Proprietary License,LicenseRef-NVIDIA-Proprietary,26200706ee578a0dff9547975c2fa99e6a8a1460783da7d7a06ac1461bc72b56,https://pypi.org/pypi/nvidia-cusparse/12.6.3.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cusparselt-cu13,0.8.1,,,NVIDIA Proprietary Software,cadbd9ec42d8720863721bf443e1236eb3665eaba1f1f144fe1a662068547fb9,https://pypi.org/pypi/nvidia-cusparselt-cu13/0.8.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cutlass-dsl,4.8.0,,License :: Other/Proprietary License,,,https://pypi.org/pypi/nvidia-cutlass-dsl/4.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cutlass-dsl-libs-base,4.8.0,,License :: Other/Proprietary License,,,https://pypi.org/pypi/nvidia-cutlass-dsl-libs-base/4.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cutlass-dsl-libs-core,4.8.0,,License :: Other/Proprietary License,,,https://pypi.org/pypi/nvidia-cutlass-dsl-libs-core/4.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cutlass-dsl-libs-cu12,4.8.0,,License :: Other/Proprietary License,,,https://pypi.org/pypi/nvidia-cutlass-dsl-libs-cu12/4.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-cutlass-dsl-libs-cu13,4.8.0,,License :: Other/Proprietary License,,,https://pypi.org/pypi/nvidia-cutlass-dsl-libs-cu13/4.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-ml-py,13.615.71,,License :: OSI Approved :: BSD License,BSD,49d9777da612e1f4e9269fa9f93ea324a66f9dcc7722ad812de124ef3f266d93,https://pypi.org/pypi/nvidia-ml-py/13.615.71/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-nccl-cu13,2.30.7,,,,,https://pypi.org/pypi/nvidia-nccl-cu13/2.30.7/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-nvjitlink,13.5.37,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-nvjitlink/13.5.37/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-nvshmem-cu13,3.4.5,,,,,https://pypi.org/pypi/nvidia-nvshmem-cu13/3.4.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-nvtx,13.0.85,,License :: Other/Proprietary License,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/nvidia-nvtx/13.0.85/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvidia-nvvm,13.5.37,LicenseRef-NVIDIA-Proprietary,,,,https://pypi.org/pypi/nvidia-nvvm/13.5.37/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+nvtx,0.2.15,,,,,https://pypi.org/pypi/nvtx/0.2.15/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+openai,3.58.0,Apache-2.0,License :: OSI Approved :: Apache Software License,,,https://pypi.org/pypi/openai/3.58.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opencv-python-headless,5.1.0.95,,License :: OSI Approved :: Apache Software License,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/opencv-python-headless/5.1.0.95/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-api,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-api/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-http-transport,0.66b2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-http-transport/0.66b2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-otlp,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-otlp/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-otlp-common,0.66b2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-otlp-common/0.66b2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-otlp-proto-common,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-otlp-proto-common/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-otlp-proto-grpc,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-otlp-proto-grpc/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-exporter-otlp-proto-http,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-exporter-otlp-proto-http/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-proto,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-proto/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-sdk,1.45.2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-sdk/1.45.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-semantic-conventions,0.66b2,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-semantic-conventions/0.66b2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+opentelemetry-semantic-conventions-ai,0.5.1,Apache-2.0,,,,https://pypi.org/pypi/opentelemetry-semantic-conventions-ai/0.5.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+orjson,3.13.0,MPL-2.0 AND (Apache-2.0 OR MIT),License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License; License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0),,,https://pypi.org/pypi/orjson/3.13.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+oss-harmony,0.0.12,,,,,https://pypi.org/pypi/oss-harmony/0.0.12/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+outlines-core,0.2.14,,,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/outlines-core/0.2.14/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+packaging,26.4,Apache-2.0 OR BSD-2-Clause,,,,https://pypi.org/pypi/packaging/26.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+partial-json-parser,0.2.1.1.post7,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/partial-json-parser/0.2.1.1.post7/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pillow,13.0.0,MIT-CMU,,,,https://pypi.org/pypi/pillow/13.0.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+prometheus-client,0.26.0,Apache-2.0 AND BSD-2-Clause,,,,https://pypi.org/pypi/prometheus-client/0.26.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+prometheus-fastapi-instrumentator,8.1.0,,License :: OSI Approved,ISC,d8d62d58d661d5ddeff06fdf1ebc08968da4743e369c74cef96eff0241eaea05,https://pypi.org/pypi/prometheus-fastapi-instrumentator/8.1.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+propcache,0.5.4,,,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/propcache/0.5.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+protobuf,7.36.2,,,3-Clause BSD License,15934bcfcb57d72b1b73d913180ce7f86d2773c32725efa41ddb6b14e143cb84,https://pypi.org/pypi/protobuf/7.36.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+psutil,7.2.2,,,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/psutil/7.2.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+py-cpuinfo,9.0.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/py-cpuinfo/9.0.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pybase64,1.5.2,BSD-2-Clause,,,,https://pypi.org/pypi/pybase64/1.5.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pycountry,26.2.16,LGPL-2.1-only,License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2),,,https://pypi.org/pypi/pycountry/26.2.16/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pycparser,3.12,BSD-3-Clause,,,,https://pypi.org/pypi/pycparser/3.12/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pydantic,2.14.4,MIT,,,,https://pypi.org/pypi/pydantic/2.14.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pydantic-core,2.50.5,MIT,,,,https://pypi.org/pypi/pydantic-core/2.50.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pydantic-extra-types,2.11.1,MIT,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/pydantic-extra-types/2.11.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pydantic-settings,2.16.3,MIT,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/pydantic-settings/2.16.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pygments,2.21.0,BSD-2-Clause,,,,https://pypi.org/pypi/pygments/2.21.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pyjwt,2.15.1,MIT,,,,https://pypi.org/pypi/pyjwt/2.15.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pynvvideocodec,2.0.4,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/pynvvideocodec/2.0.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+python-dotenv,1.2.4,,,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/python-dotenv/1.2.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+python-json-logger,4.2.0,BSD-2-Clause,,,,https://pypi.org/pypi/python-json-logger/4.2.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+python-multipart,0.0.34,Apache-2.0,License :: OSI Approved :: Apache Software License,,,https://pypi.org/pypi/python-multipart/0.0.34/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pyyaml,6.0.4,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/pyyaml/6.0.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+pyzmq,27.3.0,BSD-3-Clause,,,,https://pypi.org/pypi/pyzmq/27.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+quack-kernels,0.6.5,,,,,https://pypi.org/pypi/quack-kernels/0.6.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+referencing,0.37.0,MIT,,,,https://pypi.org/pypi/referencing/0.37.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+regex,2026.11.23,Apache-2.0 AND CNRI-Python,,,,https://pypi.org/pypi/regex/2026.11.23/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+requests,2.34.2,,License :: OSI Approved :: Apache Software License,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/requests/2.34.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+rich,15.0.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/rich/15.0.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+rich-toolkit,0.20.6,MIT,License :: OSI Approved :: MIT License,,,https://pypi.org/pypi/rich-toolkit/0.20.6/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+rignore,0.8.1,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/rignore/0.8.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+rpds-py,2026.9.1,MIT,,,,https://pypi.org/pypi/rpds-py/2026.9.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+safetensors,0.8.0,,License :: OSI Approved :: Apache Software License,,,https://pypi.org/pypi/safetensors/0.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+sentencepiece,0.2.3,Apache-2.0,,,,https://pypi.org/pypi/sentencepiece/0.2.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+sentry-sdk,3.0.0,MIT,,,,https://pypi.org/pypi/sentry-sdk/3.0.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+setproctitle,1.3.8,,,BSD-3-Clause,118dbcd2d5c9f9b296a9ede9fcc469c5840f7b98ad2c88461055bf2ceda38037,https://pypi.org/pypi/setproctitle/1.3.8/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+setuptools,84.2.1,MIT,,,,https://pypi.org/pypi/setuptools/84.2.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+shellingham,1.5.4,,License :: OSI Approved :: ISC License (ISCL),ISC License,216cb0412b464c1dbcef25d177237a9fb56d6eac94ddb6ca068c9f091a08eeff,https://pypi.org/pypi/shellingham/1.5.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+sniffio,1.3.1,,License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License,MIT OR Apache-2.0,db11fec9946737df39ca3898d9cd8c10ec6f6c3a884a6802b0ad0b81b4e8f23a,https://pypi.org/pypi/sniffio/1.3.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+sse-starlette,3.7.1,BSD-3-Clause,,,,https://pypi.org/pypi/sse-starlette/3.7.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+starlette,1.10.0,BSD-3-Clause,,,,https://pypi.org/pypi/starlette/1.10.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+supervisor,4.3.0,,,BSD-derived (http://www.repoze.org/LICENSE.txt),70f7a4ac30fcd5c60ca468fa7344836e32bd4d18d6199812282a3dd662814178,https://pypi.org/pypi/supervisor/4.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+sympy,1.14.0,,License :: OSI Approved :: BSD License,BSD,49d9777da612e1f4e9269fa9f93ea324a66f9dcc7722ad812de124ef3f266d93,https://pypi.org/pypi/sympy/1.14.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tabulate,0.10.0,MIT,,,,https://pypi.org/pypi/tabulate/0.10.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tiktoken,0.14.0,,,MIT License,ac016229660f7b415fa45f08ee2c58ab110a789ad27e77a972c69896d4114d35,https://pypi.org/pypi/tiktoken/0.14.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tilelang,0.1.12,MIT,,,,https://pypi.org/pypi/tilelang/0.1.12/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tokenizers,0.23.3,,License :: OSI Approved :: Apache Software License,,,https://pypi.org/pypi/tokenizers/0.23.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tokenspeed-mla,2.0.3,,,MIT License,dd46e58673d07151b8e7817ebc2c921a7671dbd0db239cfc99d84eb0c1713f44,https://pypi.org/pypi/tokenspeed-mla/2.0.3/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tokenspeed-triton,3.9.10.post20261028,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/tokenspeed-triton/3.9.10.post20261028/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+torch,2.14.0,Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT,,,,https://pypi.org/pypi/torch/2.14.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+torch-c-dlpack-ext,0.1.5,,License :: OSI Approved :: Apache Software License,Apache License,18119c40f1bdbea100709ce42be27a4c5fa7d80b5640f6bc86b240ea0aceb576,https://pypi.org/pypi/torch-c-dlpack-ext/0.1.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+torchaudio,2.11.0,,License :: OSI Approved :: BSD License,,,https://pypi.org/pypi/torchaudio/2.11.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+torchcodec,0.17.0,,,,,https://pypi.org/pypi/torchcodec/0.17.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+torchvision,0.29.0,,,BSD,49d9777da612e1f4e9269fa9f93ea324a66f9dcc7722ad812de124ef3f266d93,https://pypi.org/pypi/torchvision/0.29.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+tqdm,4.70.1,,,MPL-2.0 AND MIT,497716e0cebf8fb1944bbac349083f8ba656e10320c3f9811a955fc8786d0cc1,https://pypi.org/pypi/tqdm/4.70.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+transformers,5.22.2,,,Apache 2.0 License,075e5377ffe49ea3415840cb784d85a27084d48632eff977f849c2892e766840,https://pypi.org/pypi/transformers/5.22.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+triton,3.8.0,,,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/triton/3.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+truststore,0.10.5,MIT,,,,https://pypi.org/pypi/truststore/0.10.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+typer,0.29.2,MIT,,,,https://pypi.org/pypi/typer/0.29.2/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+typing-extensions,4.16.0,PSF-2.0,,,,https://pypi.org/pypi/typing-extensions/4.16.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+typing-inspection,0.4.5,MIT,,,,https://pypi.org/pypi/typing-inspection/0.4.5/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+urllib3,2.8.0,MIT,,,,https://pypi.org/pypi/urllib3/2.8.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+uvicorn,0.54.0,BSD-3-Clause,,,,https://pypi.org/pypi/uvicorn/0.54.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+uvloop,0.23.0,,License :: OSI Approved :: Apache Software License; License :: OSI Approved :: MIT License,MIT License,abb2896dc3c2a9402f901b88d5035cf0a83d5cf7c17e73642cdf562b0b9d3bc5,https://pypi.org/pypi/uvloop/0.23.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+vllm,0.34.0,Apache-2.0,,,,https://pypi.org/pypi/vllm/0.34.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+watchfiles,1.3.0,,License :: OSI Approved :: MIT License,MIT,e5dcffe836b6ec8a58e492419b550e65fb8cbdc308503979e5dacb33ac7ea3b7,https://pypi.org/pypi/watchfiles/1.3.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+websockets,17.4,BSD-3-Clause,,,,https://pypi.org/pypi/websockets/17.4/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+xgrammar,0.2.8,,License :: OSI Approved :: Apache Software License,Apache 2.0,cf989ea142f203f532233fa944ee1d8d5acfe6f6875e4d611f515ee108ba26df,https://pypi.org/pypi/xgrammar/0.2.8/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+yarl,1.25.1,,,Apache-2.0,2af71558e438db0b73a20beab92dc278a94e1bbe974c00c1a33e3ab62d53a608,https://pypi.org/pypi/yarl/1.25.1/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED
+z3-solver,4.15.4.0,,,MIT License,abb2896dc3c2a9402f901b88d5035cf0a83d5cf7c17e73642cdf562b0b9d3bc5,https://pypi.org/pypi/z3-solver/4.15.4.0/json,upstream declaration only; Linux/CUDA wheel contents NOT INSPECTED

@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this software, cite this repository and the STaRK benchmark."
+type: software
+title: "SlotSpace: Ambiguity-aware, fact-level retrieval with a shared slot space"
+authors:
+  - name: "SlotSpace contributors"
+repository-code: "https://github.com/sunbohit/SlotSpace"
+url: "https://github.com/sunbohit/SlotSpace"
+version: 0.1.0
+license: Apache-2.0
+abstract: >-
+  Research software for schema-shared, fact-bound retrieval and
+  ambiguity-aware query planning. Version 0.1.0 is an unreleased code
+  candidate; full neural experiments and real-engine acceptance are pending.
+references:
+  - type: article
+    title: "STaRK: Benchmarking LLM Retrieval on Textual and Relational Knowledge Bases"
+    authors:
+      - family-names: Wu
+        given-names: Shirley
+      - family-names: Zhao
+        given-names: Shiyu
+      - family-names: Yasunaga
+        given-names: Michihiro
+      - family-names: Huang
+        given-names: Kexin
+      - family-names: Cao
+        given-names: Kaidi
+      - family-names: Huang
+        given-names: Qian
+      - family-names: Ioannidis
+        given-names: Vassilis N.
+      - family-names: Subbian
+        given-names: Karthik
+      - family-names: Zou
+        given-names: James
+      - family-names: Leskovec
+        given-names: Jure
+    year: 2024
+    journal: "Advances in Neural Information Processing Systems, Datasets and Benchmarks"
+    url: "https://arxiv.org/abs/2404.13207"

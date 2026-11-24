@@ -135,16 +135,23 @@ def build_role_swap(docs: Path, native: Path, lexicon: Path, templates: Path, ou
     return out
 
 
+def template_source(project: Path) -> tuple[Path, str]:
+    path = project / "templates" / "test" / "role_swap.yaml"
+    return path, sha256(path)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--docs", type=Path, default=Path("data/prime/docs.parquet"))
     parser.add_argument("--native", type=Path, default=Path("data/prime/facts_prime-0.1.0/native_keys.parquet"))
     parser.add_argument("--lexicon", type=Path, default=Path("data/prime/lexicon_native"))
-    parser.add_argument("--templates", type=Path, default=Path("templates/test/role_swap.yaml"))
+    parser.add_argument("--templates", type=Path, help="Override the test-only template source")
+    parser.add_argument("--project", type=Path, default=Path.cwd(), help="Source root for default test templates")
     parser.add_argument("--out", type=Path, default=Path("data/prime/role_swap_prime-0.1.0"))
     parser.add_argument("--runs", type=Path, default=Path("runs"))
     args = parser.parse_args()
-    build_role_swap(args.docs, args.native, args.lexicon, args.templates, args.out, runs=args.runs)
+    templates = args.templates or template_source(args.project)[0]
+    build_role_swap(args.docs, args.native, args.lexicon, templates, args.out, runs=args.runs)
 
 
 if __name__ == "__main__":
