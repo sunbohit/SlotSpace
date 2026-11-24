@@ -11,6 +11,9 @@
   parity and validation-only measurement entry points.
 - M10: distribution metadata, attribution, citation, model-status card,
   cached-input reproduction entry point and local package validation.
+- M7/M8 follow-up: real-model staged pilots, preserved full KB linking,
+  immutable caches, live/replay checks, artifact-only preliminary reports
+  and explicit rejection of pilot evidence for production freezing.
 
 This is a code/reproducibility candidate, not an accepted empirical release.
 No fine-tuned SlotSpace checkpoint or final test result has been published.
