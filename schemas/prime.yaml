@@ -1,0 +1,480 @@
+name: prime
+version: 0.1.0
+value_types:
+  anatomy: {mask: "[anatomy]"}
+  biological_process: {mask: "[biological_process]"}
+  cellular_component: {mask: "[cellular_component]"}
+  disease: {mask: "[disease]"}
+  drug: {mask: "[drug]"}
+  effect_phenotype: {mask: "[effect_phenotype]"}
+  exposure: {mask: "[exposure]"}
+  gene_protein: {mask: "[gene_protein]"}
+  molecular_function: {mask: "[molecular_function]"}
+  pathway: {mask: "[pathway]"}
+doc_types:
+  - anatomy
+  - biological_process
+  - cellular_component
+  - disease
+  - drug
+  - effect_phenotype
+  - exposure
+  - gene_protein
+  - molecular_function
+  - pathway
+conventions:
+  normalization: NFKC, lowercase, collapse whitespace, strip boundary punctuation
+  min_name_chars: 3
+  target_mask: "[TARGET:<type>]"
+  ambiguous_target_mask: "[TARGET]"
+  self_mask: "[SELF:<doc_type>]"
+  answer_phrases:
+    anatomy: [anatomical structures, tissues, organs]
+    biological_process: [biological processes, cellular processes, physiological processes]
+    cellular_component: [cellular components, cellular structures, cell compartments]
+    disease: [diseases, conditions, disorders]
+    drug: [drugs, medications, compounds]
+    effect_phenotype: [phenotypes, effects, symptoms]
+    exposure: [exposures, environmental factors, environmental exposures]
+    gene_protein: [genes, proteins, gene products]
+    molecular_function: [molecular functions, molecular activities, biochemical functions]
+    pathway: [pathways, biological pathways, molecular pathways]
+none:
+  anatomy: The anatomical structure is mentioned without specifying a schema relation.
+  biological_process: The biological process is mentioned without specifying a schema relation.
+  cellular_component: The cellular component is mentioned without specifying a schema relation.
+  disease: The disease is mentioned without specifying a schema relation.
+  drug: The drug is mentioned without specifying a schema relation.
+  effect_phenotype: The effect or phenotype is mentioned without specifying a schema relation.
+  exposure: The exposure is mentioned without specifying a schema relation.
+  gene_protein: The gene or protein is mentioned without specifying a schema relation.
+  molecular_function: The molecular function is mentioned without specifying a schema relation.
+  pathway: The pathway is mentioned without specifying a schema relation.
+cue_families:
+  expression_absent: &expression_absent
+    relation: expression absent
+    direction: out
+    query_cues: [not expressed, absent expression, no detectable expression]
+    doc_cues: [not expressed, expression is absent, undetectable expression]
+  expression_present: &expression_present
+    relation: expression present
+    direction: out
+    query_cues: [expressed in, expression of, detectable expression]
+    doc_cues: [expressed in, expression is present, detected in]
+  parent_child: &parent_child
+    relation: parent-child
+    direction: sym
+    query_cues: [subtype of, broader or narrower, parent category]
+    doc_cues: [subclass of, parent category, hierarchical relationship]
+  interacts_with: &interacts_with
+    relation: interacts with
+    direction: out
+    query_cues: [involved in, interacts with, participates in]
+    doc_cues: [involved in, interacts with, functionally related to]
+  associated_with: &associated_with
+    relation: associated with
+    direction: out
+    query_cues: [associated with, genetically linked to, associated genes]
+    doc_cues: [associated with, genetic association, implicated in]
+  contraindication: &contraindication
+    relation: contraindication
+    direction: out
+    query_cues: [should be avoided, contraindicated in, must not be used]
+    doc_cues: [contraindicated in, should not be given, avoid use]
+  indication: &indication
+    relation: indication
+    direction: out
+    query_cues: [used to treat, prescribed for, indicated for]
+    doc_cues: [indicated for, used to treat, approved for treatment]
+  linked_to: &linked_to
+    relation: linked to
+    direction: out
+    query_cues: [linked exposure, exposure linked to, environmental risk factor]
+    doc_cues: [exposure linked to, environmental association, associated exposure]
+  off_label: &off_label
+    relation: off-label use
+    direction: out
+    query_cues: [off-label, without formal approval, unapproved use]
+    doc_cues: [off-label use, used off-label, not formally approved]
+  phenotype_absent: &phenotype_absent
+    relation: phenotype absent
+    direction: out
+    query_cues: [phenotype absent, does not show, lacks the phenotype]
+    doc_cues: [phenotype is absent, not observed in the disease, does not exhibit]
+  phenotype_present: &phenotype_present
+    relation: phenotype present
+    direction: out
+    query_cues: [shows the phenotype, exhibits the symptom, phenotype present]
+    doc_cues: [phenotype is present, presents with, exhibits the phenotype]
+  carrier: &carrier
+    relation: carrier
+    direction: out
+    query_cues: [carrier protein, carries the drug, carried by]
+    doc_cues: [carrier of, drug carrier, carried by the protein]
+  enzyme: &enzyme
+    relation: enzyme
+    direction: out
+    query_cues: [metabolized by, metabolizes the drug, metabolic enzyme]
+    doc_cues: [metabolized by, metabolizing enzyme, catalyzes drug metabolism]
+  side_effect: &side_effect
+    relation: side effect
+    direction: out
+    query_cues: [side effect, adverse effect, can cause]
+    doc_cues: [side effect, adverse reaction, causes the phenotype]
+  synergistic: &synergistic
+    relation: synergistic interaction
+    direction: sym
+    query_cues: [synergistic with, drug synergy, synergistic interaction]
+    doc_cues: [synergistic with, synergistic effect, acts synergistically]
+  target: &target
+    relation: target
+    direction: out
+    query_cues: [targets the protein, molecular target, targeted by]
+    doc_cues: [molecular target, binds to its target, targeted by the drug]
+  transporter: &transporter
+    relation: transporter
+    direction: out
+    query_cues: [transported by, transports the drug, drug transporter]
+    doc_cues: [transported by, drug transport, transporter protein]
+  ppi: &ppi
+    relation: ppi
+    direction: sym
+    query_cues: [protein interaction, physically interacts, protein binding partner]
+    doc_cues: [physical interaction, protein binding partner, interacts with the protein]
+slots:
+  - id: anatomy.expression_absent.gene_protein
+    <<: *expression_absent
+    doc_type: anatomy
+    value_type: gene_protein
+    n_edges: 19887
+    description: The gene or protein is not expressed in this anatomical structure.
+  - id: anatomy.expression_present.gene_protein
+    <<: *expression_present
+    doc_type: anatomy
+    value_type: gene_protein
+    n_edges: 1518203
+    description: The gene or protein is expressed in this anatomical structure.
+  - id: anatomy.parent_child.anatomy
+    <<: *parent_child
+    doc_type: anatomy
+    value_type: anatomy
+    n_edges: 28064
+    description: The anatomical structure has a broader or narrower hierarchical relationship with the other structure.
+  - id: biological_process.interacts_with.exposure
+    <<: *interacts_with
+    doc_type: biological_process
+    value_type: exposure
+    n_edges: 1625
+    description: The biological process is functionally connected to the exposure.
+  - id: biological_process.interacts_with.gene_protein
+    <<: *interacts_with
+    doc_type: biological_process
+    value_type: gene_protein
+    n_edges: 144805
+    description: The gene or protein participates in this biological process.
+  - id: biological_process.parent_child.biological_process
+    <<: *parent_child
+    doc_type: biological_process
+    value_type: biological_process
+    n_edges: 105772
+    description: The biological process is broader or narrower than the other process in the hierarchy.
+  - id: cellular_component.interacts_with.exposure
+    <<: *interacts_with
+    doc_type: cellular_component
+    value_type: exposure
+    n_edges: 10
+    description: The cellular component is functionally connected to the exposure.
+  - id: cellular_component.interacts_with.gene_protein
+    <<: *interacts_with
+    doc_type: cellular_component
+    value_type: gene_protein
+    n_edges: 83402
+    description: The gene or protein is associated with this cellular component.
+  - id: cellular_component.parent_child.cellular_component
+    <<: *parent_child
+    doc_type: cellular_component
+    value_type: cellular_component
+    n_edges: 9690
+    description: The cellular component is broader or narrower than the other component in the hierarchy.
+  - id: disease.associated_with.gene_protein
+    <<: *associated_with
+    doc_type: disease
+    value_type: gene_protein
+    n_edges: 80411
+    description: The gene or protein is associated with the disease.
+  - id: disease.contraindication.drug
+    <<: *contraindication
+    doc_type: disease
+    value_type: drug
+    n_edges: 30675
+    description: Patients with this disease should not take the drug.
+  - id: disease.indication.drug
+    <<: *indication
+    doc_type: disease
+    value_type: drug
+    n_edges: 9388
+    description: The disease is treated by the drug.
+  - id: disease.linked_to.exposure
+    <<: *linked_to
+    doc_type: disease
+    value_type: exposure
+    n_edges: 2304
+    description: The exposure is linked to the disease.
+  - id: disease.off_label_use.drug
+    <<: *off_label
+    doc_type: disease
+    value_type: drug
+    n_edges: 2568
+    description: The drug is used to treat this disease without formal approval for that use.
+  - id: disease.parent_child.disease
+    <<: *parent_child
+    doc_type: disease
+    value_type: disease
+    n_edges: 64388
+    description: The disease is a broader or narrower form of the other disease.
+  - id: disease.phenotype_absent.effect_phenotype
+    <<: *phenotype_absent
+    doc_type: disease
+    value_type: effect_phenotype
+    n_edges: 1193
+    description: The phenotype is reported as absent in the disease.
+  - id: disease.phenotype_present.effect_phenotype
+    <<: *phenotype_present
+    doc_type: disease
+    value_type: effect_phenotype
+    n_edges: 150317
+    description: The disease shows the phenotype.
+  - id: drug.carrier.gene_protein
+    <<: *carrier
+    doc_type: drug
+    value_type: gene_protein
+    n_edges: 864
+    description: The protein carries the drug in the body.
+  - id: drug.contraindication.disease
+    <<: *contraindication
+    doc_type: drug
+    value_type: disease
+    n_edges: 30675
+    description: The drug should not be used in patients who have the disease.
+  - id: drug.enzyme.gene_protein
+    <<: *enzyme
+    doc_type: drug
+    value_type: gene_protein
+    n_edges: 5317
+    description: The protein is an enzyme that metabolizes the drug.
+  - id: drug.indication.disease
+    <<: *indication
+    doc_type: drug
+    value_type: disease
+    n_edges: 9388
+    description: The drug is used to treat the disease.
+  - id: drug.off_label_use.disease
+    <<: *off_label
+    doc_type: drug
+    value_type: disease
+    n_edges: 2568
+    description: The drug is used for the disease without formal approval for that use.
+  - id: drug.side_effect.effect_phenotype
+    <<: *side_effect
+    doc_type: drug
+    value_type: effect_phenotype
+    n_edges: 64784
+    description: The drug can cause the effect or phenotype as an adverse effect.
+  - id: drug.synergistic_interaction.drug
+    <<: *synergistic
+    doc_type: drug
+    value_type: drug
+    n_edges: 2672628
+    description: The drug has a synergistic interaction with the other drug.
+  - id: drug.target.gene_protein
+    <<: *target
+    doc_type: drug
+    value_type: gene_protein
+    n_edges: 16380
+    description: The drug binds to or acts on the protein as its target.
+  - id: drug.transporter.gene_protein
+    <<: *transporter
+    doc_type: drug
+    value_type: gene_protein
+    n_edges: 3092
+    description: The protein transports the drug across membranes.
+  - id: effect_phenotype.associated_with.gene_protein
+    <<: *associated_with
+    doc_type: effect_phenotype
+    value_type: gene_protein
+    n_edges: 3330
+    description: The gene or protein is associated with this phenotype.
+  - id: effect_phenotype.parent_child.effect_phenotype
+    <<: *parent_child
+    doc_type: effect_phenotype
+    value_type: effect_phenotype
+    n_edges: 37472
+    description: The phenotype is broader or narrower than the other phenotype in the hierarchy.
+  - id: effect_phenotype.phenotype_absent.disease
+    <<: *phenotype_absent
+    doc_type: effect_phenotype
+    value_type: disease
+    n_edges: 1193
+    description: This phenotype is reported as absent in the disease.
+  - id: effect_phenotype.phenotype_present.disease
+    <<: *phenotype_present
+    doc_type: effect_phenotype
+    value_type: disease
+    n_edges: 150317
+    description: This phenotype is present in the disease.
+  - id: effect_phenotype.side_effect.drug
+    <<: *side_effect
+    doc_type: effect_phenotype
+    value_type: drug
+    n_edges: 64784
+    description: The phenotype is an adverse effect of the drug.
+  - id: exposure.interacts_with.biological_process
+    <<: *interacts_with
+    doc_type: exposure
+    value_type: biological_process
+    n_edges: 1625
+    description: The exposure is functionally connected to the biological process.
+  - id: exposure.interacts_with.cellular_component
+    <<: *interacts_with
+    doc_type: exposure
+    value_type: cellular_component
+    n_edges: 10
+    description: The exposure is functionally connected to the cellular component.
+  - id: exposure.interacts_with.gene_protein
+    <<: *interacts_with
+    doc_type: exposure
+    value_type: gene_protein
+    n_edges: 1212
+    description: The exposure interacts with the gene or protein.
+  - id: exposure.interacts_with.molecular_function
+    <<: *interacts_with
+    doc_type: exposure
+    value_type: molecular_function
+    n_edges: 45
+    description: The exposure is functionally connected to the molecular activity.
+  - id: exposure.linked_to.disease
+    <<: *linked_to
+    doc_type: exposure
+    value_type: disease
+    n_edges: 2304
+    description: The exposure is linked to the disease.
+  - id: exposure.parent_child.exposure
+    <<: *parent_child
+    doc_type: exposure
+    value_type: exposure
+    n_edges: 4140
+    description: The exposure is broader or narrower than the other exposure in the hierarchy.
+  - id: gene_protein.associated_with.disease
+    <<: *associated_with
+    doc_type: gene_protein
+    value_type: disease
+    n_edges: 80411
+    description: The gene or protein is associated with the disease.
+  - id: gene_protein.associated_with.effect_phenotype
+    <<: *associated_with
+    doc_type: gene_protein
+    value_type: effect_phenotype
+    n_edges: 3330
+    description: The gene or protein is associated with the phenotype.
+  - id: gene_protein.carrier.drug
+    <<: *carrier
+    doc_type: gene_protein
+    value_type: drug
+    n_edges: 864
+    description: The protein carries the drug in the body.
+  - id: gene_protein.enzyme.drug
+    <<: *enzyme
+    doc_type: gene_protein
+    value_type: drug
+    n_edges: 5317
+    description: The protein is an enzyme involved in metabolizing the drug.
+  - id: gene_protein.expression_absent.anatomy
+    <<: *expression_absent
+    doc_type: gene_protein
+    value_type: anatomy
+    n_edges: 19887
+    description: The gene or protein is not expressed in the anatomical structure.
+  - id: gene_protein.expression_present.anatomy
+    <<: *expression_present
+    doc_type: gene_protein
+    value_type: anatomy
+    n_edges: 1518203
+    description: The gene or protein is expressed in the anatomical structure.
+  - id: gene_protein.interacts_with.biological_process
+    <<: *interacts_with
+    doc_type: gene_protein
+    value_type: biological_process
+    n_edges: 144805
+    description: The gene or protein takes part in the biological process.
+  - id: gene_protein.interacts_with.cellular_component
+    <<: *interacts_with
+    doc_type: gene_protein
+    value_type: cellular_component
+    n_edges: 83402
+    description: The gene or protein is associated with the cellular component.
+  - id: gene_protein.interacts_with.exposure
+    <<: *interacts_with
+    doc_type: gene_protein
+    value_type: exposure
+    n_edges: 1212
+    description: The gene or protein interacts with the exposure.
+  - id: gene_protein.interacts_with.molecular_function
+    <<: *interacts_with
+    doc_type: gene_protein
+    value_type: molecular_function
+    n_edges: 69530
+    description: The gene or protein has or participates in the molecular function.
+  - id: gene_protein.interacts_with.pathway
+    <<: *interacts_with
+    doc_type: gene_protein
+    value_type: pathway
+    n_edges: 42646
+    description: The gene or protein participates in the biological pathway.
+  - id: gene_protein.ppi.gene_protein
+    <<: *ppi
+    doc_type: gene_protein
+    value_type: gene_protein
+    n_edges: 642150
+    description: The protein physically interacts with the other protein.
+  - id: gene_protein.target.drug
+    <<: *target
+    doc_type: gene_protein
+    value_type: drug
+    n_edges: 16380
+    description: The protein is a molecular target of the drug.
+  - id: gene_protein.transporter.drug
+    <<: *transporter
+    doc_type: gene_protein
+    value_type: drug
+    n_edges: 3092
+    description: The protein transports the drug across membranes.
+  - id: molecular_function.interacts_with.exposure
+    <<: *interacts_with
+    doc_type: molecular_function
+    value_type: exposure
+    n_edges: 45
+    description: The molecular activity is functionally connected to the exposure.
+  - id: molecular_function.interacts_with.gene_protein
+    <<: *interacts_with
+    doc_type: molecular_function
+    value_type: gene_protein
+    n_edges: 69530
+    description: The gene or protein has or participates in this molecular function.
+  - id: molecular_function.parent_child.molecular_function
+    <<: *parent_child
+    doc_type: molecular_function
+    value_type: molecular_function
+    n_edges: 27148
+    description: The molecular function is broader or narrower than the other function in the hierarchy.
+  - id: pathway.interacts_with.gene_protein
+    <<: *interacts_with
+    doc_type: pathway
+    value_type: gene_protein
+    n_edges: 42646
+    description: The gene or protein participates in this biological pathway.
+  - id: pathway.parent_child.pathway
+    <<: *parent_child
+    doc_type: pathway
+    value_type: pathway
+    n_edges: 5070
+    description: The pathway is broader or narrower than the other pathway in the hierarchy.

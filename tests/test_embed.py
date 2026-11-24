@@ -3,7 +3,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 import pytest
 
-from slotspace.embed import Embedder, topic_vectors
+from slotspace.embed import Embedder, context_vectors, topic_vectors
 
 
 class RecordingModel:
@@ -42,3 +42,18 @@ def test_prompts_truncation_and_immutable_single_pass_topic_cache(tmp_path):
         topic_vectors(docs, cache, encoder)
     with pytest.raises(ValueError, match="zero"):
         Embedder._cut(np.zeros((1, 1024)), 256)
+
+
+def test_context_rows_remain_aligned_and_never_receive_query_prompts(tmp_path):
+    encoder = Embedder.__new__(Embedder)
+    encoder.model = RecordingModel()
+    encoder.metadata = lambda: {"model": "fake"}
+    facts = tmp_path / "facts.parquet"
+    pq.write_table(pa.table({"row": [0, 1], "ctx_text": ["field: x | [disease]", "[drug]"]}), facts)
+    path = context_vectors(facts, tmp_path / "context", encoder, batch_size=1)
+    a = np.load(path)
+    assert a.shape == (2, 128) and a.dtype == np.float16
+    assert all(call["prompt"] == "" for call in encoder.model.calls)
+    pq.write_table(pa.table({"row": [1, 0], "ctx_text": ["a", "b"]}), facts)
+    with pytest.raises(ValueError, match="align"):
+        context_vectors(facts, tmp_path / "other", encoder)
