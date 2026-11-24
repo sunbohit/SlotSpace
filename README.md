@@ -2,7 +2,7 @@
 
 SlotSpace retrieves facts, not just documents that mention the same entity. A value, its role and its context must match **in the same fact**. Several plausible readings of a query share one candidate retrieval pass. See the [design](docs/DESIGN.md) and [milestone guide](docs/DEVELOPMENT.md).
 
-**Current implementation:** M0-M8 code is implemented; the full CPU suite passes **94 tests**. This includes reusable feature replay, staged tuning, H5-controlled experiments and artifact-only reporting. Human reviews remain pending, but do not prevent continued code work at the user's request. GPU jobs, empirical M7 acceptance and formal test experiments have not been run.
+**Current implementation:** M0-M8 and the optional M9 Vespa adapter are implemented, including reusable feature replay, staged tuning, H5-controlled experiments and artifact-only reporting. Human reviews remain pending, but do not prevent continued code work at the user's request. GPU jobs, empirical M7 acceptance, formal test experiments and real-engine M9 acceptance have not been run.
 
 ## M0: prepare STaRK-Prime (CPU only)
 
@@ -255,6 +255,44 @@ Draft plans are never executable. Authorization checks approval before parsing f
 Reports regenerate the four main tables, separate human table, paired tests, table-family Holm correction, bootstrap intervals, observed discordance/MDE, pass lines and SVG figures from saved artifacts alone. PACC diagnostics fit rates on even document IDs and assess count error on odd IDs; query/document reliability points are copied into the execution bundle. Missing jobs stay NOT RUN, query-ID mismatches fail explicitly, and fixture runs are excluded by default. Zero-effect aliases do not become positive findings.
 
 **Still pending:** actual GPU preparation/training, empirical calibration/tuning, H1-H5 approval and formal test execution. The 667-query role-swap test split still falls below the original 1,000-query target. Implemented code and CPU fixtures do not establish v0 experimental acceptance.
+
+## M9: optional stock-Vespa engine
+
+The [engine adapter](src/slotspace/vespa_app/) packages the same bound/max score in stock Vespa: native keys, fact-level sparse role probabilities and **raw big-endian signed int8** contexts. Its generated application has six `(a,b)` profiles for `a in {0.5,1}`, `b in {0.5,1,2}` plus `hybrid`. Query links are raised to `a` exactly once; the document gate raises role probabilities separately. Disjoint native-only and text-only readings are retained using `N + T - min(N,T)`.
+
+**Status:** The full CPU suite passes **110 tests**, with **one real-engine test explicitly skipped**. This includes wire-format/reference parity, actual Parquet-to-feed export without loading models, HTTP/error handling, fan-out and measurement artifacts. The distribution wheel includes the XML and schema resources. No Docker/Podman or Vespa server is available on this Windows host, so **application deployment/schema compilation, real-engine parity, feed throughput and engine latency/RAM are NOT RUN**, not passed. Full neural artifacts are also absent under the GPU-testing waiver.
+
+On a Docker-capable host, use a **new, dedicated, disposable** instance, with at least 4 GiB Docker memory for smoke testing (16 GiB for Prime). Pin the image tag/digest you intend to use instead of treating `latest` as reproducible:
+
+```powershell
+docker run --detach --name slotspace-vespa --hostname vespa-container --publish 127.0.0.1:8080:8080 --publish 127.0.0.1:19071:19071 vespaengine/vespa:<pinned-tag>
+python -m slotspace.vespa_app smoke --deploy --allow-replace-application
+```
+
+The smoke deploys the application, feeds the four documented toy documents with seeded 128-dimensional contexts, and requires **every generated exponent profile** to match `reference.binding_score(..., precision="binary")` within absolute `1e-3`, with no non-tie order inversions. It also checks the no-readings hybrid path and removes only its four newly fed IDs. It refuses to feed over existing documents. An equivalent opt-in pytest is available:
+
+```powershell
+$env:SLOTSPACE_VESPA_TEST_ENDPOINT = "http://localhost:8080"
+$env:SLOTSPACE_VESPA_DEPLOY_ENDPOINT = "http://localhost:19071"
+$env:SLOTSPACE_VESPA_ALLOW_REPLACE = "1"
+python -m pytest -q -m vespa tests\test_vespa_smoke.py
+```
+
+Deployment **replaces the application's configuration**; never point these commands at a production/shared application. No command starts Docker, installs a system runtime, deletes an entire corpus or disables TLS certificate checks. After use, stop only the dedicated container you created.
+
+Once full research artifacts and a production configuration with its `artifacts` mapping exist (for example the M7 frozen YAML), start with that empty dedicated instance:
+
+```powershell
+python -m slotspace.vespa_app export --config configs\prime_v0_frozen.yaml --out data\prime\vespa_binary
+python -m slotspace.vespa_app feed --bundle data\prime\vespa_binary --deploy --allow-replace-application
+python -m slotspace.vespa_app measure --config configs\prime_v0_frozen.yaml --bundle data\prime\vespa_binary --feed-receipt runs\<m9-feed-run>\feed.json --container slotspace-vespa
+```
+
+- Export does not load neural models. It verifies the complete combined index/lexicon, topic/context encoders and schema, then writes an immutable, checksummed `feed.jsonl` and `app/`. Feeding uses the Document API with bounded concurrency, records server version, HTTP acknowledgement time and total time until all documents are searchable, and requires an empty app. A failed partial feed is not silently resumed or erased.
+- The measurement runner uses **validation only**, sorted by qid: the first 200 queries for all-returned-hit parity, the first 1,000 for quality and timing (smaller explicit counts are smoke measurements). Engine candidates are expected to differ from the numpy path because HNSW/weakAnd/first-phase select the pool.
+- It compares engine SlotSpace, engine B2, engine B6 fan-out and numpy binary SlotSpace. Fusion uses each returned pool's exact match features; B2/B6 share B2's selected lexical weight. B6 counts every rewrite and saves both sum/max server and RPC time. One warm-up precedes three repeats; quality uses the first measured ranking, timing uses medians, and instability is recorded.
+- Output contains run/plan/per-query/counter/metric files and `parity.json`, with p50/p95 client and server latency. `docker stats` is labelled **whole-container memory**, never isolated index RAM; omitting `--container` records `NOT MEASURED`. HTTP errors, HTTP-200 query errors, degraded coverage, missing features, stale artifacts, parity errors and operational deployment actions fail explicitly and leave failed run metadata.
+- This path supports the documented bound/max binary score and 256/128 dimensions, not IA, hard-AND or the v0 ablation matrix. It never authorizes H5 or evaluates final test/human splits.
 
 ## Data and licenses
 

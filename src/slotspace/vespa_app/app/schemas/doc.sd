@@ -1,0 +1,87 @@
+schema doc {
+    document doc {
+        field doc_id type int {
+            indexing: attribute | summary
+        }
+        field doc_type type string {
+            indexing: attribute | summary
+        }
+        field text type string {
+            indexing: index | summary
+            index: enable-bm25
+        }
+        field topic type tensor<bfloat16>(x[256]) {
+            indexing: attribute | index
+            attribute {
+                distance-metric: prenormalized-angular
+            }
+        }
+        field vkeys type weightedset<string> {
+            indexing: attribute
+            attribute: fast-search
+        }
+        field nk type tensor<float>(key{}) {
+            indexing: attribute
+            attribute: fast-rank
+        }
+        field tk type tensor<float>(fact{}, key{}) {
+            indexing: attribute
+            attribute: fast-rank
+        }
+        field tc type tensor<int8>(fact{}, x[16]) {
+            indexing: attribute
+        }
+    }
+
+    fieldset default {
+        fields: text
+    }
+
+    rank-profile hybrid inherits default {
+        inputs {
+            query(qt) tensor<float>(x[256])
+        }
+        function dense() {
+            expression: sum(query(qt) * cell_cast(attribute(topic), float))
+        }
+        first-phase {
+            expression: bm25(text) + 10 * dense
+        }
+        second-phase {
+            total-rerank-count: 500
+            expression: dense
+        }
+        match-features: dense bm25(text)
+    }
+
+    rank-profile slotspace inherits hybrid {
+        inputs {
+            query(rk) tensor<float>(r{}, key{})
+            query(w) tensor<float>(r{})
+            query(g) tensor<float>(r{}, x[128])
+        }
+        function native() {
+            expression: reduce(query(rk) * attribute(nk), max, key)
+        }
+        function gate() {
+            expression: reduce(query(rk) * attribute(tk), max, key)
+        }
+        function simf() {
+            expression: reduce(query(g) * (2 * unpack_bits(attribute(tc), float) - 1), sum, x) / 11.313708498984761
+        }
+        function textpart() {
+            expression: reduce(gate * map(simf, f(x)(max(0, x))), max, fact)
+        }
+        function bind() {
+            expression: sum(query(w) * native) + sum(query(w) * textpart) - sum(query(w) * join(native, textpart, f(x,y)(min(x,y))))
+        }
+        first-phase {
+            expression: bm25(text) + 10 * dense + 0.002 * rawScore(vkeys)
+        }
+        second-phase {
+            total-rerank-count: 500
+            expression: bind
+        }
+        match-features: bind dense bm25(text)
+    }
+}

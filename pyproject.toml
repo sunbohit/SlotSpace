@@ -24,8 +24,12 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 slotspace = ["prime-sha256.json"]
+"slotspace.vespa_app" = ["app/*.xml", "app/schemas/*.sd"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
-markers = ["slow: checks the complete locally exported Prime corpus"]
+markers = [
+    "slow: checks the complete locally exported Prime corpus",
+    "vespa: opt-in real Vespa deployment/feed/parity on an empty dedicated instance",
+]
