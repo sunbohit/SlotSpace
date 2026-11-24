@@ -1,0 +1,29 @@
+# TEST-ONLY. Never read by training or data-generation code.
+drug.indication.disease:
+  - "My patient was just diagnosed with {V}. Which medicines are approved to treat it?"
+  - "Name the pharmaceutical agents whose labeled use is the treatment of {V}."
+  - "For {V}, which therapies are listed as indicated?"
+  - "I am looking for compounds indicated in {V}."
+  - "Which drugs have {V} among their therapeutic indications?"
+  - "What medication is given to patients to treat {V}?"
+drug.contraindication.disease:
+  - "Which medications must be avoided when a patient has {V}?"
+  - "List drugs that are contraindicated for someone with {V}."
+  - "A patient with {V} needs a prescription: which drugs are unsafe for them?"
+  - "Which agents carry a contraindication for {V}?"
+  - "Which drugs should never be prescribed if {V} is present?"
+  - "What are the drugs to stay away from in cases of {V}?"
+drug.off_label_use.disease:
+  - "Which drugs are sometimes used off-label for {V}?"
+  - "Without formal approval, what medicines do clinicians use to manage {V}?"
+  - "List drugs prescribed outside their approved indications for {V}."
+  - "What unapproved drug uses exist for {V}?"
+  - "Which medications are used for {V} even though they are not licensed for it?"
+  - "Find drugs with off-label use in {V}."
+drug.side_effect.effect_phenotype:
+  - "Which drugs list {V} as a possible adverse effect?"
+  - "What medications can lead to {V} in patients who take them?"
+  - "Which treatments are known to induce {V}?"
+  - "List drugs where {V} is reported as a side effect."
+  - "I developed {V} after starting a new medicine. Which drugs could cause this?"
+  - "Which compounds have {V} among their adverse reactions?"

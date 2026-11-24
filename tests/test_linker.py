@@ -28,3 +28,22 @@ def test_fuzzy_fallback_is_query_only_half_mass_and_does_not_overlap_exact_match
     mentions = linker.link_query(text)
     assert mentions[0]["fuzzy"] and mentions[0]["values"] == {"n1": 0.25, "n2": 0.25}
     assert mentions[0]["end"] <= mentions[1]["start"] and not mentions[1]["fuzzy"]
+
+
+def test_repeated_fuzzy_spans_are_cached_without_changing_mentions(monkeypatch):
+    import slotspace.linker as module
+
+    calls = []
+    original = module.process.extractOne
+
+    def counted(*args, **kwargs):
+        calls.append(args[0])
+        return original(*args, **kwargs)
+
+    monkeypatch.setattr(module.process, "extractOne", counted)
+    docs = pd.DataFrame({"doc_id": [1], "name": ["pulmonary hypertension"], "doc_type": ["disease"]})
+    linker = Linker(docs, common_words=0)
+    first = linker.link_query("pulmonry hypertension")
+    count = len(calls)
+    assert first and count > 0 and linker.link_query("pulmonry hypertension") == first
+    assert len(calls) == count

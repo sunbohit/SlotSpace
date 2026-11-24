@@ -1,6 +1,7 @@
 """Closed-vocabulary Prime entity linker; fuzzy fallback is query-only."""
 
 from collections import defaultdict
+from functools import lru_cache
 
 from rapidfuzz import fuzz, process
 from wordfreq import top_n_list
@@ -62,6 +63,14 @@ class Linker:
                 i += 1
         return out
 
+    @lru_cache(maxsize=16384)
+    def _fuzzy_match(self, span: str, threshold: float):
+        candidates = set()
+        for token in _WORD.findall(span):
+            candidates.update(self.word_to_names.get(token, ())[:5000])
+        return process.extractOne(span, sorted(candidates)[:5000], scorer=fuzz.token_set_ratio,
+                                  score_cutoff=threshold)
+
     def link_query(self, text: str) -> list[dict]:
         exact = self.link(text)
         out = list(exact)
@@ -73,11 +82,7 @@ class Linker:
                 for n in range(min(6, len(words) - i), 1, -1):
                     start, end = words[i].start(), words[i + n - 1].end()
                     span = normalize(text[start:end])
-                    candidates = set()
-                    for token in _WORD.findall(span):
-                        candidates.update(self.word_to_names.get(token, ())[:5000])
-                    found = process.extractOne(span, sorted(candidates)[:5000],
-                                               scorer=fuzz.token_set_ratio, score_cutoff=self.fuzzy_threshold)
+                    found = self._fuzzy_match(span, self.fuzzy_threshold)
                     if found is not None:
                         out.append(self._mention(start, end, text, self.norm_index[found[0]], fuzzy=True))
                         i += n
