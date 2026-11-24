@@ -22,7 +22,31 @@ $env:SLOTSPACE_PRIME_EXPORT = (Resolve-Path data\prime).Path
 - No local cache yet? With the dependencies installed, `python -m slotspace.stark_io --download` populates `data/stark_cache/prime` from the pinned public release. Without `--download`, no data is fetched. The cache root is the **parent** of `prime/`. Per-run configuration, source revision, Git status, timestamps, machine and installed versions go to `runs/<id>/meta.json`.
 - `python -m pytest -q -m "not slow"` runs without a dataset. For full H0 acceptance, set **both** environment variables as above; the slow tests also compare 100 rendered documents byte-for-byte with the official API.
 
-The reference scorer, its tests, fast scorer, simulation and statistics helpers are the unmodified appendices from the guide. This milestone does not train models or implement the retrieval baselines.
+The reference scorer, its tests, fast scorer, simulation and statistics helpers are the unmodified appendices from the guide.
+
+## M1: retrieval baselines
+
+The baseline runner supports BM25, exact dense search and min-max hybrid fusion. It only accepts `train` and `val`; test/human evaluation remains locked until H5. Every completed run contains the six files in the development guide, including per-query metrics, plans, counters and reproducibility metadata.
+
+```powershell
+& $conda run --no-capture-output --prefix $prefix python -m slotspace.experiments --mode bm25 --limit 20
+& $conda run --no-capture-output --prefix $prefix python -m slotspace.experiments --mode bm25
+```
+
+For a GPU host, the dense/hybrid commands below prepare both 1024- and 256-dimensional topic caches in **one** encoding pass. The local model directory is optional; the default is the documented Hub model. Four lexical weights can be compared on validation MRR without touching test queries.
+
+```powershell
+& $conda run --no-capture-output --prefix $prefix python -m slotspace.experiments --mode dense --model ..\Resource\models\Qwen\Qwen3-Embedding-0.6B
+& $conda run --no-capture-output --prefix $prefix python -m slotspace.experiments --mode hybrid --model ..\Resource\models\Qwen\Qwen3-Embedding-0.6B --lambda-L 0 0.25 0.5 1
+```
+
+Caches are immutable and fingerprint the input corpus and encoder/index settings; mismatched settings fail explicitly. Use a separate `--data` directory for a small CPU smoke run. This implementation uses a full BM25 score vector for fusion, not a top-1000 approximation. Dense/lexical scores always map through the exported document ID column.
+
+### CPU validation — 2026-11-24
+
+BM25 on all **2,241 validation queries**: Hit@1 **17.80**, Hit@5 **35.48**, Recall@20 **41.04**, Recall@100 **52.59**, MRR **25.97**, R-precision **17.05** (percentage points). The largest discrepancy from the official evaluator was below `1e-6` points. Query timing is the median of three warm repeats; quality values are not test results.
+
+Full-corpus dense/hybrid GPU measurements and fusion-weight selection have **not** been run, as requested. No GPU throughput or final retrieval-quality claim is implied by CPU/unit checks.
 
 ### H0 acceptance — full CPU run, 2026-11-24
 

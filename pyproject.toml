@@ -8,7 +8,13 @@ version = "0.1.0"
 description = "Ambiguity-aware, fact-level retrieval with a shared slot space"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
-dependencies = ["numpy", "scipy", "pyarrow>=14", "pandas", "stark-qa==1.1.0"]
+dependencies = [
+    "numpy>=1.26,<2", "scipy", "pyarrow>=14", "pandas", "stark-qa==1.1.0",
+    "bm25s>=0.3.16", "PyStemmer", "PyYAML", "sentence-transformers>=5.1,<6",
+    "transformers>=4.51,<5", "datasets>=3,<4", "accelerate", "rapidfuzz", "wordfreq",
+    "PyTDC==0.4.1", "llm2vec==0.1.6", "mteb==1.1.1", "langchain>=0.2.17,<0.3",
+    "setuptools<81",
+]
 
 [project.optional-dependencies]
 test = ["pytest"]
