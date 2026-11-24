@@ -166,6 +166,15 @@ def build_lexicon(facts: Path, docs: Path, schema_path: Path, out: Path, *,
               "text_facts_sha256": sha256(text_path), "text_keys_sha256": sha256(text_keys) if text_keys else None,
               "mode": mode, "human_reviews": "pending", "seed": 13,
               "complete": limit_docs is None, "limit_docs": limit_docs}
+    key_meta = None
+    if text_keys is not None:
+        key_meta = json.loads((text_keys.parent / "manifest.json").read_text(encoding="utf-8"))
+        if (not key_meta["complete"] or key_meta["schema_sha256"] != config["schema_sha256"]
+                or key_meta["docs_sha256"] != config["docs_sha256"]
+                or key_meta["text_facts_sha256"] != config["text_facts_sha256"]
+                or key_meta["kind"] not in {"ft", "zeroshot"}):
+            raise ValueError("Cannot build a lexicon from partial or incompatible text scores")
+        config["scorer"] = key_meta["scorer"]
     state = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
     if (runs / "m3_lexicon_stats.json").exists():
         raise FileExistsError("M3 statistics already exist; select a fresh --runs root")
@@ -176,11 +185,6 @@ def build_lexicon(facts: Path, docs: Path, schema_path: Path, out: Path, *,
             native = native[native.doc_id.isin(doc_frame.doc_id.iloc[:limit_docs])]
         text, pairs = None, None
         if text_keys is not None:
-            key_meta = json.loads((text_keys.parent / "manifest.json").read_text(encoding="utf-8"))
-            if (not key_meta["complete"] or key_meta["schema_sha256"] != config["schema_sha256"]
-                    or key_meta["docs_sha256"] != config["docs_sha256"]
-                    or key_meta["text_facts_sha256"] != config["text_facts_sha256"]):
-                raise ValueError("Cannot build a lexicon from partial or incompatible text scores")
             frame = pq.read_table(text_path, columns=["row", "fact_id", "doc_id"]).to_pandas()
             text = pd.read_parquet(text_keys).merge(frame, on="row", validate="many_to_one", how="left")
             if text.doc_id.isna().any():
