@@ -226,6 +226,59 @@ Packed contexts are signed int8, big-endian, with exact zero mapped to bit zero.
 
 For A12, add `--values-visible` to both document scoring and conformal fitting (`slotspace.slot_scorer` and `slotspace.planner`). Temperature calibration detects the A12 training manifest. Only the target is revealed to the slot scorer; query segment and document context embeddings remain masked. The bundle's visibility flags, model, temperature and document-key metadata must agree.
 
+## M7/M8: progressive pre-experiment pilots
+
+The production M7/M8 implementation is already present. The
+[pilot schedule](configs/pilot_stages.yaml) adds a separate, incremental route
+for exercising it before expensive/full experiments:
+
+| Stage | Candidate documents | Even-train calibration queries | Validation queries | Fact cap/doc | Topic token cap | Measured repeats |
+|---|---:|---:|---:|---:|---:|---:|
+| smoke | 64 | 4 | 4 | 1 | 96 | 1 |
+| small | 256 | 16 | 16 | 4 | 256 | 3 |
+| medium | 1,024 | 32 | 32 | 8 | 512 | 3 |
+
+```powershell
+python -m slotspace.experiments pilot prepare --stage smoke --out runs\pilot_smoke_01
+python -m slotspace.experiments pilot run --bundle runs\pilot_smoke_01 --device cpu --threads 4
+```
+
+These pilots use real cached Qwen embeddings and a BGE zero-shot slot scorer,
+not fabricated vectors or a supposedly fine-tuned main model. They retain the
+**full KB dictionary**, all selected queries' answer sets and all native keys
+for the selected documents. Text-fact sampling is explicitly capped. The
+answer-closed candidate sampling is a diagnostic convenience, not a
+representative full-benchmark protocol.
+
+M7 captures model observations once, stores exact match matrices, recalibrates
+reading sets using even-train silver only and runs the existing staged tuning.
+M8 measures BM25/dense/hybrid/bound retrieval, validates live/replay parity,
+logs warm-up/repeats, per-query metrics, evidence and actual latency/counters.
+`--methods bm25 dense hybrid bound unbound fanout` enables additional comparisons.
+The smoke's single measured repeat is a smoke timing, not robust performance evidence.
+
+Existing input/model/feature caches are verified with `--resume`; completed
+pilots are never implicitly rerun. A report regenerates from its saved files
+without loading either model:
+
+```powershell
+python -m slotspace.experiments pilot report --run runs\pilot_smoke_01\runs\<pilot-run> --out runs\pilot_report_copy.md
+python -m slotspace.experiments pilot prepare --stage small --previous runs\pilot_smoke_01 --out runs\pilot_small_01
+```
+
+Expansion requires the immediately preceding stage's completed engineering
+checks and unchanged artifact/source/model identities. Cohorts and candidates
+are nested; the corpus/fact/token budgets may grow. The small/medium stages
+are not automatically launched and need resources appropriate to their size.
+
+Every result is tagged `pilot`, with full-corpus completeness false and
+production acceptance false. Pilot selection cannot freeze a production YAML
+or issue H5 receipts. At 64 candidates Recall@100 is necessarily a ceiling.
+Validation is reused for selection and measurement, so paired statistics are
+descriptive, not confirmatory. Temperatures are fixed at one, PACC is disabled,
+and silver labels remain human-unapproved. Final test/human queries are not
+parsed or evaluated by this route.
+
 ## M8: experiment protocol, execution and report
 
 The catalog includes B0-B7, a 1024-dimensional B1 condition, and A0-A14 with expanded objective/alpha conditions. B7's oracle is validation-only. B6 runs one hybrid retrieval per kept reading and sums actual work counters before weighted RRF. Identical configurations alias prior jobs rather than silently rerunning a final evaluation.

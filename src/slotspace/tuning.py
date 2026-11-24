@@ -57,6 +57,8 @@ class FeatureSet:
 def build_feature_set(pipeline, queries: list[dict], silver: dict[int, list[dict]], out: Path,
                       split: str, identity: dict, scorings: list[ScoreConfig], *, complete: bool,
                       purpose: str = "production"):
+    if purpose not in {"production", "fixture", "pilot"}:
+        raise ValueError("Unknown feature-set purpose")
     if split not in {"calibration", "val"} or not queries:
         raise ValueError("Feature capture is restricted to nonempty calibration/validation sets")
     ids = [q["qid"] for q in queries]
@@ -174,7 +176,8 @@ def evaluate_features(features: FeatureSet, schema, config: dict, conditions: di
 
 def tune(calibration: FeatureSet, validation: FeatureSet, schema, config: dict, out: Path):
     if (validation.meta["split"] != "val" or calibration.meta["split"] != "calibration"
-            or calibration.meta["identity"] != validation.meta["identity"]):
+            or calibration.meta["identity"] != validation.meta["identity"]
+            or calibration.meta["purpose"] != validation.meta["purpose"]):
         raise ValueError("Tuning feature sets have incompatible provenance or roles")
     if {r["qid"] for r in calibration.meta["queries"]} & {r["qid"] for r in validation.meta["queries"]}:
         raise ValueError("Calibration and validation query IDs overlap")
@@ -281,6 +284,8 @@ def tune(calibration: FeatureSet, validation: FeatureSet, schema, config: dict, 
 
 def freeze(selection_path: Path, out: Path):
     evidence = json.loads(selection_path.read_text(encoding="utf-8"))
+    if evidence["purpose"] == "pilot":
+        raise ValueError("Pilot validation cannot create a production frozen configuration or H5 receipt")
     record = out.with_suffix(out.suffix + ".freeze.json")
     if out.exists() or record.exists():
         raise FileExistsError("Frozen configuration or its receipt already exists")

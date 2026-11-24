@@ -127,6 +127,10 @@ def baseline_main(argv=None) -> None:
 
 def main() -> None:
     argv = sys.argv[1:]
+    if argv and argv[0] == "pilot":
+        from .pilot import main as pilot_main
+
+        return pilot_main(argv[1:])
     if not argv or argv[0] not in {"plan", "run", "report"}:
         return baseline_main(argv[1:] if argv and argv[0] == "baseline" else argv)
     parser = argparse.ArgumentParser(description="Frozen M8 experiment planning, authorization and reports")

@@ -1,0 +1,34 @@
+seed: 13
+max_query_mentions: 2
+max_answers: 4
+max_fact_mentions: 2
+methods: [bm25, dense, hybrid, bound]
+tuning_grid:
+  beta: [0.0, 0.5]
+  alpha: [0.1, 0.2]
+  a: [0.5, 1.0]
+  b: [1.0, 2.0]
+  lambda_B: [0.5, 1.0]
+  lambda_L: [0.0, 0.5]
+stages:
+  smoke:
+    documents: 64
+    calibration: 4
+    validation: 4
+    facts_per_doc: 1
+    max_seq_length: 96
+    repeats: 1
+  small:
+    documents: 256
+    calibration: 16
+    validation: 16
+    facts_per_doc: 4
+    max_seq_length: 256
+    repeats: 3
+  medium:
+    documents: 1024
+    calibration: 32
+    validation: 32
+    facts_per_doc: 8
+    max_seq_length: 512
+    repeats: 3

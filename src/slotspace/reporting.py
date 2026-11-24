@@ -13,6 +13,80 @@ from .protocol import catalog
 from .stats import bootstrap_ci, discordant_rate, holm, mde_points, paired_t, randomization_test
 
 
+def generate_pilot_report(run: Path, out: Path):
+    """Report saved preliminary validation measurements without invoking any model."""
+    info = json.loads((run / "pilot.json").read_text(encoding="utf-8"))
+    meta = json.loads((run / "meta.json").read_text(encoding="utf-8"))
+    if info["purpose"] != "pilot" or info["formal_acceptance"] or meta["status"] != "ok":
+        raise ValueError("Pilot reporting requires a completed, explicitly non-production run")
+    quality = pd.read_parquet(run / "per_query.parquet")
+    cost = pd.read_parquet(run / "counters.parquet")
+    metrics = json.loads((run / "metrics.json").read_text(encoding="utf-8"))
+    methods = list(metrics)
+    rows, comparisons, pvals = [], {}, {}
+    reference = quality[quality.method == "hybrid"].set_index("qid")
+    if reference.empty or reference.index.duplicated().any():
+        raise ValueError("Pilot report needs distinct hybrid reference query IDs")
+    lines = ["# Preliminary validation pilot - NOT a formal M8 result", "",
+             "Answer-closed diagnostic corpus; full KB dictionary; zero-shot scorer at T=1; raw lexicon counts.",
+             "Validation is reused for tuning and measurement. No confirmatory significance or conformal claim is made.",
+             f"Stage: {info['stage']}; documents: {info['budget']['documents']}; "
+             f"measured repeats: {info['budget']['repeats']}.", "",
+             "| Method | n | Hit@1 | Recall@20 | MRR | Recall@100 | p50 client ms | Mean candidates | Mean facts |",
+             "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+    summary = info.get("data_summary")
+    if summary:
+        lines[5:5] = [f"Calibration: {len(summary['calibration_qids'])} even-train queries; "
+                      f"validation: {len(summary['validation_qids'])} queries; text facts: "
+                      f"{summary['text_facts']}/{summary['source_text_facts_in_selected_documents']} retained.", ""]
+    for method in methods:
+        q = quality[quality.method == method].set_index("qid")
+        c = cost[cost.method == method].set_index("qid")
+        if (q.index.duplicated().any() or c.index.duplicated().any() or set(q.index) != set(reference.index)
+                or set(c.index) != set(q.index) or len(q) != metrics[method]["n_queries"]
+                or len(q) != info["budget"]["validation"] or not np.isfinite(c.latency_ms).all()
+                or not np.isfinite(q[list(METRICS)].to_numpy()).all()):
+            raise ValueError("Pilot report cannot pair missing/duplicate query IDs or invalid timings")
+        means = {k: 100 * float(q[k].mean()) for k in METRICS}
+        if any(abs(means[k] - metrics[method]["top100"][k]) > 1e-6 for k in METRICS):
+            raise ValueError("Pilot means differ from their saved per-query vectors")
+        latency = float(c.latency_ms.median())
+        mean_facts = float(c.facts_scored.mean())
+        lines.append(f"| {method} | {len(q)} | {means['hit@1']:.2f} | {means['recall@20']:.2f} | "
+                     f"{means['mrr']:.2f} | {means['recall@100']:.2f} | {latency:.2f} | "
+                     f"{c.candidates.mean():.1f} | {mean_facts:.1f} |")
+        rows.append({"method": method, **means, "median_latency_ms": latency, "mean_facts_scored": mean_facts})
+        if method != "hybrid":
+            q = q.loc[reference.index]
+            a, b = q["mrr"].to_numpy(), reference["mrr"].to_numpy()
+            pvals[method] = randomization_test(a, b)
+            comparisons[method] = {"mrr_difference_ci95": list(100 * np.asarray(bootstrap_ci(a, b))),
+                                   "randomization_p": pvals[method],
+                                   "discordant_hit1": discordant_rate(q["hit@1"], reference["hit@1"])}
+    adjusted = holm(pvals)
+    for method in comparisons:
+        comparisons[method]["holm_p"] = adjusted[method]
+        comparisons[method]["inference"] = "descriptive only; validation selection bias and small conditional corpus"
+    selection = info["selection"]
+    lines += ["", "## M7 replay/tuning", "",
+              "Selected settings (pilot only): `" + json.dumps({
+                  "planner": selection["config"]["planner"], "scoring": selection["config"]["scoring"]}) + "`.",
+              f"Plan regret: {selection['metrics']['plan_regret']}; observed labelled-segment miss rate: "
+              f"{selection['metrics']['conformal_miss_rate']}.",
+              "Full-corpus calibration/validation are incomplete; production freezing and H5 approval are forbidden.", ""]
+    if info["budget"]["documents"] <= 100:
+        lines.append("Recall@100 is a ceiling in this small answer-closed corpus, not a coverage acceptance result.")
+    lines += ["", "No main-model training, PACC rate fitting, official test/human evaluation, GPU or Vespa measurement "
+              "is implied. More queries/candidates and independent held-out evaluation are required.", ""]
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines), encoding="utf-8")
+    result = {"purpose": "pilot", "formal_acceptance": False, "rows": rows, "comparisons": comparisons,
+              "n_queries": len(reference), "mde_assumed_discordance_0_2_points": mde_points(len(reference), 0.2),
+              "source_run": str(run.resolve())}
+    write_json(out.with_suffix(".json"), result)
+    return result
+
+
 def load_runs(plan_path: Path, execution: Path | None, include_fixtures=False):
     plan = json.loads(plan_path.read_text(encoding="utf-8"))
     state = json.loads((execution / "execution.json").read_text(encoding="utf-8")) if execution else {"jobs": {}, "references": {}}
