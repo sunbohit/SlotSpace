@@ -1,0 +1,67 @@
+dataset: prime
+schema: schemas/prime.yaml
+seed: 13
+paths: {data: data/prime, runs: runs}
+
+embedding:
+  model: Qwen/Qwen3-Embedding-0.6B
+  max_seq_length: 512
+  topic_dim: 256              # also run 1024 for B1
+  ctx_dim: 128
+  batch_size: 32
+  segment_instruction: "Instruct: Given a constraint taken from a search query, retrieve statements that express the same relation\nQuery:"
+
+linking:
+  max_ngram: 8
+  min_name_chars: 3
+  common_words: 5000          # wordfreq top-n English words treated as non-entities (single words)
+  fuzzy_threshold: 92         # rapidfuzz token_set_ratio, queries only
+  fuzzy_mass: 0.5
+
+facts:
+  tau_min: 0.05
+  max_sentence_words: 64
+  max_text_facts_per_doc: 256
+
+slot_scorer:
+  model: answerdotai/ModernBERT-base
+  zero_shot_model: BAAI/bge-reranker-v2-m3
+  max_length: 128
+  epochs: 2
+  lr: 2.0e-5
+  batch_size: 32
+  warmup_ratio: 0.1
+  samples_per_slot: 2000
+  heldout_slot: drug.off_label_use.disease   # only for the A14 model
+
+planner:
+  beta: 0.5
+  eps: 1.0
+  alpha: 0.1
+  r_max: 6
+  weight_objective: p         # p | p_over_H | ia
+  window_words: 8
+
+retrieval:
+  K_L: 200
+  K_D: 200
+  K_V: 500
+  final_k: 100
+
+scoring:
+  mode: bound                 # bound | unbound | gate_only | no_role
+  combine: max                # max | sum
+  a: 1.0
+  b: 1.0
+  precision: float            # float | binary
+  lambda_B: 1.0
+  lambda_D: 1.0
+  lambda_L: 0.5
+
+tuning_grid:                  # searched on val only (M7)
+  beta: [0.0, 0.25, 0.5, 1.0]
+  alpha: [0.05, 0.1, 0.2]
+  a: [0.5, 1.0]
+  b: [0.5, 1.0, 2.0]
+  lambda_B: [0.5, 1.0, 2.0]
+  lambda_L: [0.0, 0.25, 0.5]

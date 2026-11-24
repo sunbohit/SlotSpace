@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "slotspace"
+version = "0.1.0"
+description = "Ambiguity-aware, fact-level retrieval with a shared slot space"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = ["numpy", "scipy", "pyarrow>=14", "pandas", "stark-qa==1.1.0"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+slotspace = ["prime-sha256.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+markers = ["slow: checks the complete locally exported Prime corpus"]

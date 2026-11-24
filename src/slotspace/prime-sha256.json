@@ -1,0 +1,15 @@
+{
+  "processed.zip": "f6f265f60b761784fb7c2f052359f9cd3bf9ea20c4a307865f62ce173b294dfc",
+  "processed/edge_index.pt": "0830a896caba30f5d49d7043d5b8f4680bc2119130858e4d486ba6424943a18d",
+  "processed/edge_type_dict.pkl": "f401169ecae340ec838853a282e99439e172a8d7e1a9906cd2e470bb7a141a9c",
+  "processed/edge_types.pt": "cf0e8447289e00cedb5ce1d947a2382b821ad4bc97c87de75a63c46773df042c",
+  "processed/node_info.pkl": "29f9a8ca8ca923d33c3a02edb75aa31a20255df37e1287366d10a42aecdc577c",
+  "processed/node_type_dict.pkl": "19ede43bbc19be8d1b48abb029830e7fa2ab206ae58c5bdd8b3a2a24623ea275",
+  "processed/node_types.pt": "ea26092e855e20a4ba1bd6cf5fa6b26b81b680d0ddfeab5c9475257dcf49de62",
+  "split/test-0.1.index": "05a94ab75cc2359d8362cf556fbb9d05e9d46799d604f803d95fd52ed48e0bd1",
+  "split/test.index": "424d99e7d0ec209ad37361da14b63970d6c3bff27369f597cf3aec6cc28dbb76",
+  "split/train.index": "b828de166d641cc7d2f64001ad868058641de9529e5af36fea2f0a7494349e9c",
+  "split/val.index": "df7fce5fde2a96bf14a1e9af3b3818dc448ef094bafb3501183ebb2873fb0c17",
+  "stark_qa/stark_qa.csv": "a27e5d63da6044e562e33bc94e37f41e076f2cb4142d6adc370a0981c5ee6f16",
+  "stark_qa/stark_qa_human_generated_eval.csv": "9194c66c195d05b7771bd3b78ea71425abe57b9ea4c7b95c68d2a650f472f19b"
+}
