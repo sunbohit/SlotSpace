@@ -32,3 +32,29 @@
 - PACC includes zero-scored text mentions in its denominator, uses only KB-connected document/value pairs for TPR/FPR estimation, preserves raw hard counts, and warns on missing or unstable rates. Native-only output reports PACC as unmeasured rather than inventing rates.
 - Publish a lexicon manifest with matching index/lexicon state fingerprints and an output checksum. Partial smoke caches cannot drive pruning. Same-span cross-type mention records are always scored in one joint softmax, including the applicable `none` outcomes.
 - The documented synthetic binding experiment reproduced its reference values on CPU (default R-precision: bound 0.835, unbound 0.483, gate-only 0.436). No zero-shot corpus-wide GPU scoring has been executed.
+
+## 2026-11-24 — M4
+
+- Silver labels use the mathematical answer **set**. The official files contain repeated answer IDs in 23 train and 7 validation queries; deduplicate before the majority threshold, log the condition and leave the M0 files untouched. An initial strict-list uniqueness check exposed this during the full run and was corrected with a regression test.
+- Query-only fuzzy matching memoizes normalized spans without changing candidate order, thresholds or results. Train/validation silver data are separate; calibration uses even train qids, not CSV positions. No test silver labels are generated.
+- Cross-type normalized-name groups take precedence over individual value hashes for every selected value sharing that name. This keeps same-value queries and their cross-type partners in one split even when the two hash parities disagree.
+- The prescribed support fallback (3 to 2) yields 667 role-swap test queries, below the 1,000 target but above the fallback minimum of 600. Report MDE 4.8513 points with assumed discordance 0.2; do not lower eligibility further or claim the original size target passed.
+- H2 and H3 material has been generated, not human-approved. The 130 independently checked silver queries include all repeated-answer cases; this verifies construction, not semantic label agreement.
+
+## 2026-11-24 — M5 code and CPU data checks
+
+- Training-only frames are generated from independently authored role predicates, never from test templates. Collision metadata is mined into the training-template sidecar fields rather than mutating the already verified schema and invalidating its input caches.
+- Follow the development guide's per-slot/per-style interpretation of `samples_per_slot`: the default produces 2 * 66 * 2,000 balanced examples. This is larger than the design's approximate total-size paragraph; use 1,000 per style when that smaller budget is intended.
+- Separate frame selection and surrogate RNG streams, preserve shared bindings in hard pairs, and give secondary mentions a distinct relation with the same document type. A12 is explicitly marked and loads real targets only through its dedicated input option.
+- Cue validation treats shared family phrases as non-conflicting and lets an explicit primary cue dominate an overlapping affirmative fragment (for example, `not expressed in`). Planned other-role cues must bind to the secondary mention's clause, with a conservative distance check when both mentions share a clause. Otherwise the required multi-mention examples would be rejected merely for containing the other mention's cue.
+- Deduplicate before masking; keep template IDs across paraphrases and resampling. Hold out at least 10% of available template IDs per slot/style, rounded up. Ensure even short training runs evaluate/save at least once per epoch so `load_best_model_at_end` is meaningful.
+- Move the lightweight Git/run helpers into `artifacts.py` so the separate vLLM entry point does not import STaRK, pandas or PyArrow. No vLLM execution, neural optimization or real calibration-quality acceptance has been performed.
+
+## 2026-11-24 — M6 and M7 core
+
+- Use the exact reference posterior/conformal helpers. The worked-example test uses its four-slot toy schema; a real Prime query includes all compatible typed slots in the smoothing denominator, including slots with very small query-side probability.
+- Conformal fitting is restricted to labelled even-qid train silver segments and the complete text-aware lexicon. Model, temperature, schema and corpus fingerprints must match. A native-only bootstrap cache is never silently accepted as a full planning index.
+- Load aligned half-precision contexts as normalized float32 for indexing. Keep the provided fast scorer unchanged. The pipeline materializes per-reading matches for fusion/IA and rejects stale index/lexicon pairs or undercounted hard support.
+- Binding weight zero follows the exact hybrid baseline path, skipping planning and value postings. IA emits ordinal result scores to preserve its reordered ranking for consumers that sort scores; the original fused scores remain in the logged plan.
+- Evidence is recomputed only for the top ten documents to preserve the verbatim scorer API. This is not claimed to be free: the extra text-fact work and evidence-stage time are explicitly counted.
+- The M7 core is tested end to end on CPU fixtures. Full reusable tuning features, grid search, frozen-config approval and M8 experiment/report orchestration remain future work; no empirical GPU/full-corpus M7 acceptance is asserted.
