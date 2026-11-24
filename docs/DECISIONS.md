@@ -24,3 +24,11 @@
 - The specified Parquet mention record has one `value_type`; a cross-type mention therefore has multiple same-span records with one shared `scorer_input`. Group by `(fact_id, start, end)` at scoring time and union the candidate types; do not score each type with a separate softmax.
 - Keep M2 artifacts in the versioned `data/prime/facts_prime-0.1.0/` subdirectory rather than mixing incompatible fact-cache generations into the M0 root. An M2 run refuses to overwrite either its artifact directory or `m2_stats.json`; use separate `--out` and `--runs` paths for smoke/repeated runs.
 - The H1 review files contain sampled real mentions with unfilled `correct` labels. Full fact vectors and all full-corpus dense/GPU measurements remain unexecuted under the testing waiver. H1 precision and schema approval cannot be replaced with automatic coverage statistics.
+
+## 2026-11-24 — continued development, M3
+
+- On the user's request to continue, proceed with implementation and CPU/data checks without pretending that H1 has been approved. Keep human-review statuses pending in downstream artifacts; final experiment execution still requires H5 approval.
+- Aggregate the full corpus columnarly using document-level maxima, equivalent to the reference `Lexicon`. A native-only build is explicitly tagged `native` and must not be used to claim complete text-aware support. It is the authoritative input for KB-grounded role-swap construction.
+- PACC includes zero-scored text mentions in its denominator, uses only KB-connected document/value pairs for TPR/FPR estimation, preserves raw hard counts, and warns on missing or unstable rates. Native-only output reports PACC as unmeasured rather than inventing rates.
+- Publish a lexicon manifest with matching index/lexicon state fingerprints and an output checksum. Partial smoke caches cannot drive pruning. Same-span cross-type mention records are always scored in one joint softmax, including the applicable `none` outcomes.
+- The documented synthetic binding experiment reproduced its reference values on CPU (default R-precision: bound 0.835, unbound 0.483, gate-only 0.436). No zero-shot corpus-wide GPU scoring has been executed.
