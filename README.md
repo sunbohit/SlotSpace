@@ -2,7 +2,7 @@
 
 SlotSpace retrieves facts, not just documents that mention the same entity. A value, its role and its context must match **in the same fact**. Several plausible readings of a query share one candidate retrieval pass. See the [design](docs/DESIGN.md) and [milestone guide](docs/DEVELOPMENT.md).
 
-**Current implementation:** M0-M6 and the M7 search core are implemented; the full CPU suite passes **69 tests**. Human reviews remain pending, but do not prevent continued code work at the user's request. GPU jobs, full M7 tuning and final test experiments have not been run.
+**Current implementation:** M0-M8 code is implemented; the full CPU suite passes **94 tests**. This includes reusable feature replay, staged tuning, H5-controlled experiments and artifact-only reporting. Human reviews remain pending, but do not prevent continued code work at the user's request. GPU jobs, empirical M7 acceptance and formal test experiments have not been run.
 
 ## M0: prepare STaRK-Prime (CPU only)
 
@@ -164,7 +164,97 @@ python -m slotspace.pipeline --text-keys data\prime\scores_ft\text_fact_keys_ft.
 
 The search core runs BM25 and dense search once, unions their candidates with capped value postings, uses the fast fact scorer, supports `p`, `p_over_H` and IA selection, returns evidence, and records stage/cost counters. Its CPU tests cover the complete link-plan-retrieve-bind chain, version failures, IA output ordering and exact hybrid behavior with binding disabled. Artifact-loading tests check the actual Parquet/manifest interchange, not only mocked search results.
 
-**Remaining:** the full M7 reusable tuning-feature cache/grid search, configuration freezing and M8 baseline/ablation/report orchestration. No tuned configuration, formal test results, empirical conformal-coverage claim or M5 quality-target pass is fabricated. Both runners still reject test/human splits until the later H5-controlled experiment path is implemented.
+The standalone baseline/search runners remain restricted to train/validation. Only the H5-controlled M8 runner below can evaluate formal test sets. Empty hard-AND results have zero retrieval quality, an explicitly logged extension because the official evaluator cannot represent empty rankings correctly.
+
+## M7: reusable features, staged tuning and freezing
+
+Edit [the artifact bundle](configs/experiment_artifacts.example.yaml) to match the completed GPU artifacts. Use the same encoder identifier or local snapshot for topic, fact-context and baseline-representation caches. The following capture commands require those artifacts and a suitable research environment; they have **not** been run on the full corpus here.
+
+```powershell
+python -m slotspace.tuning cache --split calibration --artifacts configs\experiment_artifacts.example.yaml --out data\prime\tuning_calibration
+python -m slotspace.tuning cache --split val --artifacts configs\experiment_artifacts.example.yaml --out data\prime\tuning_val
+python -m slotspace.tuning fit --calibration data\prime\tuning_calibration --validation data\prime\tuning_val --out runs\m7_tuning
+```
+
+- Feature capture uses even-qid train silver for calibration and validation silver for selection, never test labels. `--limit` is for smoke checks; partial caches cannot pass production freezing.
+- Candidate snapshots retain the **uncapped** union of all supported readings' postings. Exact float64 match matrices cover the configured `(a, b)` grid, so changing conformal sets can reconstruct a different top-`K_V` without rerunning neural inference.
+- Every beta gets its own calibration bank, including matched raw-support and uniform-query conditions. Tuning follows beta/alpha by regret, a/b by MRR, fusion by MRR, then weight objective by MRR/Recall@100; B2's lexical weight is selected separately.
+- Replay logs `replay_ms`, not online latency: `latency_ms` remains null. Checksums, geometry fingerprints and immutable matrix directories prevent incompatible cache reuse.
+
+Additional scoring modes or binary matrices can be prepared without neural inference; repeat for each feature set and required grid:
+
+```powershell
+python -m slotspace.tuning augment --cache data\prime\tuning_val --mode unbound --a 0.5 1 --b 0.5 1 2
+python -m slotspace.tuning augment --cache data\prime\tuning_val --precision binary --a 0.5 1 --b 0.5 1 2
+```
+
+Only complete, accepted production evidence can produce a runnable frozen configuration. Acceptance checks the Recall@100 floor against B2 and conformal miss rate; production freezing rechecks the captured data/model/schema fingerprints. After real acceptance:
+
+```powershell
+python -m slotspace.tuning freeze --selection runs\m7_tuning\selection.json --out configs\prime_v0_frozen.yaml
+```
+
+The accompanying `.yaml.freeze.json` receipt records **H5 pending**, not human approval. No production frozen configuration has been generated in this workspace.
+
+### Baseline and ablation artifact preparation
+
+B3 sentence MaxP and B4 fields use **256-dimensional unmasked topic embeddings**, not the 128-dimensional fact-context vectors. B4 has name, details and one relation-listing field per relation; weights use complete-validation coordinate ascent with the selected B2 lexical weight.
+
+```powershell
+python -m slotspace.representations --kind passages --model ..\Resource\models\Qwen\Qwen3-Embedding-0.6B --out data\prime\maxp_qwen3e06_256
+python -m slotspace.representations --kind fields --model ..\Resource\models\Qwen\Qwen3-Embedding-0.6B --out data\prime\fields_qwen3e06_256
+python -m slotspace.tuning fields --config configs\prime_v0_frozen.yaml --validation data\prime\tuning_val --representations data\prime\fields_qwen3e06_256 --out data\prime\field_weights.json
+```
+
+A7 requires a separate complete fact/context/score/lexicon/conformal artifact chain. Its windows use actual tokenizer offsets, 128 tokens and stride 128, retaining the normal masking and fact caps:
+
+```powershell
+python -m slotspace.facts --granularity chunk128 --tokenizer ..\Resource\models\Qwen\Qwen3-Embedding-0.6B --out data\prime\facts_chunk128-0.1.0 --runs runs\m2-chunk128
+```
+
+A11 can pack the existing float cache on CPU:
+
+```powershell
+python -m slotspace.embed --kind binary --source-cache data\prime\ctx_prime-0.1.0_qwen3e06 --cache data\prime\ctx_binary_prime-0.1.0_qwen3e06
+```
+
+Packed contexts are signed int8, big-endian, with exact zero mapped to bit zero. A11 storage reports actual serving-index input bytes (native/text facts, text keys, packed contexts, lexicon, manifests and schema) per document, not a theoretical vector-only estimate or a RAM measurement; shared topic caches and model weights are excluded.
+
+For A12, add `--values-visible` to both document scoring and conformal fitting (`slotspace.slot_scorer` and `slotspace.planner`). Temperature calibration detects the A12 training manifest. Only the target is revealed to the slot scorer; query segment and document context embeddings remain masked. The bundle's visibility flags, model, temperature and document-key metadata must agree.
+
+## M8: experiment protocol, execution and report
+
+The catalog includes B0-B7, a 1024-dimensional B1 condition, and A0-A14 with expanded objective/alpha conditions. B7's oracle is validation-only. B6 runs one hybrid retrieval per kept reading and sums actual work counters before weighted RRF. Identical configurations alias prior jobs rather than silently rerunning a final evaluation.
+
+The following **draft-only** workflow runs without GPU artifacts or formal evaluation. It records missing prerequisites and produces NOT RUN tables and placeholder figures, never synthetic benchmark scores:
+
+```powershell
+python -m slotspace.experiments plan --draft --config configs\prime_v0.yaml --variants configs\experiment_artifacts.example.yaml --auxiliary configs\experiment_artifacts.example.yaml --out runs\m8_protocol_draft.json
+python -m slotspace.experiments report --plan runs\m8_protocol_draft.json --out runs\report_v0.md
+```
+
+For real experiments, first complete artifact preparation and acceptance, then commit the code, frozen YAML and freeze receipt. Keep the final plan and externally supplied approval under ignored `runs/` so creating them does not dirty the committed implementation:
+
+```powershell
+python -m slotspace.experiments plan --config configs\prime_v0_frozen.yaml --variants configs\experiment_artifacts.example.yaml --auxiliary configs\experiment_artifacts.example.yaml --out runs\m8_protocol.json
+```
+
+Only after human H5 approval, an external approval JSON must bind both exact hashes:
+
+```json
+{"approved": true, "frozen_sha256": "<frozen YAML SHA-256>", "plan_sha256": "<plan JSON SHA-256>"}
+```
+
+```powershell
+python -m slotspace.experiments run --plan runs\m8_protocol.json --approval runs\h5_approval.json --out runs\m8_execution
+python -m slotspace.experiments report --plan runs\m8_protocol.json --execution runs\m8_execution --out runs\report_v0_final.md
+```
+
+Draft plans are never executable. Authorization checks approval before parsing formal queries, verifies the clean committed implementation and rechecks artifact/dataset hashes. Each execution root is immutable: failures are recorded as failed, not silently retried. Quality uses the first measured ranking after warm-up; latency is the median of three measured repeats, with ranking instability recorded.
+
+Reports regenerate the four main tables, separate human table, paired tests, table-family Holm correction, bootstrap intervals, observed discordance/MDE, pass lines and SVG figures from saved artifacts alone. PACC diagnostics fit rates on even document IDs and assess count error on odd IDs; query/document reliability points are copied into the execution bundle. Missing jobs stay NOT RUN, query-ID mismatches fail explicitly, and fixture runs are excluded by default. Zero-effect aliases do not become positive findings.
+
+**Still pending:** actual GPU preparation/training, empirical calibration/tuning, H1-H5 approval and formal test execution. The 667-query role-swap test split still falls below the original 1,000-query target. Implemented code and CPU fixtures do not establish v0 experimental acceptance.
 
 ## Data and licenses
 

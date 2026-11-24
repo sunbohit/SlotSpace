@@ -15,7 +15,7 @@ from .artifacts import logged_run, new_directory, sha256, write_json
 from .linker import Linker
 from .schema import Schema, derive_slots, verify_inventory
 from .stark_io import norm_name
-from .text import mask, split_sentences
+from .text import mask, split_sentences, token_windows
 
 NATIVE_SCHEMA = pa.schema([("doc_id", pa.int64()), ("key", pa.string())])
 MENTION = pa.struct([
@@ -47,7 +47,7 @@ def write_native_keys(docs: pd.DataFrame, edges: pd.DataFrame, schema: Schema, p
     return len(edges)
 
 
-def document_facts(doc: dict, linker: Linker, max_words: int = 64, cap: int = 256):
+def document_facts(doc: dict, linker: Linker, max_words: int = 64, cap: int = 256, splitter=None):
     if cap < 1:
         raise ValueError("Text fact cap must be positive")
     facts, seen, ambiguous = [], 0, 0
@@ -56,7 +56,7 @@ def document_facts(doc: dict, linker: Linker, max_words: int = 64, cap: int = 25
     if not isinstance(fields, dict) or not all(isinstance(s, str) for s in fields.values()):
         raise ValueError(f"Document {doc['doc_id']} has non-string detail fields")
     for field, text in fields.items():
-        for sentence in split_sentences(text, max_words):
+        for sentence in splitter(text) if splitter is not None else split_sentences(text, max_words):
             mentions = linker.link(sentence)  # never apply fuzzy matching to documents
             targets = []
             for i, mention in enumerate(mentions):
@@ -119,14 +119,15 @@ def _distribution(values: list[int]) -> dict:
             "p95": float(np.percentile(values, 95)), "max": int(max(values))}
 
 
-def write_text_facts(docs: pd.DataFrame, linker: Linker, path: Path, *, max_words: int = 64, cap: int = 256):
+def write_text_facts(docs: pd.DataFrame, linker: Linker, path: Path, *, max_words: int = 64, cap: int = 256,
+                     splitter=None):
     counts, caps = defaultdict(list), Counter()
     per_fact, review, buffer = [], [], []
     seen = ambiguous = n_rows = n_review = 0
     rng = np.random.default_rng(13)
     with pq.ParquetWriter(path, TEXT_SCHEMA, compression="zstd") as writer:
         for n, doc in enumerate(docs.to_dict(orient="records")):
-            facts, total, skipped = document_facts(doc, linker, max_words, cap)
+            facts, total, skipped = document_facts(doc, linker, max_words, cap, splitter)
             counts[doc["doc_type"]].append(len(facts))
             seen += total
             ambiguous += skipped
@@ -182,7 +183,8 @@ def query_link_stats(queries: list[dict], linker: Linker) -> tuple[dict, list[di
 
 
 def prepare_facts(config_path: Path, *, out: Path | None = None, runs: Path | None = None,
-                  limit_docs: int | None = None, limit_queries: int | None = None) -> Path:
+                  limit_docs: int | None = None, limit_queries: int | None = None,
+                  granularity: str = "sentence", tokenizer_name: str | None = None) -> Path:
     if any(n is not None and n < 1 for n in (limit_docs, limit_queries)):
         raise ValueError("Document/query limits must be positive")
     config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
@@ -190,8 +192,25 @@ def prepare_facts(config_path: Path, *, out: Path | None = None, runs: Path | No
         raise ValueError("M2 requires Prime with seed 13")
     schema_path = Path(config["schema"])
     schema = Schema.load(schema_path, expected_version="0.1.0")
+    if granularity not in {"sentence", "chunk128"} or (granularity == "chunk128" and not tokenizer_name):
+        raise ValueError("chunk128 fact granularity requires an explicit fast tokenizer")
+    splitter, tokenizer_meta = None, None
+    if granularity == "chunk128":
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(tokenizer_name, use_fast=True,
+                                                 local_files_only=Path(tokenizer_name).is_dir())
+        if not tokenizer.is_fast:
+            raise ValueError("Chunk facts need tokenizer character offsets")
+        local = Path(tokenizer_name) / "tokenizer.json"
+        revision = tokenizer.init_kwargs.get("_commit_hash")
+        if not local.exists() and not revision:
+            raise ValueError("Tokenizer must have a pinned revision or local tokenizer.json")
+        tokenizer_meta = {"name": tokenizer_name, "sha256": sha256(local) if local.exists() else None,
+                          "revision": revision, "size": 128, "stride": 128}
+        splitter = lambda text: token_windows(text, tokenizer, 128)
     data = Path(config["paths"]["data"])
-    out = out or data / f"facts_prime-{schema.version}"
+    out = out or data / (f"facts_prime-{schema.version}" if granularity == "sentence" else f"facts_chunk128-{schema.version}")
     runs = runs or Path(config["paths"]["runs"])
     stats_path = runs / "m2_stats.json"
     if out.exists() or stats_path.exists():
@@ -199,7 +218,8 @@ def prepare_facts(config_path: Path, *, out: Path | None = None, runs: Path | No
     docs_path, edges_path, queries_path = data / "docs.parquet", data / "edges.parquet", data / "queries_val.jsonl"
     meta = {"settings": config, "schema_sha256": sha256(schema_path), "schema_version": schema.version,
             "docs_sha256": sha256(docs_path), "edges_sha256": sha256(edges_path),
-            "queries_sha256": sha256(queries_path), "limit_docs": limit_docs, "limit_queries": limit_queries}
+            "queries_sha256": sha256(queries_path), "limit_docs": limit_docs, "limit_queries": limit_queries,
+            "granularity": granularity, "tokenizer": tokenizer_meta}
     with logged_run(runs, "m2", meta) as (run, metadata):
         docs = pd.read_parquet(docs_path, columns=["doc_id", "name", "doc_type", "details_json"])
         edges = pd.read_parquet(edges_path)
@@ -216,7 +236,7 @@ def prepare_facts(config_path: Path, *, out: Path | None = None, runs: Path | No
             print(f"M2 native: {native_count} keys, {len(derived)} slots", flush=True)
             stats, doc_review = write_text_facts(docs.iloc[:limit_docs], linker, stage / "text_facts.parquet",
                                                 max_words=config["facts"]["max_sentence_words"],
-                                                cap=config["facts"]["max_text_facts_per_doc"])
+                                                cap=config["facts"]["max_text_facts_per_doc"], splitter=splitter)
             with queries_path.open(encoding="utf-8") as src:
                 queries = [json.loads(line) for line in src]
             query_stats, query_review = query_link_stats(queries[:limit_queries], linker)
@@ -243,9 +263,12 @@ def main() -> None:
     parser.add_argument("--runs", type=Path)
     parser.add_argument("--limit-docs", type=int)
     parser.add_argument("--limit-queries", type=int)
+    parser.add_argument("--granularity", choices=("sentence", "chunk128"), default="sentence")
+    parser.add_argument("--tokenizer")
     args = parser.parse_args()
     prepare_facts(args.config, out=args.out, runs=args.runs,
-                  limit_docs=args.limit_docs, limit_queries=args.limit_queries)
+                  limit_docs=args.limit_docs, limit_queries=args.limit_queries,
+                  granularity=args.granularity, tokenizer_name=args.tokenizer)
 
 
 if __name__ == "__main__":

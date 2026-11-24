@@ -1,6 +1,6 @@
 import pytest
 
-from slotspace.text import mask, normalize, split_sentences
+from slotspace.text import mask, normalize, split_sentences, token_windows, visible_target
 
 
 def test_sentence_boundaries_long_chunks_and_nfkc_normalization():
@@ -30,3 +30,18 @@ def test_masks_use_original_offsets_and_no_field_prefix_for_the_scorer():
     mentions[1]["start"] = mentions[0]["start"]
     with pytest.raises(ValueError, match="overlap"):
         mask(sentence, mentions, None, "drug", None)
+
+
+def test_128_token_windows_use_tokenizer_offsets_not_the_64_word_sentence_limit():
+    import re
+
+    class Tokenizer:
+        def __call__(self, text, **kwargs):
+            assert kwargs == {"add_special_tokens": False, "return_offsets_mapping": True}
+            return {"offset_mapping": [m.span() for m in re.finditer(r"\S+", text)]}
+
+    text = " ".join(f"w{i}" for i in range(300))
+    chunks = token_windows(text, Tokenizer())
+    assert [len(c.split()) for c in chunks] == [128, 128, 44]
+    assert " ".join(chunks) == text
+    assert visible_target("avoid [TARGET:disease] alongside [drug]", "asthma") == "avoid asthma alongside [drug]"

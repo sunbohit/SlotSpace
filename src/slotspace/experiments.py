@@ -2,6 +2,7 @@
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from time import perf_counter
 
@@ -97,8 +98,8 @@ def run_baseline(config_path: Path, mode: str, *, split: str = "val", limit: int
     return out
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
+def baseline_main(argv=None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__, epilog="M8 commands: plan, run, report. Use COMMAND --help.")
     parser.add_argument("--config", type=Path, default=Path("configs/prime_v0.yaml"))
     parser.add_argument("--mode", choices=("bm25", "dense", "hybrid"), default="bm25")
     parser.add_argument("--split", choices=("train", "val"), default="val")
@@ -109,7 +110,7 @@ def main() -> None:
                         choices=(0, 0.25, 0.5, 1))
     parser.add_argument("--data", type=Path)
     parser.add_argument("--runs", type=Path)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     if len(args.weights) > 1 and (args.mode != "hybrid" or args.split != "val"):
         parser.error("The fusion-weight grid is validation-only and requires hybrid mode")
     results = []
@@ -122,6 +123,51 @@ def main() -> None:
     if len(results) > 1:
         best = max(results, key=lambda x: (x[0], x[1]))
         print(json.dumps({"selected_lambda_L": -best[1], "criterion": "val MRR", "run": str(best[2])}))
+
+
+def main() -> None:
+    argv = sys.argv[1:]
+    if not argv or argv[0] not in {"plan", "run", "report"}:
+        return baseline_main(argv[1:] if argv and argv[0] == "baseline" else argv)
+    parser = argparse.ArgumentParser(description="Frozen M8 experiment planning, authorization and reports")
+    commands = parser.add_subparsers(dest="command", required=True)
+    plan = commands.add_parser("plan")
+    plan.add_argument("--config", type=Path)
+    plan.add_argument("--draft", action="store_true")
+    plan.add_argument("--variants", type=Path)
+    plan.add_argument("--auxiliary", type=Path)
+    plan.add_argument("--only", nargs="+")
+    plan.add_argument("--out", type=Path, required=True, help="Use an ignored artifact directory such as runs/")
+    run = commands.add_parser("run")
+    run.add_argument("--plan", type=Path, required=True)
+    run.add_argument("--approval", type=Path, required=True, help="Externally written H5 JSON; keep it under runs/")
+    run.add_argument("--out", type=Path, required=True)
+    run.add_argument("--device", default="cuda")
+    report = commands.add_parser("report")
+    report.add_argument("--plan", type=Path, required=True)
+    report.add_argument("--execution", type=Path)
+    report.add_argument("--out", type=Path, default=Path("runs/report_v0.md"))
+    args = parser.parse_args(argv)
+    if args.command == "plan":
+        from .protocol import build_plan
+
+        config = args.config or Path("configs/prime_v0.yaml" if args.draft else "configs/prime_v0_frozen.yaml")
+        variants = yaml.safe_load(args.variants.read_text(encoding="utf-8")) if args.variants else {}
+        auxiliary = yaml.safe_load(args.auxiliary.read_text(encoding="utf-8")) if args.auxiliary else {}
+        variants, auxiliary = variants.get("variants", variants), auxiliary.get("auxiliary", auxiliary)
+        result = build_plan(config, args.out, draft=args.draft, variants=variants, auxiliary=auxiliary, only=args.only)
+        print(json.dumps({"jobs": len(result["jobs"]), "draft": result["draft"],
+                          "missing_prerequisites": sum(bool(j["missing"]) for j in result["jobs"])}))
+    elif args.command == "run":
+        from .experiment_run import execute
+
+        result = execute(args.plan, args.approval, args.out, device=args.device)
+        print(json.dumps({"completed_job_records": len(result["jobs"])}))
+    else:
+        from .reporting import generate_report
+
+        result = generate_report(args.plan, args.execution, args.out)
+        print(json.dumps({"completed_rows": result["completed_rows"], "draft": result["draft"]}))
 
 
 if __name__ == "__main__":

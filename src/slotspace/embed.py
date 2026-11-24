@@ -116,9 +116,31 @@ def context_vectors(facts: Path, cache: Path, encoder: Embedder, batch_size: int
                     ("text_fact_ctx_qwen3e06_128.npy",), "ctx_text")[0]
 
 
+def pack_contexts(source: Path, out: Path) -> Path:
+    meta = json.loads((source / "manifest.json").read_text(encoding="utf-8"))
+    path = source / "text_fact_ctx_qwen3e06_128.npy"
+    values = np.load(path, mmap_mode="r", allow_pickle=False)
+    if values.shape != (meta["rows"], 128) or meta["dimensions"] != [128]:
+        raise ValueError("Binary packing requires aligned 128-dimensional fact contexts")
+    filename = "text_fact_ctx_qwen3e06_128.binary.npy"
+    with new_directory(out) as stage:
+        packed = np.lib.format.open_memmap(stage / filename, mode="w+", dtype=np.int8, shape=(len(values), 16))
+        for start in range(0, len(values), 4096):
+            batch = values[start:start + 4096].astype(np.float32)
+            if not np.isfinite(batch).all() or not np.allclose(np.linalg.norm(batch, axis=1), 1, atol=1e-3):
+                raise ValueError("Invalid source fact vectors")
+            packed[start:start + len(batch)] = np.packbits(batch > 0, axis=1, bitorder="big").view(np.int8)
+        packed.flush()
+        del packed
+        write_json(stage / "manifest.json", {**meta, "precision": "binary", "file": filename,
+                                            "source_sha256": sha256(path), "vector_sha256": sha256(stage / filename)})
+    return out / filename
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--kind", choices=("topic", "context"), default="topic")
+    parser.add_argument("--kind", choices=("topic", "context", "binary"), default="topic")
+    parser.add_argument("--source-cache", type=Path)
     parser.add_argument("--docs", type=Path,
                         help="Document Parquet, or text_facts.parquet for context mode")
     parser.add_argument("--cache", type=Path)
@@ -126,6 +148,11 @@ def main() -> None:
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--batch-size", type=int, default=32)
     args = parser.parse_args()
+    if args.kind == "binary":
+        if args.source_cache is None:
+            parser.error("Binary packing requires --source-cache")
+        print(pack_contexts(args.source_cache, args.cache or Path("data/prime/ctx_binary_prime-0.1.0_qwen3e06")))
+        return
     import torch
 
     torch.manual_seed(13)

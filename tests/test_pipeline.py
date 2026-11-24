@@ -67,6 +67,17 @@ def test_disabled_binding_is_exactly_the_hybrid_baseline_without_query_planning(
     assert result["counters"]["facts_scored"] == result["counters"]["value_postings"] == 0
 
 
+def test_hard_and_can_return_no_results_without_changing_the_pre_filter_pool():
+    _, ctx, index, bm25, dense, plan = setup()
+    plan["segments"].append({"g": G.tolist(), "links": {"n104": 1.0},
+                             "readings": [{"key": f"{CON}|n104", "p": 1.0, "w": 1.0}]})
+    result = Pipeline(ctx, index, bm25, dense, hard_and=True).execute_plan("hypertension", plan)
+    assert result["doc_ids"] == result["scores"] == []
+    assert result["counters"]["candidates"] == 4 and result["counters"]["facts_scored"] > 0
+    with pytest.raises(ValueError, match="divisible"):
+        CorpusIndex([], 4, "invalid-binary", "binary")
+
+
 def test_version_mismatch_is_not_silently_served_and_ia_scores_preserve_the_new_order():
     _, ctx, index, bm25, dense, plan = setup()
     pipeline = Pipeline(ctx, index, bm25, dense)

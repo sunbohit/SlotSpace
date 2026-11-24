@@ -13,6 +13,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from .artifacts import logged_run, new_directory, sha256, write_json
+from .diagnostics import pacc_diagnostic
 from .reference import TAU_MIN, pacc_binary
 from .schema import Schema
 from .slot_scorer import mention_groups
@@ -124,11 +125,12 @@ def aggregate_lexicon(native: pd.DataFrame, schema: Schema, text: pd.DataFrame |
 class CorpusLexicon:
     def __init__(self, frame: pd.DataFrame, version: str, mode: str):
         self.version, self.mode = version, mode
-        self._soft, self._hard = defaultdict(dict), defaultdict(dict)
-        for value, slot, soft, hard in frame[["value_id", "slot", "soft_pacc", "hard"]].itertuples(index=False):
+        self._soft, self._raw, self._hard = defaultdict(dict), defaultdict(dict), defaultdict(dict)
+        for value, slot, soft, raw, hard in frame[["value_id", "slot", "soft_pacc", "soft", "hard"]].itertuples(index=False):
             if slot in self._hard[value] or hard < 1 or not np.isfinite(soft) or soft < 0:
                 raise ValueError("Invalid or duplicate lexicon count")
             self._soft[value][slot], self._hard[value][slot] = float(soft), int(hard)
+            self._raw[value][slot] = float(raw)
 
     @classmethod
     def load(cls, folder: Path, expected_index_version: str | None = None):
@@ -148,6 +150,9 @@ class CorpusLexicon:
 
     def hard_support(self, value: str, slot: str) -> int:
         return self._hard.get(value, {}).get(slot, 0)
+
+    def raw_support(self, value: str) -> dict[str, float]:
+        return dict(self._raw.get(value, {}))
 
 
 def build_lexicon(facts: Path, docs: Path, schema_path: Path, out: Path, *,
@@ -201,6 +206,7 @@ def build_lexicon(facts: Path, docs: Path, schema_path: Path, out: Path, *,
             write_json(stage / "pacc_rates.json", {"mode": mode, "rates": rates})
             if pairs is not None:
                 ds.to_parquet(stage / "distant_supervision.parquet", index=False)
+                write_json(stage / "pacc_diagnostic.json", pacc_diagnostic(ds))
             write_json(stage / "manifest.json", {**config, "index_version": state, "lexicon_version": state,
                                                 "file": filename, "lexicon_sha256": sha256(stage / filename)})
         collision = table[table.hard >= 3].groupby("value_id").slot.agg(list)

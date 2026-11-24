@@ -1,0 +1,46 @@
+# Input/output locations to prepare on the GPU host, not evidence that jobs ran.
+# The same bundle can be passed to tuning --artifacts and experiments --variants/--auxiliary.
+artifacts:
+  facts: data/prime/facts_prime-0.1.0
+  text_keys: data/prime/scores_ft/text_fact_keys_ft.parquet
+  context_cache: data/prime/ctx_prime-0.1.0_qwen3e06
+  topic_cache: data/prime/topic_prime-0.1.0_qwen3e06
+  lexicon: data/prime/lexicon_ft
+  model: data/prime/models/slot_scorer_ft/final
+  embedding_model: ../Resource/models/Qwen/Qwen3-Embedding-0.6B
+  temperatures: data/prime/models/slot_scorer_ft/temperature.json
+  conformal: data/prime/conformal_ft.json
+  kind: ft
+  values_visible: false
+variants:
+  a12:
+    text_keys: data/prime/scores_a12/text_fact_keys_ft.parquet
+    lexicon: data/prime/lexicon_a12
+    model: data/prime/models/slot_scorer_a12/final
+    temperatures: data/prime/models/slot_scorer_a12/temperature.json
+    conformal: data/prime/conformal_a12.json
+    values_visible: true
+  zeroshot:
+    text_keys: data/prime/scores_zeroshot/text_fact_keys_zeroshot.parquet
+    lexicon: data/prime/lexicon_zeroshot
+    model: ../Resource/models/BAAI/bge-reranker-v2-m3
+    temperatures: data/prime/models/slot_scorer_zeroshot/temperature.json
+    conformal: data/prime/conformal_zeroshot.json
+    kind: zeroshot
+  a14:
+    text_keys: data/prime/scores_a14/text_fact_keys_ft.parquet
+    lexicon: data/prime/lexicon_a14
+    model: data/prime/models/slot_scorer_a14/final
+    temperatures: data/prime/models/slot_scorer_a14/temperature.json
+    conformal: data/prime/conformal_a14.json
+  chunk128:
+    facts: data/prime/facts_chunk128-0.1.0
+    text_keys: data/prime/scores_chunk128/text_fact_keys_ft.parquet
+    context_cache: data/prime/ctx_chunk128-0.1.0_qwen3e06
+    lexicon: data/prime/lexicon_chunk128
+    conformal: data/prime/conformal_chunk128.json
+auxiliary:
+  passages: data/prime/maxp_qwen3e06_256
+  fields: data/prime/fields_qwen3e06_256
+  field_weights: data/prime/field_weights.json
+  binary_context_cache: data/prime/ctx_binary_prime-0.1.0_qwen3e06

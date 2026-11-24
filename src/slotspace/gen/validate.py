@@ -44,6 +44,9 @@ def validate_text(text: str, sample: dict, schema: Schema) -> str | None:
         # Typed slots can share a cue family; shared phrases are not conflicting evidence.
         for cue in set(slot.query_cues + slot.doc_cues) - own_cues:
             for hit in re.finditer(r"(?<!\w)" + re.escape(cue) + r"(?!\w)", text, re.IGNORECASE):
+                if any(hit.start() < locations[0].end() and locations[0].start() < hit.end()
+                       for locations in occurrences.values()):
+                    continue
                 if any(hit.start() < own_hit.end() and own_hit.start() < hit.end() for own_hit in own_hits):
                     continue
                 cue_center = (hit.start() + hit.end()) / 2

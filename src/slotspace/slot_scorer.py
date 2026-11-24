@@ -14,6 +14,7 @@ from scipy.special import logsumexp
 from .artifacts import logged_run, new_directory, sha256, write_json
 from .reference import TAU_MIN
 from .schema import Schema
+from .text import visible_target
 
 KEY_SCHEMA = pa.schema([("row", pa.int64()), ("key", pa.string()), ("pi", pa.float32())])
 
@@ -46,6 +47,7 @@ class SlotScorer:
                                   local_files_only=Path(path).is_dir())
         self.schema, self.T, self.order, self.batch_size = schema, temperature, pair_order, batch_size
         self.path = path
+        self.values_visible = False
 
     def metadata(self) -> dict:
         path = Path(self.path)
@@ -59,7 +61,8 @@ class SlotScorer:
             if not revision:
                 raise ValueError("Slot scorer must have an identifiable model revision")
             model = {"id": self.path, "revision": revision}
-        return {"model": model, "pair_order": self.order, "max_length": 128, "temperature": self.T}
+        return {"model": model, "pair_order": self.order, "max_length": 128, "temperature": self.T,
+                "values_visible": self.values_visible}
 
     def logits(self, contexts: list[str], candidates: list[list[str]]) -> list[np.ndarray]:
         if len(contexts) != len(candidates):
@@ -133,7 +136,8 @@ def score_fact_batch(facts: list[dict], doc_types: dict[int, str], scorer: SlotS
     contexts, candidates, owners = [], [], []
     for fact in facts:
         for group in mention_groups(fact):
-            contexts.append(group["context"])
+            contexts.append(visible_target(group["context"], fact["sentence"][group["start"]:group["end"]])
+                            if getattr(scorer, "values_visible", False) else group["context"])
             candidates.append(scorer.schema.candidates(doc_types[fact["doc_id"]], group["types"]))
             owners.append((fact["row"], group["values"]))
     probabilities = scorer.score(contexts, candidates)
@@ -155,11 +159,14 @@ def score_fact_batch(facts: list[dict], doc_types: dict[int, str], scorer: SlotS
 
 def score_corpus(facts: Path, docs: Path, schema_path: Path, out: Path, model: str, *,
                  kind: str = "zeroshot", temperature: float = 1, device: str = "cuda",
-                 limit: int | None = None, runs: Path = Path("runs")) -> Path:
+                 limit: int | None = None, runs: Path = Path("runs"), values_visible: bool = False) -> Path:
     if kind not in {"zeroshot", "ft"} or (limit is not None and limit < 1):
         raise ValueError("Invalid scorer kind or fact limit")
+    if values_visible and kind != "ft":
+        raise ValueError("Visible-target scoring belongs to the explicit A12 fine-tuned variant")
     schema = Schema.load(schema_path)
     scorer = SlotScorer(model, schema, temperature, "slot_first" if kind == "zeroshot" else "context_first", device)
+    scorer.values_visible = values_visible
     table = pq.read_table(docs, columns=["doc_id", "doc_type"])
     doc_types = dict(zip(table["doc_id"].to_pylist(), table["doc_type"].to_pylist()))
     source = pq.ParquetFile(facts)
@@ -198,9 +205,11 @@ def main() -> None:
     parser.add_argument("--temperature", type=float, default=1)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--values-visible", action="store_true")
     args = parser.parse_args()
     print(score_corpus(args.facts, args.docs, args.schema, args.out, args.model, kind=args.kind,
-                       temperature=args.temperature, device=args.device, limit=args.limit))
+                       temperature=args.temperature, device=args.device, limit=args.limit,
+                       values_visible=args.values_visible))
 
 
 if __name__ == "__main__":

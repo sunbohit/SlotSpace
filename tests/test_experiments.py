@@ -20,6 +20,14 @@ def test_top100_metrics_match_official_with_noncontiguous_ids():
         per_query_metrics([17, 17], {17})
 
 
+def test_empty_hard_and_results_have_zero_quality_without_a_fake_placeholder():
+    ev = Evaluation([4, 17])
+    ev.add(1, [], [4])
+    summary = ev.summary()
+    assert summary["empty_rankings"] == 1 and not any(summary["top100"].values())
+    assert not any(summary["official"].values()) and "extension" in summary["empty_policy"]
+
+
 def test_baseline_run_maps_positions_and_writes_all_contract_files(tmp_path):
     data = tmp_path / "data"
     data.mkdir()

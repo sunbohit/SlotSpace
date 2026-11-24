@@ -57,4 +57,24 @@
 - Load aligned half-precision contexts as normalized float32 for indexing. Keep the provided fast scorer unchanged. The pipeline materializes per-reading matches for fusion/IA and rejects stale index/lexicon pairs or undercounted hard support.
 - Binding weight zero follows the exact hybrid baseline path, skipping planning and value postings. IA emits ordinal result scores to preserve its reordered ranking for consumers that sort scores; the original fused scores remain in the logged plan.
 - Evidence is recomputed only for the top ten documents to preserve the verbatim scorer API. This is not claimed to be free: the extra text-fact work and evidence-stage time are explicitly counted.
-- The M7 core is tested end to end on CPU fixtures. Full reusable tuning features, grid search, frozen-config approval and M8 experiment/report orchestration remain future work; no empirical GPU/full-corpus M7 acceptance is asserted.
+- The M7 core is tested end to end on CPU fixtures. The subsequent cache/tuning and M8 implementation is recorded below; no empirical GPU/full-corpus M7 acceptance is asserted.
+
+## 2026-11-24 — M7 feature replay and tuning
+
+- Share candidate selection, fact-work counting, hard AND and IA ranking between live search and replay. Capture all supported readings before conformal pruning and retain their uncapped posting union; capping that union early loses documents that become top-`K_V` after a competing reading is removed.
+- Persist float64 match matrices and int64 work matrices in immutable, checksummed directories. Reuse verified hashes only while file stats are unchanged and bound the feature-set cache. Replay time is not end-to-end search latency: save it separately and leave online latency null.
+- Refit calibration thresholds for every beta, with matched raw-support and uniform-query banks. Use only even-qid train labels for fitting and complete validation labels for staged selection. Select B2's lexical weight separately and verify final selected quality against the official evaluator.
+- Freeze only accepted complete evidence, rechecking production data/schema/model inputs. The receipt binds the frozen YAML, selection and conformal bank but explicitly leaves H5 pending. Fixture freezes cannot authorize production experiments.
+- B4 coordinate ascent uses complete validation features and records the representation hash, selected B2 weight and validation fingerprint. Sentence MaxP and field representations use unmasked 256-dimensional topic embeddings.
+
+## 2026-11-24 — M8 protocol and reproducible reporting
+
+- Describe the full baseline/ablation matrix before execution; alias identical configurations to the same saved result. B7 cannot use test/human queries. Formal execution requires an external H5 approval bound to both the frozen YAML and final-plan hashes, unchanged data/artifacts, and the same clean Git commit.
+- Keep plans/approvals under ignored artifact directories. Check authorization before parsing formal queries; create one immutable execution ledger and record initialization/search failures as failed. Use the first measured ranking for quality and the median of three warm measurements for latency, recording instability instead of selecting the best repeat.
+- Fan-out runs one B2 pass per kept reading, then weighted RRF with denominator `60 + rank`; count every rewrite and planning pass. Role-Confusion@10 excludes the query's own correct answers from the partner's answer set.
+- A7 uses pinned fast-tokenizer offsets for non-overlapping 128-token facts and a separate downstream artifact chain. A11 packs signed int8 vectors with big-endian order and zero mapped to zero; account for actual serving-index inputs, including lexicon, manifests and schema, not vectors alone. The CPU reference may unpack vectors internally, so on-disk bytes are not a RAM claim.
+- A12 reveals only the target to the slot scorer at training, document scoring, calibration and query inference; context/segment embeddings stay masked. Enforce visibility agreement across runtime artifacts and ignore role cues inside visible target names during generation validation.
+- Extend official quality evaluation explicitly for empty rankings: all retrieval metrics are zero and the extension is counted. A fake zero-score candidate would incorrectly earn quality under the upstream evaluator.
+- Copy all diagnostic inputs into the execution bundle so reports need no original corpus or models. Fit PACC diagnostic rates on even document IDs and evaluate odd IDs rather than measuring the algebraically guaranteed fit-set correction.
+- Reports require exact paired query IDs and matching regret masks. Use planned table-family Holm correction, bootstrap intervals and measured discordance/MDE; identical zero-effect aliases cannot pass a positive-effect criterion. Missing jobs remain NOT RUN; fixtures are excluded unless explicitly requested and then visibly watermarked.
+- The complete CPU suite has 94 passing tests. GPU training, empirical tuning, full neural retrieval experiments, human reviews and H5 approval remain unexecuted/unapproved; no production freeze or formal test result is claimed.

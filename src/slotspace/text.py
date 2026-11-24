@@ -25,6 +25,24 @@ def split_sentences(text: str, max_words: int = 64) -> list[str]:
     return out
 
 
+def token_windows(text: str, tokenizer, size: int = 128) -> list[str]:
+    if size < 1:
+        raise ValueError("Token window size must be positive")
+    offsets = tokenizer(text, add_special_tokens=False, return_offsets_mapping=True)["offset_mapping"]
+    offsets = [(int(start), int(end)) for start, end in offsets if end > start]
+    if any(not 0 <= start < end <= len(text) for start, end in offsets):
+        raise ValueError("Tokenizer returned invalid source offsets")
+    return [text[offsets[i][0]:offsets[min(i + size, len(offsets)) - 1][1]]
+            for i in range(0, len(offsets), size)]
+
+
+def visible_target(context: str, surface: str) -> str:
+    pattern = r"\[TARGET(?::[a-z_]+)?\]"
+    if len(re.findall(pattern, context)) != 1 or not surface:
+        raise ValueError("Visible-target inference requires exactly one target marker and its original surface")
+    return re.sub(pattern, lambda _: surface, context)
+
+
 def mask(sentence: str, mentions: list[dict], target: int | None,
          self_type: str, field: str | None) -> str:
     if target is not None and not 0 <= target < len(mentions):

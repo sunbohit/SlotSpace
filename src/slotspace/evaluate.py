@@ -29,18 +29,26 @@ class Evaluation:
         self.official = Evaluator(candidate_ids)
         self.rows: list[dict] = []
         self.official_rows: list[dict] = []
+        self.empty_rankings = 0
 
     def add(self, qid: int, ranked: list[int], answers: list[int]) -> None:
         import torch
 
-        if (not ranked or len(ranked) > 100 or not set(ranked).issubset(self.candidates)
+        if (len(ranked) > 100 or len(answers) == 0 or len(ranked) != len(set(ranked))
+                or not set(ranked).issubset(self.candidates)
                 or not set(answers).issubset(self.candidates)):
             raise ValueError(f"Invalid result/answer IDs or result length for query {qid}")
         ours = per_query_metrics(ranked, set(answers))
         # Encode the returned order to resolve exact score ties consistently in
         # all torchmetrics versions, without altering the saved retrieval scores.
         pred = {int(doc): float(len(ranked) - i) for i, doc in enumerate(ranked)}
-        official = self.official(pred, torch.tensor(answers, dtype=torch.long), metrics=list(METRICS))
+        if ranked:
+            official = self.official(pred, torch.tensor(answers, dtype=torch.long), metrics=list(METRICS))
+        else:
+            # The official API cannot express an empty ranking (a placeholder
+            # incorrectly changes hit/rprecision). Empty retrieval has zero quality.
+            official = {m: 0.0 for m in METRICS}
+            self.empty_rankings += 1
         self.rows.append({"qid": qid, **ours})
         self.official_rows.append(official)
 
@@ -55,4 +63,5 @@ class Evaluation:
             if delta > tolerance:
                 raise ValueError(f"Official/per-query {metric} differ by {delta:.4f} points")
         return {"n_queries": len(self.rows), "official": official, "top100": ours,
-                "agreement_points": gaps}
+                "agreement_points": gaps, "empty_rankings": self.empty_rankings,
+                "empty_policy": "zero-quality extension; the upstream API has no empty-result representation"}

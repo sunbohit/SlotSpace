@@ -49,10 +49,10 @@ def new_directory(path: Path):
 
 
 @contextmanager
-def logged_run(root: Path, label: str, config: dict):
+def record_run(path: Path, config: dict):
+    if (path / "meta.json").exists():
+        raise FileExistsError(f"Run metadata already exists at {path}")
     now = datetime.now(timezone.utc)
-    path = root / f"{label}-{now:%Y%m%dT%H%M%SZ}-{uuid4().hex[:8]}"
-    path.mkdir(parents=True)
     meta = {
         "config": config, "git_commit": _git("rev-parse", "HEAD"),
         "git_status": _git("status", "--porcelain"), "started_at": now.isoformat(),
@@ -62,8 +62,17 @@ def logged_run(root: Path, label: str, config: dict):
     }
     write_json(path / "meta.json", {**meta, "status": "running"})
     try:
-        yield path, meta
+        yield meta
         meta["status"] = "ok"
     finally:
         meta["ended_at"] = datetime.now(timezone.utc).isoformat()
         write_json(path / "meta.json", meta)
+
+
+@contextmanager
+def logged_run(root: Path, label: str, config: dict):
+    now = datetime.now(timezone.utc)
+    path = root / f"{label}-{now:%Y%m%dT%H%M%SZ}-{uuid4().hex[:8]}"
+    path.mkdir(parents=True)
+    with record_run(path, config) as meta:
+        yield path, meta
