@@ -78,8 +78,9 @@ def load_pilot(bundle: Path, info: dict, encoder, scorer):
     config["tuning_grid"] = deepcopy(info["schedule"]["tuning_grid"])
     docs = pd.read_parquet(bundle / "docs.parquet")
     dictionary = pd.read_parquet(Path(info["source"]) / "docs.parquet", columns=["doc_id", "name", "doc_type"])
-    linker = Linker(dictionary, **{k: config["linking"][k] for k in
-                    ("max_ngram", "min_name_chars", "common_words", "fuzzy_threshold", "fuzzy_mass")})
+    linking = config["linking"]
+    linker = Linker(dictionary, linking["max_ngram"], linking["min_name_chars"], linking["common_words"],
+                    linking["fuzzy_threshold"], linking["fuzzy_mass"])
     top = topic_vectors(bundle / "docs.parquet", bundle / "cache" / "topic", encoder, 4, schema.version)
     ctx_path = context_vectors(bundle / "text_facts.parquet", bundle / "cache" / "context", encoder, 4, schema.version)
     ctx = np.load(ctx_path, allow_pickle=False).astype(np.float32)

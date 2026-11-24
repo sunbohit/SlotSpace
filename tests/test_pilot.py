@@ -12,7 +12,7 @@ import yaml
 from slotspace.artifacts import sha256, write_json
 from slotspace.facts import NATIVE_SCHEMA, TEXT_SCHEMA
 from slotspace.linker import Linker
-from slotspace.pilot import features, measure
+from slotspace.pilot import features, load_pilot, measure
 from slotspace.pilot_data import prepare, select_queries, verify_previous
 from slotspace.pipeline import CorpusIndex, Pipeline
 from slotspace.planner import PlannerContext, PlannerSettings
@@ -21,6 +21,7 @@ from slotspace.reporting import generate_pilot_report
 from slotspace.retrieve import BM25Index, DenseIndex
 from slotspace.schema import Schema
 from slotspace.tuning import freeze
+from slotspace.embed import Embedder
 from test_schema import SCHEMA
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -76,6 +77,7 @@ def source(tmp_path):
                "schema_sha256": sha256(SCHEMA), "native_sha256": sha256(facts / "native_keys.parquet"),
                "query_hashes": {s: sha256(folder / f"queries_{s}.jsonl") for s in ("train", "val")}})
     schedule = {"seed": 13, "max_query_mentions": 2, "max_answers": 4, "max_fact_mentions": 2,
+                "tuning_grid": config["tuning_grid"],
                 "stages": {"smoke": {"documents": 4, "calibration": 1, "validation": 1,
                                     "facts_per_doc": 1, "max_seq_length": 16, "repeats": 1},
                            "small": {"documents": 6, "calibration": 2, "validation": 2,
@@ -102,6 +104,40 @@ def test_stage_expansion_requires_verified_parent_and_keeps_cohorts_and_candidat
     (smoke / "queries_val.jsonl").write_text("changed")
     with pytest.raises(ValueError, match="changed"):
         verify_previous(smoke)
+
+
+def test_prepared_artifacts_load_with_full_linker_and_shared_encoding_scoring_apis(source, tmp_path):
+    folder, schedule = source
+    bundle = prepare(folder, SCHEMA, schedule, "smoke", tmp_path / "bundle")
+    info = json.loads((bundle / "manifest.json").read_text())
+    schema = Schema.load(SCHEMA)
+
+    class Encoder:
+        _cut = staticmethod(Embedder._cut)
+
+        def metadata(self):
+            return {"model": "fixture"}
+
+        def documents(self, texts, dim, batch_size):
+            result = np.zeros((len(texts), dim), dtype=np.float16)
+            result[:, 0] = 1
+            return result
+
+    class Scorer:
+        T = 1
+
+        def metadata(self):
+            return {"model": "fixture", "temperature": 1}
+
+        def score(self, contexts, candidates):
+            return [{slot: 1 / len(c) for slot in c} for c in candidates]
+
+    scorer = Scorer()
+    scorer.schema = schema
+    pipe, config, identity = load_pilot(bundle, info, Encoder(), scorer)
+    assert pipe.index.doc_ids.tolist() == pq.read_table(bundle / "docs.parquet")["doc_id"].to_pylist()
+    assert len(pipe.ctx.linker.vtype) == 6 and config["dataset"] == "prime_pilot"
+    assert identity["purpose"] == "pilot" and pipe.index.store.dim == 128
 
 
 def test_real_pipeline_replay_and_pilot_report_cannot_create_production_acceptance(tmp_path, monkeypatch):
