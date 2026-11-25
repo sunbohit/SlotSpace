@@ -1,0 +1,8 @@
+name: slotspace
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.11
+  - pip
+  - setuptools<81

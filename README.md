@@ -1,5 +1,10 @@
 # SlotSpace
 
+For a new GPU machine, start with [the clone-to-GPU setup guide](docs/GPU_SETUP.md).
+Portable environment files, input revisions/checksums and preliminary data
+summaries are included. Raw benchmark records and multi-GB weights are fetched
+from their original publishers, not stored in Git.
+
 Queries can mention the same value while asking for different roles: drugs that treat a disease, drugs contraindicated for it, or drugs that cause a similarly named effect. Matching the value or the overall topic alone does not establish which fact answers the question.
 
 SlotSpace shares one schema-defined slot space across fact extraction, query interpretation, a corpus-derived ambiguity lexicon and retrieval. Value, role and context must match **in the same fact**. A small masked-context model supplies query evidence, corpus counts supply priors, and several plausible readings share one candidate retrieval pass.
