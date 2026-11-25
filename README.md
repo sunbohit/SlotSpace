@@ -4,6 +4,8 @@ For a new GPU machine, start with [the clone-to-GPU setup guide](docs/GPU_SETUP.
 Portable environment files, input revisions/checksums and preliminary data
 summaries are included. Raw benchmark records and multi-GB weights are fetched
 from their original publishers, not stored in Git.
+The guide now covers explicit terminal-only reviews/H5, post-M8 Vespa operation
+and measured model-card/package generation; no AI agent is needed on the VM.
 
 Queries can mention the same value while asking for different roles: drugs that treat a disease, drugs contraindicated for it, or drugs that cause a similarly named effect. Matching the value or the overall topic alone does not establish which fact answers the question.
 
@@ -442,10 +444,18 @@ has **not** been run here.
   samples and supply `--reviews` with the gate's printed evidence hash:
   `{"H1": {"approved": true, "evidence_sha256": "<printed hash>"}}`.
   Later approvals can be added to the same JSON.
+- For an agent-free workflow, `python -m slotspace.operator review-info --work
+  <workspace> --gate H1` prints sample paths before labelling. After real review,
+  `approve-review --work <workspace> --gate H1 --out <reviews-json> --yes`
+  writes only an exact, validated evidence approval. Repeat for H2-H4.
+  `operator status` explains the current stopped step.
 - Continue with unchanged settings, including the same `--gen-python`, using
   `--resume --reviews <review-json>`. The M8 protocol is produced before H5;
   only an externally supplied `--approval <h5-json>` bound to its exact
-  frozen/config-plan hashes permits final evaluation. No approval is generated.
+  frozen/config-plan hashes permits final evaluation. Reproduction never
+  auto-approves. The separate `operator approve-h5 --plan <plan> --out <approval>
+  --yes` command records an explicit human decision only after all existing
+  production-freeze/protocol validators pass.
 - Main/A14 training remains value-masked, A12 is separate, variant conformal
   calibration uses the selected configuration, and B3/B4/A7/A11 artifacts
   are prepared for the existing full experiment catalog.
@@ -460,6 +470,8 @@ python tools\check_dist.py --dist dist
 
 `make dist` performs the same build/metadata/payload checks. The source archive
 contains configs, schemas, templates, tests, normative docs and release records.
+It also includes portable research/generator environments and the pinned
+input manifest used by `python -m slotspace.resources fetch` / `verify`.
 The wheel contains Python/Vespa code, SPDX/NOTICE files and research assets
 under `share/slotspace/`. Neither contains benchmark records/answers, weights
 or run outputs. These commands **do not publish** to PyPI or GitHub.
@@ -476,6 +488,17 @@ The [model card](docs/MODEL_CARD.md) explicitly records an absent fine-tuned
 checkpoint and unmeasured M5 metrics. [Third-party findings](THIRD_PARTY_NOTICES.md)
 include the exact local/generator/model inventories and GPL/proprietary review
 items; a metadata check is not a license-compatibility approval.
+After actual training/calibration, `python -m slotspace.model_card` generates
+an evidence-backed card separately, recomputing M5 metrics from calibration
+points and retaining negative ECE results and unapproved human-review status.
+
+**Post-M8 handoff validation:** 153 CPU tests passed, including full-Prime H0;
+one opt-in real-Vespa test was skipped. All 36 cached v0 model files and the
+pinned Prime cache verified. The VM install recipe resolved in an offline pip
+dry-run without changing the CPU environment. Source/wheel passed strict
+metadata/payload checks; an independently rebuilt wheel had identical member
+contents and passed 70 installed-code tests outside the checkout.
+GPU training, full M8 execution and real Vespa acceptance remain unmeasured.
 
 ### Measured results versus pending acceptance
 

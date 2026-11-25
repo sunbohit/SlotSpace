@@ -6,6 +6,8 @@ recursive-include schemas *.yaml
 recursive-include templates *.yaml
 recursive-include tests *.py
 recursive-include tools *.py
+recursive-include environments *.yaml *.txt
+include reproducibility/huggingface.csv
 recursive-include src *.py *.json *.xml *.sd
 prune data
 prune runs

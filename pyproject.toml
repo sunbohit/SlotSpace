@@ -13,10 +13,10 @@ authors = [{name = "SlotSpace contributors"}]
 requires-python = ">=3.11,<3.12"
 dependencies = [
     "numpy>=1.26,<2", "scipy", "pyarrow>=14", "pandas", "stark-qa==1.1.0",
-    "bm25s>=0.3.16", "PyStemmer", "PyYAML", "sentence-transformers>=5.1,<6",
+    "bm25s>=0.3.16", "PyStemmer", "PyYAML", "sentence-transformers[train]>=5.1,<6",
     "transformers>=4.51,<5", "datasets>=3,<4", "accelerate", "rapidfuzz", "wordfreq",
     "PyTDC==0.4.1", "llm2vec==0.1.6", "mteb==1.1.1", "langchain>=0.2.17,<0.3",
-    "setuptools<81", "torch>=2.6", "huggingface-hub>=0.34,<1",
+    "setuptools<81", "torch>=2.6", "huggingface-hub>=0.34,<1", "safetensors>=0.4.3",
 ]
 
 [project.urls]
@@ -42,6 +42,8 @@ slotspace = ["prime-sha256.json"]
 "share/slotspace/templates/train" = ["templates/train/*.yaml"]
 "share/slotspace/templates/test" = ["templates/test/*.yaml"]
 "share/slotspace/docs" = ["docs/*.md", "docs/*.csv"]
+"share/slotspace/environments" = ["environments/*.yaml", "environments/*.txt"]
+"share/slotspace/reproducibility" = ["reproducibility/huggingface.csv"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

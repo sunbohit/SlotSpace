@@ -3,6 +3,8 @@
 - `huggingface.csv`: original upstream URLs, fixed revisions and file hashes.
   Obtain raw datasets/model weights from those publishers; they are not hosted
   in this repository.
+  From the clone, `python -m slotspace.resources fetch --root ../Resource`
+  acquires the four v0 models and required Prime cache; `verify` is offline-only.
 - `role_swap_ids.jsonl`: provisional dev/test query IDs, slot/value/template IDs
   and partner IDs only. It contains **no query text, answers or partner answers**.
   Regenerate the full set using `slotspace.role_swap`. H3 semantic review and

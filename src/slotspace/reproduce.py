@@ -215,6 +215,43 @@ def _labels(path: Path, field: str, minimum: int, threshold: float):
     return rate
 
 
+def review_evidence(gate: str, work: Path, schema: Path, *, validate: bool = True):
+    mapping = {"H1": ("m2_stats.json", ("query_mentions", "document_mentions"), "correct", 100, 0.85),
+               "H2": ("m4_silver_stats.json", ("silver_review",), "correct", 100, 0.8),
+               "H3": ("m4_role_swap_stats.json", ("role_swap_review",), "natural", 50, 0.9)}
+    evidence = {str(schema): sha256(schema)}
+    requirements = []
+    if gate in mapping:
+        stat, names, field, minimum, threshold = mapping[gate]
+        info = json.loads((work / "runs" / stat).read_text(encoding="utf-8"))
+        review = work / info["review_run"]
+        for name in names:
+            path = review / f"{name}.jsonl"
+            requirements.append({"path": str(path), "field": field, "minimum": minimum, "threshold": threshold})
+            if validate:
+                _labels(path, field, minimum, threshold)
+            evidence[str(path)] = sha256(path)
+    elif gate == "H4":
+        temp = work / "data" / "prime" / "temperature_ft.json"
+        result = json.loads(temp.read_text(encoding="utf-8"))
+        if validate and any(not math.isfinite(result[s]["ece_after"]) or not 0 <= result[s]["ece_after"] <= 0.05 for s in ("query", "doc")):
+            raise ReviewRequired("H4 requires both measured post-scaling ECE values <= 0.05")
+        reviews = [p for p in (work / "runs").glob("m5-calibrate-*/scorer_review.jsonl")
+                   if json.loads((p.parent / "meta.json").read_text(encoding="utf-8"))["config"]["scorer"] == result["scorer"]]
+        if len(reviews) != 1:
+            raise ReviewRequired("H4 needs one provenance-matched main-model scorer review")
+        requirements.append({"path": str(reviews[0]), "field": "correct", "minimum": 30, "threshold": 0,
+                             "max_ece_after": 0.05,
+                             "ece_after": {s: result[s]["ece_after"] for s in ("query", "doc")}})
+        if validate:
+            _labels(reviews[0], "correct", 30, 0)
+        evidence.update({str(temp): sha256(temp), str(reviews[0]): sha256(reviews[0])})
+    else:
+        raise ValueError(f"Unknown human gate: {gate}")
+    return {"gate": gate, "evidence_sha256": _digest(evidence), "files": evidence,
+            "requirements": requirements, "validated": validate}
+
+
 def check_review(gate: str, work: Path, schema: Path, approvals: Path | None, h5: Path | None):
     if gate == "H5":
         if h5 is None:
@@ -223,32 +260,7 @@ def check_review(gate: str, work: Path, schema: Path, approvals: Path | None, h5
 
         authorize(work / "protocol.json", h5)
         return {"H5_sha256": sha256(h5)}
-    mapping = {"H1": ("m2_stats.json", ("query_mentions", "document_mentions"), "correct", 100, 0.85),
-               "H2": ("m4_silver_stats.json", ("silver_review",), "correct", 100, 0.8),
-               "H3": ("m4_role_swap_stats.json", ("role_swap_review",), "natural", 50, 0.9)}
-    evidence = {str(schema): sha256(schema)}
-    if gate in mapping:
-        stat, names, field, minimum, threshold = mapping[gate]
-        info = json.loads((work / "runs" / stat).read_text(encoding="utf-8"))
-        review = work / info["review_run"]
-        for name in names:
-            path = review / f"{name}.jsonl"
-            _labels(path, field, minimum, threshold)
-            evidence[str(path)] = sha256(path)
-    elif gate == "H4":
-        temp = work / "data" / "prime" / "temperature_ft.json"
-        result = json.loads(temp.read_text(encoding="utf-8"))
-        if any(not math.isfinite(result[s]["ece_after"]) or not 0 <= result[s]["ece_after"] <= 0.05 for s in ("query", "doc")):
-            raise ReviewRequired("H4 requires both measured post-scaling ECE values <= 0.05")
-        reviews = [p for p in (work / "runs").glob("m5-calibrate-*/scorer_review.jsonl")
-                   if json.loads((p.parent / "meta.json").read_text(encoding="utf-8"))["config"]["scorer"] == result["scorer"]]
-        if len(reviews) != 1:
-            raise ReviewRequired("H4 needs one provenance-matched main-model scorer review")
-        _labels(reviews[0], "correct", 30, 0)
-        evidence.update({str(temp): sha256(temp), str(reviews[0]): sha256(reviews[0])})
-    else:
-        raise ValueError(f"Unknown human gate: {gate}")
-    expected = _digest(evidence)
+    expected = review_evidence(gate, work, schema)["evidence_sha256"]
     supplied = json.loads(approvals.read_text(encoding="utf-8")) if approvals and approvals.exists() else {}
     if supplied.get(gate) != {"approved": True, "evidence_sha256": expected}:
         raise ReviewRequired(f"After human review, add {gate}: "

@@ -19,6 +19,13 @@ from .text import visible_target
 KEY_SCHEMA = pa.schema([("row", pa.int64()), ("key", pa.string()), ("pi", pa.float32())])
 
 
+def local_model_identity(path: Path) -> dict[str, str]:
+    weights = sorted(path.glob("*.safetensors"))
+    if not weights:
+        raise ValueError(f"No safetensors model weights at {path}")
+    return {p.name: sha256(p) for p in (path / "config.json", *weights)}
+
+
 def mention_groups(fact: dict) -> list[dict]:
     grouped = {}
     for mention in fact["mentions"]:
@@ -52,10 +59,7 @@ class SlotScorer:
     def metadata(self) -> dict:
         path = Path(self.path)
         if path.is_dir():
-            weights = sorted(path.glob("*.safetensors"))
-            if not weights:
-                raise ValueError(f"No safetensors model weights at {path}")
-            model = {p.name: sha256(p) for p in (path / "config.json", *weights)}
+            model = local_model_identity(path)
         else:
             revision = self.model.model.config._commit_hash
             if not revision:

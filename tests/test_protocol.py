@@ -6,6 +6,7 @@ import yaml
 
 from slotspace.artifacts import sha256, write_json
 from slotspace.feature_cache import digest
+from slotspace.operator import approve_h5
 from slotspace.protocol import authorize, build_plan, catalog
 
 
@@ -87,3 +88,41 @@ def test_draft_is_descriptive_only_even_if_somebody_writes_an_approval(tmp_path,
     build_plan(frozen, plan, draft=True, only=["B0"])
     with pytest.raises(ValueError, match="Draft"):
         authorize(plan, tmp_path / "does-not-exist.json")
+
+
+def test_operator_h5_writes_only_explicit_exact_authorization_and_rechecks_artifacts(tmp_path, monkeypatch):
+    frozen = frozen_fixture(tmp_path, monkeypatch)
+    plan, approval = tmp_path / "plan.json", tmp_path / "h5.json"
+    build_plan(frozen, plan, only=["B0"])
+    with pytest.raises(ValueError, match="--yes"):
+        approve_h5(plan, approval)
+    assert not approval.exists()
+    entry = approve_h5(plan, approval, confirmed=True)
+    assert entry["plan_sha256"] == sha256(plan) and authorize(plan, approval)["frozen_sha256"] == sha256(frozen)
+    with pytest.raises(FileExistsError):
+        approve_h5(plan, approval, confirmed=True)
+    (tmp_path / "temperatures.json").write_text('{"changed":true}')
+    with pytest.raises(ValueError, match="artifact changed"):
+        approve_h5(plan, tmp_path / "new-h5.json", confirmed=True)
+    assert not (tmp_path / "new-h5.json").exists()
+
+
+@pytest.mark.parametrize("invalid", ["draft", "pilot", "missing", "changed-implementation"])
+def test_operator_h5_never_converts_ineligible_plans_into_approval(tmp_path, monkeypatch, invalid):
+    frozen = frozen_fixture(tmp_path, monkeypatch)
+    plan, approval = tmp_path / "plan.json", tmp_path / "h5.json"
+    result = build_plan(frozen, plan, draft=invalid == "draft", only=["B0"])
+    if invalid == "pilot":
+        receipt = frozen.with_suffix(".yaml.freeze.json")
+        data = json.loads(receipt.read_text())
+        data["purpose"] = "pilot"
+        write_json(receipt, data)
+    elif invalid == "missing":
+        result["jobs"][0]["missing"] = ["trained-model:main"]
+        write_json(plan, result)
+    elif invalid == "changed-implementation":
+        monkeypatch.setattr("slotspace.protocol._git",
+                            lambda *a: "other-commit" if a[0] == "rev-parse" else "")
+    with pytest.raises(ValueError):
+        approve_h5(plan, approval, confirmed=True)
+    assert not approval.exists()

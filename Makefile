@@ -3,6 +3,7 @@ WORK ?= runs/reproduce-v0
 RESOURCES ?= ../Resource
 THROUGH ?= M8
 REPRO_ARGS ?=
+DIST ?= dist
 
 .PHONY: reproduce-v0 test dist
 
@@ -13,6 +14,6 @@ test:
 	"$(PYTHON)" -m pytest -q
 
 dist:
-	"$(PYTHON)" -m build --no-isolation
-	"$(PYTHON)" -m twine check --strict dist/*
-	"$(PYTHON)" tools/check_dist.py --dist dist
+	"$(PYTHON)" -m build --no-isolation --outdir "$(DIST)"
+	"$(PYTHON)" -m twine check --strict "$(DIST)/*.whl" "$(DIST)/*.tar.gz"
+	"$(PYTHON)" tools/check_dist.py --dist "$(DIST)"

@@ -53,6 +53,11 @@ ECE at most 0.05 is an acceptance **target**, not an achieved result. Before
 shipping weights, replace this status card using the actual training manifest,
 model hashes, corpus/schema version, calibration JSON and provenance-matched
 M5/M8 metrics; retain any failed acceptance and limitations.
+Use `python -m slotspace.model_card --model <final-checkpoint> --calibration
+<temperature-json> --out <new-card-path>` after a real run. It validates
+checkpoint/schema/train identities and recomputes M5 metrics from the matching
+`.points.parquet` file. It does not replace this status card automatically or
+turn calibration/card generation into human/experiment approval.
 
 ## Limitations
 

@@ -19,14 +19,18 @@ def check(path):
             names = archive.namelist()
             meta_name = next(n for n in names if n.endswith(".dist-info/METADATA"))
             metadata = BytesParser().parsebytes(archive.read(meta_name))
-        required = {"slotspace/reproduce.py", "slotspace/vespa_app/app/services.xml",
+        required = {"slotspace/reproduce.py", "slotspace/resources.py", "slotspace/operator.py",
+                    "slotspace/model_card.py", "slotspace/vespa_app/app/services.xml",
                     "slotspace/vespa_app/app/hosts.xml", "slotspace/vespa_app/app/schemas/doc.sd"}
         if not required <= set(names):
             raise ValueError("Wheel is missing implementation/application resources")
         prefix = meta_name.removesuffix("METADATA")
         if not {prefix + f"licenses/{n}" for n in ("LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md")} <= set(names):
             raise ValueError("Wheel is missing license/attribution files")
-        if not any(n.endswith("/share/slotspace/schemas/prime.yaml") for n in names):
+        shared = ("schemas/prime.yaml", "environments/research.yaml", "environments/research.constraints.txt",
+                  "environments/generation.yaml", "environments/generation-linux.lock.txt",
+                  "reproducibility/huggingface.csv")
+        if any(not any(n.endswith("/share/slotspace/" + asset) for n in names) for asset in shared):
             raise ValueError("Wheel is missing the shared research assets")
     elif path.name.endswith(".tar.gz"):
         with tarfile.open(path, "r:gz") as archive:
@@ -43,7 +47,11 @@ def check(path):
                     "Makefile", "pyproject.toml", "docs/MODEL_CARD.md", "docs/DECISIONS.md",
                     "docs/dependency-licenses.csv", "configs/prime_v0.yaml", "schemas/prime.yaml",
                     "templates/train/prime_slots.yaml", "templates/test/role_swap.yaml",
-                    "src/slotspace/reproduce.py", "tests/test_reference.py", "tools/check_dist.py"}
+                    "src/slotspace/reproduce.py", "src/slotspace/resources.py", "src/slotspace/operator.py",
+                    "src/slotspace/model_card.py", "tests/test_reference.py", "tools/check_dist.py",
+                    "docs/GPU_SETUP.md", "environments/research.yaml", "environments/research.constraints.txt",
+                    "environments/generation.yaml", "environments/generation-linux.lock.txt",
+                    "reproducibility/huggingface.csv"}
         if not required <= set(names):
             raise ValueError(f"Source archive is missing release/research assets: {sorted(required - set(names))}")
     else:
@@ -54,9 +62,11 @@ def check(path):
         if len(effective) >= 3 and effective[0].endswith(".data") and effective[1] == "data":
             effective = effective[2:]
         license_tables = {"dependency-licenses.csv", "generator-licenses.csv", "model-licenses.csv"}
+        input_manifest = "/".join(effective) in {
+            "reproducibility/huggingface.csv", "share/slotspace/reproducibility/huggingface.csv"}
         if (pure.is_absolute() or ".." in pure.parts or "\\" in name or ":" in pure.parts[0]
                 or effective[0].casefold() in FORBIDDEN_ROOTS or pure.suffix in FORBIDDEN_SUFFIXES
-                or pure.suffix == ".csv" and pure.name not in license_tables
+                or pure.suffix == ".csv" and pure.name not in license_tables and not input_manifest
                 or pure.suffix == ".json" and pure.name != "prime-sha256.json"):
             raise ValueError(f"Forbidden release payload: {name}")
     if metadata.get("Name") != "slotspace" or metadata.get("License-Expression") != "Apache-2.0":

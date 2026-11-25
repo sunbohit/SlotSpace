@@ -41,8 +41,9 @@ def inventory():
     return rows
 
 
-def model_inventory(resources):
-    with (resources / "manifests" / "huggingface.csv").open(encoding="utf-8-sig", newline="") as src:
+def model_inventory(resources: Path, manifest: Path | None = None):
+    manifest = manifest if manifest is not None else resources / "manifests" / "huggingface.csv"
+    with manifest.open(encoding="utf-8-sig", newline="") as src:
         pinned = {r["path"].replace("\\", "/"): r for r in csv.DictReader(src)}
     rows = []
     for base in (resources / "models", resources / "v1" / "models"):
@@ -98,6 +99,7 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--resources", type=Path)
     parser.add_argument("--models-out", type=Path)
+    parser.add_argument("--input-manifest", type=Path, help="Pinned manifest from the clone, instead of Resource/manifests")
     parser.add_argument("--generator-lock", type=Path)
     parser.add_argument("--generator-out", type=Path)
     args = parser.parse_args()
@@ -106,7 +108,7 @@ def main():
     if args.models_out:
         if args.resources is None:
             parser.error("--models-out requires --resources")
-        models = model_inventory(args.resources)
+        models = model_inventory(args.resources, args.input_manifest)
         write_rows(args.models_out, models)
         print(f"{len(models)} pinned model license declarations checked")
     if args.generator_out:

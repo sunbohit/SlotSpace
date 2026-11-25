@@ -9,7 +9,9 @@ import sys
 import pytest
 
 from slotspace.artifacts import sha256, write_json
+from slotspace.operator import approve_review, main as operator_main, status
 from slotspace.reproduce import ReviewRequired, Step, build_steps, check_review, execute_steps
+from slotspace.reproduce import review_evidence
 
 PROJECT = Path(__file__).resolve().parents[1]
 
@@ -127,3 +129,63 @@ def test_human_labels_and_exact_evidence_approval_are_both_required(tmp_path):
     schema.write_text("changed schema")
     with pytest.raises(ReviewRequired):
         check_review("H2", tmp_path, schema, approvals, None)
+
+
+@pytest.mark.parametrize("gate", ["H1", "H2", "H3", "H4"])
+def test_operator_inspection_does_not_approve_and_explicit_approval_preserves_real_gates(tmp_path, gate):
+    schema, approvals = tmp_path / "schema.yaml", tmp_path / "reviews.json"
+    schema.write_text("synthetic review fixture")
+    folder = tmp_path / "runs" / "review"
+    folder.mkdir(parents=True)
+    specs = {
+        "H1": ("m2_stats.json", ("query_mentions", "document_mentions"), "correct", 100, 85),
+        "H2": ("m4_silver_stats.json", ("silver_review",), "correct", 100, 80),
+        "H3": ("m4_role_swap_stats.json", ("role_swap_review",), "natural", 50, 45),
+    }
+    if gate == "H4":
+        names, field, count, positive = ("scorer_review",), "correct", 30, 25
+        scorer = {"model": "synthetic only"}
+        folder = tmp_path / "runs" / "m5-calibrate-fixture"
+        folder.mkdir()
+        write_json(folder / "meta.json", {"config": {"scorer": scorer}})
+        temperature = tmp_path / "data" / "prime" / "temperature_ft.json"
+        temperature.parent.mkdir(parents=True)
+        write_json(temperature, {"scorer": scorer, "query": {"ece_after": 0.05}, "doc": {"ece_after": 0.05}})
+    else:
+        stat, names, field, count, positive = specs[gate]
+        write_json(tmp_path / "runs" / stat, {"review_run": str(folder)})
+    samples = [folder / f"{name}.jsonl" for name in names]
+    for path in samples:
+        path.write_text("".join(json.dumps({field: None}) + "\n" for _ in range(count)))
+    info = review_evidence(gate, tmp_path, schema, validate=False)
+    assert info["validated"] is False and {r["path"] for r in info["requirements"]} == set(map(str, samples))
+    with pytest.raises(ValueError, match="--yes"):
+        approve_review(tmp_path, gate, schema, approvals)
+    with pytest.raises(ReviewRequired, match="boolean"):
+        approve_review(tmp_path, gate, schema, approvals, confirmed=True)
+    assert not approvals.exists()
+    for path in samples:
+        path.write_text("".join(json.dumps({field: i < positive}) + "\n" for i in range(count)))
+    entry = approve_review(tmp_path, gate, schema, approvals, confirmed=True)
+    assert check_review(gate, tmp_path, schema, approvals, None) == {"evidence_sha256": entry["evidence_sha256"]}
+    if gate == "H4":
+        write_json(temperature, {"scorer": scorer, "query": {"ece_after": 0.050001}, "doc": {"ece_after": 0.05}})
+        with pytest.raises(ReviewRequired, match="ECE"):
+            approve_review(tmp_path, gate, schema, tmp_path / "new-review.json", confirmed=True)
+        assert not (tmp_path / "new-review.json").exists()
+    else:
+        samples[0].write_text(samples[0].read_text() + json.dumps({field: True}) + "\n")
+        with pytest.raises(FileExistsError, match="different evidence"):
+            approve_review(tmp_path, gate, schema, approvals, confirmed=True)
+        with pytest.raises(ReviewRequired):
+            check_review(gate, tmp_path, schema, approvals, None)
+
+
+def test_operator_status_distinguishes_blocked_review_from_completed_steps(tmp_path, monkeypatch, capsys):
+    assert status(tmp_path)["status"] == "NOT STARTED"
+    write_json(tmp_path / "reproduction.json", {"status": "blocked", "current": "H2", "completed": {}})
+    monkeypatch.setattr(sys, "argv", ["operator", "status", "--work", str(tmp_path)])
+    operator_main()
+    assert "review-info" in json.loads(capsys.readouterr().out)["next"]
+    write_json(tmp_path / "reproduction.json", {"status": "ok", "current": "report", "completed": {"report": {}}})
+    assert "steps completed" in status(tmp_path)["next"]
